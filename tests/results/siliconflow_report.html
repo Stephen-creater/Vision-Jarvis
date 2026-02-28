@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>SiliconFlow Qwen3-VL 测试报告</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0d1117;color:#c9d1d9;padding:28px 24px}
+a{color:#58a6ff;text-decoration:none}
+
+/* 顶部 */
+.header{margin-bottom:28px}
+h1{font-size:20px;font-weight:700;color:#f0f6fc;margin-bottom:6px}
+.meta{font-size:12px;color:#6e7681;display:flex;flex-wrap:wrap;gap:16px}
+.meta span{display:flex;align-items:center;gap:4px}
+.meta code{background:#161b22;border:1px solid #30363d;border-radius:4px;padding:1px 6px;font-size:11px;color:#8b949e}
+
+/* 综合评分卡 */
+.cards{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-bottom:28px}
+@media(max-width:1200px){.cards{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:600px){.cards{grid-template-columns:repeat(2,1fr)}}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.card.c-ok::before{background:#3fb950}
+.card.c-warn::before{background:#d29922}
+.card.c-fail::before{background:#f85149}
+.card-name{font-size:11px;font-weight:600;color:#f0f6fc;margin-bottom:2px;word-break:break-word;line-height:1.3}
+.card-type{font-size:10px;color:#6e7681;margin-bottom:8px}
+.card-badge{display:inline-block;font-size:10px;font-weight:600;border-radius:8px;padding:1px 7px;margin-bottom:8px}
+.bg-ok{background:#0d4429;color:#3fb950}
+.bg-warn{background:#3d2200;color:#d29922}
+.bg-fail{background:#3d0c0a;color:#f85149}
+.card-time{font-size:18px;font-weight:700;color:#f0f6fc;line-height:1;margin-bottom:2px}
+.card-sub{font-size:10px;color:#6e7681;margin-bottom:6px}
+.card-rate{font-size:11px;color:#8b949e;margin-bottom:6px}
+.mini-bar{height:3px;background:#21262d;border-radius:2px;overflow:hidden}
+.mini-fill{height:100%;border-radius:2px}
+
+/* section 标题 */
+h2{font-size:13px;font-weight:600;color:#8b949e;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;margin-top:28px;padding-bottom:6px;border-bottom:1px solid #21262d}
+
+/* 热力图 */
+.heatmap-wrap{overflow-x:auto;margin-bottom:4px}
+.heatmap{display:grid;gap:3px;width:max-content}
+.hm-row{display:flex;align-items:center;gap:3px}
+.hm-label{width:170px;font-size:11px;color:#8b949e;text-align:right;padding-right:8px;flex-shrink:0;white-space:nowrap}
+.hm-cell{width:110px;height:34px;border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:600;cursor:pointer;transition:filter .15s;position:relative}
+.hm-cell:hover{filter:brightness(1.25)}
+.hm-cell .hm-time{font-size:12px;font-weight:700}
+.hm-cell .hm-status{font-size:9px;opacity:.8}
+.hm-header{display:flex;align-items:center;gap:3px;margin-bottom:3px;margin-left:178px}
+.hm-vname{width:110px;font-size:10px;color:#6e7681;text-align:center}
+
+/* 横向条图 */
+.bar-section{margin-bottom:4px}
+.hbar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.hbar-label{width:170px;font-size:11px;color:#8b949e;text-align:right;padding-right:8px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbar-track{flex:1;height:22px;background:#161b22;border-radius:4px;overflow:hidden;min-width:0}
+.hbar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding:0 8px;min-width:1px;transition:width .4s}
+.hbar-text{font-size:11px;color:#fff;white-space:nowrap}
+.hbar-side{width:52px;font-size:11px;color:#6e7681;flex-shrink:0;text-align:right}
+.legend{display:flex;gap:14px;margin-top:8px;font-size:11px;color:#6e7681}
+.dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:3px;vertical-align:middle}
+
+/* 详细表 */
+.tabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.tab{padding:4px 12px;border-radius:6px;font-size:11px;cursor:pointer;border:1px solid #30363d;background:#161b22;color:#8b949e;transition:all .15s}
+.tab.on{background:#1f6feb;border-color:#388bfd;color:#fff}
+.tbl-wrap{overflow-x:auto;margin-bottom:4px}
+table{width:100%;border-collapse:collapse;font-size:11px;min-width:800px}
+th{background:#161b22;color:#6e7681;font-weight:500;padding:7px 10px;border-bottom:1px solid #30363d;text-align:left;white-space:nowrap;position:sticky;top:0;z-index:1}
+td{padding:7px 10px;border-bottom:1px solid #21262d;vertical-align:top}
+tr:hover td{background:#161b22}
+.tc-ok{color:#3fb950;font-weight:600}
+.tc-fail{color:#f85149;font-weight:600}
+.tc-gray{color:#6e7681;font-size:10px}
+.pill{display:inline-block;font-size:10px;border-radius:6px;padding:1px 6px}
+.pill-b{background:#0c2d6b;color:#58a6ff}
+.pill-g{background:#0d2e1a;color:#3fb950}
+.pill-y{background:#2d1b0c;color:#d29922}
+.pill-r{background:#3d0c0a;color:#f85149}
+.ocr-bar{width:60px;height:4px;background:#21262d;border-radius:2px;margin-top:3px;overflow:hidden;display:inline-block;vertical-align:middle}
+.ocr-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#388bfd,#79c0ff)}
+
+/* tooltip */
+.tip{position:fixed;background:#161b22;border:1px solid #30363d;border-radius:6px;padding:8px 12px;font-size:11px;color:#c9d1d9;max-width:280px;z-index:99;pointer-events:none;opacity:0;transition:opacity .15s;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="tip" id="tip"></div>
+
+<div class="header">
+  <h1>SiliconFlow · Qwen3-VL 系列视频分析测试报告</h1>
+  <div class="meta">
+    <span>时间 <code>2026-02-22</code></span>
+    <span>API <code>api.siliconflow.cn/v1</code></span>
+    <span>格式 <code>video_url + base64 + fps=2 + max_frames=10</code></span>
+    <span>共 <code>8 模型 × 6 视频 = 48 次请求</code></span>
+  </div>
+</div>
+
+<h2>模型总览</h2>
+<div class="cards" id="cards"></div>
+
+<h2>成功率热力图（每格=一次请求）</h2>
+<div class="heatmap-wrap">
+  <div class="hm-header" id="hm-header"></div>
+  <div class="heatmap" id="heatmap"></div>
+</div>
+
+<h2>平均响应耗时（仅成功请求，秒）</h2>
+<div class="bar-section" id="time-bars"></div>
+<div class="legend">
+  <span><span class="dot" style="background:#388bfd"></span>Instruct</span>
+  <span><span class="dot" style="background:#d29922"></span>Thinking</span>
+  <span><span class="dot" style="background:#30363d"></span>全部失败</span>
+</div>
+
+<h2>OCR 识别量（平均字符数，仅成功请求）</h2>
+<div class="bar-section" id="ocr-bars"></div>
+
+<h2>逐视频详细对比</h2>
+<div class="tabs" id="tabs"></div>
+<div class="tbl-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>模型</th><th>状态</th><th>耗时</th>
+        <th>识别应用</th><th>活动分类</th><th>专注度</th><th>生产力</th>
+        <th>OCR字数</th><th>技术栈</th><th>错误检测</th><th>活动描述</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<script>
+var D=[{"model":"8B-Instruct","thinking":false,"ok":5,"total":6,"avg_time":40.8,"avg_ocr":1136,"videos":[{"video":"03-21-45 (2.6MB)","ok":true,"elapsed":36.12,"app":"macOS","cat":"work","focus":"deep","score":7,"ocr_len":759,"techs":[],"errs":[],"desc":"开发者正在使用终端和AI助手协作开发Vision-Jarvis项目，同时查阅FFmpeg相关文档。"},{"video":"03-22-46 (3.6MB)","ok":true,"elapsed":31.25,"app":"Claude 4.5 Sonnet","cat":"learning","focus":"deep","score":7,"ocr_len":1814,"techs":["FFmpeg","macOS","Terminal","vision_jarvis_lib"],"errs":["Error: Unable to verify if domain ffmpeg.org"],"desc":"用户正在查看关于FFmpeg的文档和学习路径，同时在终端中进行开发调试。"},{"video":"03-23-47 (3.6MB)","ok":true,"elapsed":58.65,"app":"Terminal","cat":"work","focus":"deep","score":7,"ocr_len":1820,"techs":["FFmpeg","Vision-Jarvis","Claude 4.5 Sonnet","Astro","Git"],"errs":["Error: Unable to verify if domain ffmpeg.org","zsh: command not found: cd."],"desc":"用户在终端中进行代码开发和调试，同时使用AI助手进行技术问题咨询。"},{"video":"03-24-49 (5.0MB)","ok":true,"elapsed":47.39,"app":"macOS 终端","cat":"work","focus":"deep","score":7,"ocr_len":1175,"techs":["macOS Terminal","Git","Astro","Claude AI","FFmpeg"],"errs":["zsh: command not found: cd .","Unable to verify that domain ffmpeg.org is safe"],"desc":"用户在终端中进行代码开发和调试，涉及多个工作树、Claude AI交互以及Astro开发服务器运行。"},{"video":"03-25-50 (14MB)","ok":false,"elapsed":59.64,"fail_type":"JSON解析失败"},{"video":"05-20-55 (10MB)","ok":true,"elapsed":30.81,"app":"飞书","cat":"work","focus":"deep","score":7,"ocr_len":112,"techs":["Claude 4.6sonnet","前端组件","数据库","API"],"errs":[],"desc":"用户正在阅读飞书文档中的开发记录内容，具体是关于day7的开发进展。"}]},{"model":"8B-Thinking","thinking":true,"ok":5,"total":6,"avg_time":39.3,"avg_ocr":415,"videos":[{"video":"03-21-45 (2.6MB)","ok":true,"elapsed":35.49,"app":"Terminal","cat":"work","focus":"fragmented","score":7,"ocr_len":313,"techs":["ffmpeg","Vision-Jarvis","Git","Terminal","Astro"],"errs":["zsh: command not found: cd"],"desc":"用户在终端中执行git命令配置Vision-Jarvis项目并处理ffmpeg相关任务"},{"video":"03-22-46 (3.6MB)","ok":true,"elapsed":33.7,"app":"Claude","cat":"work","focus":"deep","score":7,"ocr_len":377,"techs":["FFmpeg","Claude","MacOS","Terminal"],"errs":["Error: Unable to verify if domain ffmpeg.org is safe to use"],"desc":"用户正在查阅FFmpeg相关文档并分析终端输出中的错误信息"},{"video":"03-23-47 (3.6MB)","ok":true,"elapsed":25.68,"app":"Monica","cat":"work","focus":"normal","score":7,"ocr_len":418,"techs":["Monica","Claude 4.5 Sonnet","Terminal","ffmpeg","git","Vision-Jarvis"],"errs":["Error: Unable to verify if domain ffmpeg.org is safe","ls: command not found: cd"],"desc":"用户正在使用Monica管理任务并配合Claude 4.5 Sonnet解决代码问题"},{"video":"03-24-49 (5.0MB)","ok":true,"elapsed":34.41,"app":"Terminal","cat":"work","focus":"deep","score":7,"ocr_len":392,"techs":["Git","Terminal","vision-jarvis","Astro","Cargo"],"errs":["zsh: command not found: cd"],"desc":"用户正在使用终端执行Vision-Jarvis项目的Git工作树配置和项目目录管理操作"},{"video":"03-25-50 (14MB)","ok":true,"elapsed":67.42,"app":"Terminal","cat":"work","focus":"deep","score":7,"ocr_len":575,"techs":["Git","JavaScript","memory-build工具"],"errs":["cd: no such file or directory"],"desc":"用户正在终端中执行Git工作区操作并查看项目构建输出"},{"video":"05-20-55 (10MB)","ok":false,"elapsed":36.82,"fail_type":"JSON解析失败"}]},{"model":"30B-A3B-Instruct","thinking":false,"ok":5,"total":6,"avg_time":26.3,"avg_ocr":820,"videos":[{"video":"03-21-45 (2.6MB)","ok":false,"elapsed":26.04,"fail_type":"JSON解析失败"},{"video":"03-22-46 (3.6MB)","ok":true,"elapsed":19.39,"app":"Claude","cat":"learning","focus":"deep","score":8,"ocr_len":297,"techs":["Claude","FFmpeg","Markdown"],"errs":[],"desc":"用户正在浏览Claude 4.5 Sonnet的文档，查看核心文档、推荐学习路径和相关链接。"},{"video":"03-23-47 (3.6MB)","ok":true,"elapsed":31.33,"app":"Visual Studio Code","cat":"work","focus":"deep","score":8,"ocr_len":1216,"techs":["VSCode","Git","MacOS","Command Line"],"errs":["Error: Unable to verify if domain ffmpeg.org is safe"],"desc":"用户正在使用VSCode进行软件开发工作，在终端执行命令、查看日志，并与AI助手对话辅助编程。"},{"video":"03-24-49 (5.0MB)","ok":true,"elapsed":31.08,"app":"Visual Studio Code","cat":"work","focus":"deep","score":9,"ocr_len":1805,"techs":["Visual Studio Code","Terminal","Claude Code","Git","JavaScript","React","AI","macOS"],"errs":["command not found: cd..","command not found: cd"],"desc":"用户正在使用VS Code进行软件开发，通过终端执行编译和调试命令，同时监控日志输出。"},{"video":"03-25-50 (14MB)","ok":true,"elapsed":23.81,"app":"QuickTime Player","cat":"entertainment","focus":"fragmented","score":2,"ocr_len":273,"techs":[],"errs":[],"desc":"用户正在观看一个关于Unity2D游戏开发的教学视频"},{"video":"05-20-55 (10MB)","ok":true,"elapsed":25.75,"app":"飞书","cat":"work","focus":"deep","score":6,"ocr_len":507,"techs":["font","Javac"],"errs":[],"desc":"用户正在阅读飞书中的开发记录文档，查看项目开发进度和备注信息。"}]},{"model":"30B-A3B-Thinking","thinking":true,"ok":6,"total":6,"avg_time":79.7,"avg_ocr":158,"videos":[{"video":"03-21-45 (2.6MB)","ok":true,"elapsed":79.98,"app":"Claude Code","cat":"work","focus":"deep","score":7,"ocr_len":115,"techs":["FFmpeg","Claude Code","Vision-Jarvis","Node.js"],"errs":["cmd not found"],"desc":"查看FFmpeg文档并使用Claude Code进行项目配置和终端调试"},{"video":"03-22-46 (3.6MB)","ok":true,"elapsed":88.34,"app":"Claude","cat":"learning","focus":"deep","score":7,"ocr_len":135,"techs":["ffmpeg","CLI"],"errs":["Error: Unable to verify if domain ffmpeg.org is safe"],"desc":"查看ffmpeg相关文档，同时在终端确认域名验证错误"},{"video":"03-23-47 (3.6MB)","ok":true,"elapsed":91.12,"app":"Claude Code","cat":"work","focus":"deep","score":7,"ocr_len":194,"techs":["Claude Code","Vision-Jarvis","FFmpeg"],"errs":["Unable to verify if domain ffmpeg.org is safe","command not found: cd"],"desc":"用户正在使用Claude Code调试Vision-Jarvis项目的前端钩子配置，检查本地开发服务器请求状态"},{"video":"03-24-49 (5.0MB)","ok":true,"elapsed":79.34,"app":"Terminal","cat":"work","focus":"deep","score":7,"ocr_len":271,"techs":["Claude Code v2.1.47","Astro v5.16.16","Git","node.js"],"errs":["ERROR vision-jarvis_lib: skipper: Failed"],"desc":"用户在终端中调试Vision-Jarvis项目，执行git命令并查看实时开发日志"},{"video":"03-25-50 (14MB)","ok":true,"elapsed":85.07,"app":"Claude Code","cat":"work","focus":"deep","score":7,"ocr_len":187,"techs":["Claude Code","Terminal","Git","memory-build-v0"],"errs":["command not found: cd"],"desc":"用户正在使用Claude Code进行代码开发，通过终端执行命令、调试程序并处理权限相关的开发任务"},{"video":"05-20-55 (10MB)","ok":true,"elapsed":54.37,"app":"飞书","cat":"work","focus":"fragmented","score":7,"ocr_len":45,"techs":["飞书","JavaScript","API"],"errs":["闪退问题","CPU使用率过高","日志信息异常"],"desc":"用户正在阅读飞书知识库中的开发记录，详细查看闪退问题的排查过程"}]},{"model":"32B-Instruct","thinking":false,"ok":4,"total":6,"avg_time":79.4,"avg_ocr":2806,"videos":[{"video":"03-21-45 (2.6MB)","ok":true,"elapsed":52.63,"app":"Terminal & Browser","cat":"work","focus":"deep","score":7,"ocr_len":3534,"techs":["zsh","git","astro","ffmpeg","macOS Terminal"],"errs":["zsh: command not found: cd"],"desc":"用户正在通过终端进行Vision-Jarvis项目的开发，包括切换工作区、运行构建命令和检查日志输出。"},{"video":"03-22-46 (3.6MB)","ok":false,"elapsed":21.15,"fail_type":"JSON解析失败"},{"video":"03-23-47 (3.6MB)","ok":true,"elapsed":46.46,"app":"Terminal and Code Editors","cat":"work","focus":"deep","score":8,"ocr_len":3818,"techs":["FFmpeg","Claude AI","Node.js","Astro","Git worktrees","macOS Terminal"],"errs":["zsh: command not found: cd..","Web Search: ffmpeg avfoundation screen recording"],"desc":"用户正在通过命令行操作多个项目，包括VISION-JARVIS、memory-build-v0、front-hook等，同时参考FFmpeg文档和使用Claude AI进行问题分析。"},{"video":"03-24-49 (5.0MB)","ok":true,"elapsed":71.91,"app":"Terminal","cat":"work","focus":"deep","score":8,"ocr_len":3518,"techs":["Git","Claude","Astro","Rust","MacOS Terminal"],"errs":["zsh: command not found: cd..","P2: 未启动屏幕录制和保存mp4，需要验证是否安全"],"desc":"用户正在MacBook上通过多个终端窗口进行Vision-Jarvis项目的开发，包括Git工作区管理和运行监控Astro前端服务器。"},{"video":"03-25-50 (14MB)","ok":false,"elapsed":77.95,"fail_type":"JSON解析失败"},{"video":"05-20-55 (10MB)","ok":true,"elapsed":146.58,"app":"飞书","cat":"work","focus":"deep","score":7,"ocr_len":356,"techs":["Claude","API","视频流","前端框架","后端框架","数据表设计"],"errs":["api断了","没有执行代码阅读","无法测试"],"desc":"用户正在阅读飞书文档中的开发记录，浏览项目进展和思考记录。"}]},{"model":"32B-Thinking","thinking":true,"ok":3,"total":6,"avg_time":51.4,"avg_ocr":205,"videos":[{"video":"03-21-45 (2.6MB)","ok":true,"elapsed":48.05,"app":"Terminal","cat":"work","focus":"normal","score":7,"ocr_len":228,"techs":["git","Tmux","Claude Code","Vision-Jarvis"],"errs":[],"desc":"用户在命令行中操作Git工作树并进行项目配置"},{"video":"03-22-46 (3.6MB)","ok":false,"elapsed":6.3,"fail_type":"500服务器错误"},{"video":"03-23-47 (3.6MB)","ok":true,"elapsed":37.95,"app":"Monica","cat":"work","focus":"deep","score":7,"ocr_len":315,"techs":["FFmpeg","macOS","Terminal","Rust","Git"],"errs":["ZSH: command not found: cd..","Error: Unable to verify if domain ffmpeg.org is safe"],"desc":"调试FFmpeg屏幕录制低帧率问题并处理代码分支"},{"video":"03-24-49 (5.0MB)","ok":false,"elapsed":22.85,"fail_type":"500服务器错误"},{"video":"03-25-50 (14MB)","ok":false,"elapsed":11.5,"fail_type":"500服务器错误"},{"video":"05-20-55 (10MB)","ok":true,"elapsed":68.14,"app":"飞书","cat":"work","focus":"normal","score":7,"ocr_len":73,"techs":["4.6sonnet","OpenCV"],"errs":["api断了好几次"],"desc":"在飞书文档中阅读开发记录的第7天内容"}]},{"model":"235B-A22B-Instruct","thinking":false,"ok":2,"total":6,"avg_time":57.6,"avg_ocr":340,"videos":[{"video":"03-21-45 (2.6MB)","ok":true,"elapsed":65.4,"app":"Alacritty","cat":"work","focus":"deep","score":7,"ocr_len":288,"techs":["FFmpeg","Git","Claude Code","macOS","terminal"],"errs":["command not found: cd..","claud: command not found"],"desc":"用户正在终端中运行命令，配置和调试FFmpeg相关项目，并与Claude Code交互以解决技术问题。"},{"video":"03-22-46 (3.6MB)","ok":false,"elapsed":4.75,"fail_type":"500服务器错误"},{"video":"03-23-47 (3.6MB)","ok":true,"elapsed":49.86,"app":"Claude","cat":"work","focus":"deep","score":7,"ocr_len":391,"techs":["FFmpeg","Terminal","macOS","Claude AI","Git","Astro"],"errs":["Unable to verify if domain ffmpeg.org is safe","command not found: cd"],"desc":"用户正在使用Claude AI助手调试FFmpeg屏幕录制问题，同时在终端中执行命令和查看日志。"},{"video":"03-24-49 (5.0MB)","ok":false,"elapsed":21.89,"fail_type":"500服务器错误"},{"video":"03-25-50 (14MB)","ok":false,"elapsed":13.37,"fail_type":"500服务器错误"},{"video":"05-20-55 (10MB)","ok":false,"elapsed":10.04,"fail_type":"500服务器错误"}]},{"model":"235B-A22B-Thinking","thinking":true,"ok":0,"total":6,"avg_time":null,"avg_ocr":0,"videos":[{"video":"03-21-45 (2.6MB)","ok":false,"elapsed":7.01,"fail_type":"500服务器错误"},{"video":"03-22-46 (3.6MB)","ok":false,"elapsed":6.58,"fail_type":"500服务器错误"},{"video":"03-23-47 (3.6MB)","ok":false,"elapsed":2.76,"fail_type":"500服务器错误"},{"video":"03-24-49 (5.0MB)","ok":false,"elapsed":4.19,"fail_type":"500服务器错误"},{"video":"03-25-50 (14MB)","ok":false,"elapsed":13.25,"fail_type":"500服务器错误"},{"video":"05-20-55 (10MB)","ok":false,"elapsed":13.3,"fail_type":"500服务器错误"}]}];
+
+var VIDEOS=["03-21-45 (2.6MB)","03-22-46 (3.6MB)","03-23-47 (3.6MB)","03-24-49 (5.0MB)","03-25-50 (14MB)","05-20-55 (10MB)"];
+var maxTime=Math.max.apply(null,D.filter(function(d){return d.avg_time;}).map(function(d){return d.avg_time;}));
+var maxOcr=Math.max.apply(null,D.map(function(d){return d.avg_ocr;}));
+
+function sc(d){return d.ok===d.total?"c-ok":d.ok===0?"c-fail":"c-warn";}
+function badge(d){
+  if(d.ok===d.total) return '<span class="card-badge bg-ok">全部可用</span>';
+  if(d.ok===0) return '<span class="card-badge bg-fail">全部失败</span>';
+  return '<span class="card-badge bg-warn">不稳定 '+d.ok+'/'+d.total+'</span>';
+}
+
+// ── 卡片 ──
+var cardsEl=document.getElementById("cards");
+D.forEach(function(d){
+  var pct=d.avg_time?Math.round(d.avg_time/maxTime*100):0;
+  var fc=d.ok===0?"#30363d":d.thinking?"#d29922":"#388bfd";
+  var el=document.createElement("div");
+  el.className="card "+sc(d);
+  el.innerHTML='<div class="card-name">'+d.model+'</div>'
+    +'<div class="card-type">'+(d.thinking?"Thinking":"Instruct")+'</div>'
+    +badge(d)
+    +'<div class="card-time">'+(d.avg_time?d.avg_time+'s':'—')+'</div>'
+    +'<div class="card-sub">平均耗时（成功）</div>'
+    +'<div class="card-rate">OCR均 '+(d.avg_ocr||'—')+'字</div>'
+    +'<div class="mini-bar"><div class="mini-fill" style="width:'+pct+'%;background:'+fc+'"></div></div>';
+  cardsEl.appendChild(el);
+});
+
+// ── 热力图 ──
+var tip=document.getElementById("tip");
+function showTip(e,html){tip.innerHTML=html;tip.style.opacity=1;moveTip(e);}
+function moveTip(e){tip.style.left=(e.clientX+12)+"px";tip.style.top=(e.clientY+12)+"px";}
+function hideTip(){tip.style.opacity=0;}
+
+var hmHead=document.getElementById("hm-header");
+VIDEOS.forEach(function(v){
+  var d=document.createElement("div");d.className="hm-vname";d.textContent=v.replace(" ","");
+  hmHead.appendChild(d);
+});
+
+var hm=document.getElementById("heatmap");
+D.forEach(function(d){
+  var row=document.createElement("div");row.className="hm-row";
+  var lbl=document.createElement("div");lbl.className="hm-label";lbl.textContent=d.model;
+  row.appendChild(lbl);
+  d.videos.forEach(function(v){
+    var cell=document.createElement("div");cell.className="hm-cell";
+    var bg,fg,timeStr,statusStr;
+    if(v.ok){
+      var t=v.elapsed;
+      // 绿=快，黄=中，橙=慢
+      var ratio=t/150;
+      if(ratio<0.25){bg="#0d4429";fg="#3fb950";}
+      else if(ratio<0.5){bg="#1a3a1a";fg="#56d364";}
+      else if(ratio<0.75){bg="#3d2200";fg="#d29922";}
+      else{bg="#3d1700";fg="#f0883e";}
+      timeStr=t+"s";statusStr="OK";
+    } else {
+      var ft=v.fail_type||"失败";
+      if(ft.indexOf("500")>=0){bg="#3d0c0a";fg="#f85149";statusStr="500";}
+      else{bg="#2d1b00";fg="#d29922";statusStr="JSON";}
+      timeStr=v.elapsed+"s";
+    }
+    cell.style.background=bg;cell.style.color=fg;
+    cell.innerHTML='<span class="hm-time">'+timeStr+'</span><span class="hm-status">'+statusStr+'</span>';
+    cell.addEventListener("mouseenter",function(e){
+      var info='<b>'+d.model+'</b><br>'+v.video+'<br>';
+      if(v.ok){
+        info+='耗时: '+v.elapsed+'s<br>';
+        if(v.app) info+='应用: '+v.app+'<br>';
+        if(v.desc) info+='描述: '+v.desc;
+      } else {
+        info+='失败原因: '+(v.fail_type||"未知")+'<br>耗时: '+v.elapsed+'s';
+      }
+      showTip(e,info);
+    });
+    cell.addEventListener("mousemove",moveTip);
+    cell.addEventListener("mouseleave",hideTip);
+    row.appendChild(cell);
+  });
+  hm.appendChild(row);
+});
+
+// ── 耗时条图 ──
+var timeBars=document.getElementById("time-bars");
+D.forEach(function(d){
+  var pct=d.avg_time?Math.round(d.avg_time/maxTime*100):0;
+  var fc=d.ok===0?"#30363d":d.thinking?"#d29922":"#388bfd";
+  var row=document.createElement("div");row.className="hbar";
+  row.innerHTML='<div class="hbar-label">'+d.model+'</div>'
+    +'<div class="hbar-track"><div class="hbar-fill" style="width:'+pct+'%;background:'+fc+'">'
+      +(d.avg_time?'<span class="hbar-text">'+d.avg_time+'s</span>':'')
+    +'</div></div>'
+    +'<div class="hbar-side">'+(d.ok===0?'全失败':'')+'</div>';
+  timeBars.appendChild(row);
+});
+
+// ── OCR条图 ──
+var ocrBars=document.getElementById("ocr-bars");
+D.forEach(function(d){
+  var pct=maxOcr?Math.round(d.avg_ocr/maxOcr*100):0;
+  var fc=d.ok===0?"#30363d":"#3fb950";
+  var row=document.createElement("div");row.className="hbar";
+  row.innerHTML='<div class="hbar-label">'+d.model+'</div>'
+    +'<div class="hbar-track"><div class="hbar-fill" style="width:'+pct+'%;background:'+fc+'">'
+      +(d.avg_ocr?'<span class="hbar-text">'+d.avg_ocr+'字</span>':'')
+    +'</div></div>'
+    +'<div class="hbar-side">'+(d.ok===0?'不可用':'')+'</div>';
+  ocrBars.appendChild(row);
+});
+
+// ── 详细表 ──
+var tabsEl=document.getElementById("tabs");
+VIDEOS.forEach(function(v,i){
+  var t=document.createElement("div");
+  t.className="tab"+(i===0?" on":"");
+  t.textContent="视频"+(i+1)+" · "+v;
+  t.onclick=function(){
+    document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("on");});
+    t.classList.add("on");renderTable(i);
+  };
+  tabsEl.appendChild(t);
+});
+
+function renderTable(vi){
+  var tbody=document.getElementById("tbody");
+  tbody.innerHTML="";
+  D.forEach(function(d){
+    var v=d.videos[vi];
+    if(!v) return;
+    var tr=document.createElement("tr");
+    if(!v.ok){
+      var ft=v.fail_type||"失败";
+      var fc=ft.indexOf("500")>=0?"#f85149":"#d29922";
+      tr.innerHTML='<td style="color:#58a6ff;font-weight:600">'+d.model+'</td>'
+        +'<td class="tc-fail">✗ '+ft+'</td>'
+        +'<td>'+v.elapsed+'s</td>'
+        +'<td colspan="8" class="tc-gray">—</td>';
+    } else {
+      var catMap={"work":"pill-b","learning":"pill-g","entertainment":"pill-r","communication":"pill-y"};
+      var catCls=catMap[v.cat]||"";
+      var focusCls=v.focus==="deep"?"pill-y":v.focus==="fragmented"?"pill-r":"";
+      var ocrPct=maxOcr?Math.round(v.ocr_len/maxOcr*100):0;
+      var techStr=(v.techs||[]).slice(0,4).join(", ")||"—";
+      var errStr=v.errs&&v.errs.length?'<span style="color:#d29922">⚠ '+v.errs.length+'条</span>':'<span class="tc-gray">—</span>';
+      tr.innerHTML='<td style="color:#58a6ff;font-weight:600">'+d.model+'</td>'
+        +'<td class="tc-ok">✓ 成功</td>'
+        +'<td>'+v.elapsed+'s</td>'
+        +'<td>'+(v.app||"—")+'</td>'
+        +'<td><span class="pill '+catCls+'">'+(v.cat||"—")+'</span></td>'
+        +'<td><span class="pill '+focusCls+'">'+(v.focus||"—")+'</span></td>'
+        +'<td style="text-align:center">'+(v.score||"—")+'</td>'
+        +'<td>'+v.ocr_len+'字<br><span class="ocr-bar"><span class="ocr-fill" style="width:'+ocrPct+'%"></span></span></td>'
+        +'<td class="tc-gray">'+techStr+'</td>'
+        +'<td>'+errStr+'</td>'
+        +'<td class="tc-gray" style="max-width:200px;word-break:break-all">'+(v.desc||"")+'</td>';
+    }
+    tbody.appendChild(tr);
+  });
+}
+renderTable(0);
+</script>
+</body>
+</html>

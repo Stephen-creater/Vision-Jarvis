@@ -1,0 +1,1763 @@
+{
+  "Qwen/Qwen3-VL-8B-Instruct": [
+    {
+      "success": true,
+      "answer": {
+        "application": "macOS",
+        "window_title": null,
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "mixed",
+        "is_continuation": false,
+        "activity_description": "开发者正在使用终端和AI助手协作开发Vision-Jarvis项目，同时查阅FFmpeg相关文档。",
+        "activity_summary": "用户通过终端命令行操作，配置并运行Vision-Jarvis项目。同时，在AI助手（Claude）界面中浏览和查阅FFmpeg相关文档，以解决项目中的技术问题。终端中运行的项目包含视频录制和AI功能，界面显示开发中状态。",
+        "accomplishments": [],
+        "key_elements": [
+          "终端",
+          "AI助手（Claude 4.5 Sonnet）",
+          "Vision-Jarvis项目",
+          "FFmpeg文档",
+          "视频录制配置",
+          "AI功能状态信息"
+        ],
+        "context_tags": [
+          "开发",
+          "编程",
+          "AI辅助",
+          "视频处理",
+          "FFmpeg"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [],
+        "ocr_text": "FFmpeg 命令行\nFFmpeg主页面\nFFmpeg过滤器\nFFmpeg格式\nFFmpeg Wiki\nffmpeg.org\n官方主页\n官方文档\nFFmpeg 命令行\nFFmpeg过滤器\nFFmpeg格式\nWiki\nClaude Code v2.1.47\nSonnet 4.6\nIM context·API Usage Billing\n最新\n/private/var/folders/jn/d0s4c1h51m3d3jg0d8j5k5jw0000gn/T/.../\n阅读 1 file...（Ctrl+to expand）\n更多\n更多\n+ Scarying....（thinking）\n计划模式中（shift+tab to cycle）· esc to interrupt\nLast login: Thu Feb 19 14:35:36 on ttys006\n项目源码阅读\n前提示\n项目源码阅读\n+1\n的\n连接至\n爱\n11:20:40 [types] Generated Oms\n11:20:40 [types] Syncing content\n11:20:40 [types] Synced content\nastro v5.16.16 ready in 138 ms\nLocal http://localhost:4321/\nNetwork http://172.20.10.4:4321/\nhttp://198.18.0.1:4321/\n11:20:40 watching for file changes...\nRunning DevCommand ('cargo run --no-default-features --color always --')\n... Finished 'dev' profile",
+        "file_names": [],
+        "error_indicators": []
+      },
+      "elapsed": 36.12,
+      "error": null,
+      "video": "03-21-45_ec6239fb-f019-4b9c-9625-6f3ff7aa883e.mp4",
+      "size_mb": 2.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Claude 4.5 Sonnet",
+        "window_title": "Claude 4.5 Sonnet",
+        "url": null,
+        "activity_category": "learning",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "reading",
+        "is_continuation": false,
+        "activity_description": "用户正在查看关于FFmpeg的文档和学习路径，同时在终端中进行开发调试。",
+        "activity_summary": "用户正在通过Claude 4.5 Sonnet查询FFmpeg相关文档，并在终端中调试一个基于FFmpeg的视频录制项目。界面显示了文档链接、学习路径和终端日志，表明用户正专注于开发和学习任务。",
+        "accomplishments": [],
+        "key_elements": [
+          "UI界面",
+          "文档链接 (官方主页、官方文档、命令行、filters、formats、Wiki)",
+          "推荐学习路径",
+          "终端日志 (vision_jarvis_lib, screen capture, pipeline)",
+          "系统设置菜单（安全与隐私）"
+        ],
+        "context_tags": [],
+        "project_name": null,
+        "people_mentioned": [],
+        "technologies": [
+          "FFmpeg",
+          "macOS",
+          "Terminal",
+          "vision_jarvis_lib"
+        ],
+        "ocr_text": "系统设置 编辑 显示 帮助 < Claude 4.5 Sonnet ... 核心文档(必看) 文档 官方主页 https://ffmpeg.org/ 官方文档 https://ffmpeg.org/documentation.html ffmpeg 命令行 https://ffmpeg.org/ffmpeg.html ffmpeg-filters https://ffmpeg.org/ffmpeg-filters.html ffmpeg-formats https://ffmpeg.org/ffmpeg-formats.html Wiki https://trac.ffmpeg.org/wiki 项目源码阅读 不同记忆管理方式的智能... 更多 > 编程 最近 今天 私域和个人IP战略决策指导 本地提交未推送不记录在... 实时屏幕内容捕获 API 方案 ... FFmpeg 方案简介 购买Mac是否能提升您的... 昨天 Mac终端中的尾数字含义 New Chat 问任何问题... 快速提 隐私与安全性 用户与群组 控制中心 筛选器 通知 安全与隐私 静音模式 用户与群组 静音模式 控制面板 仅可添加 17日 常用 官方支持 安全与隐私 自动填充与密码 设备管理 传输或还原 通用 储存空间 用途 AppleCare与保修 下载和概览 全局文档入口 设备管理 11:20:40 [types] Generated Oms 11:20:40 [content] Syncing content v5.16.16 ready in 138 ms 11:20:40 running DevCommand (‘cargo run --no-default-features —color always – ‘) 11:20:40 Watching /Users/lettry/Documents/code/Vision-jarvis/worktrees/memory-build-v0/vision-jarvis/src/c-tauri/dev/... 11:20:40 Finished ‘dev’ profile (unoptimized + debuginfo) target(s) in 0.73s [2024-02-20T20:32:43 INFO vision_jarvis_lib] Starting recorder (segment: 60s) 11:20:40 [2024-02-20T20:32:43 INFO vision_jarvis_lib] Notification scheduler started (no AI configured) 11:20:40 [2024-02-20T20:32:43 INFO vision_jarvis_lib] Pipeline started (no AI configured) 11:20:40 [2024-02-20T20:32:43 INFO vision_jarvis_lib] Record ... | 11:20:40 [2024-02-20T20:32:43 INFO vision_jarvis_lib] Starting pipeline Starting index sync. [2024-02-20T20:32:43 INFO vision_jarvis_lib] (pipeline) index sync completed - total: 0, indexed: 0 skipped: 0, failed: 0, chunks: 0 [2024-02-20T20:32:43 INFO vision_jarvis_lib] (pipeline) Starting activity grouping... [2024-02-20T20:32:43 INFO vision_jarvis_lib] (pipeline) No ungrouped recordings [2024-02-20T20:32:43 INFO vision_jarvis_lib] (pipeline) Habit detection: 0 detected, 0 new, 0 updat ed, 0 decayed, 0 removed",
+        "file_names": [],
+        "error_indicators": [
+          "Error: Unable to verify if domain ffmpeg.org is safe to use. This may be due to network restrictions or blocked by the system."
+        ]
+      },
+      "elapsed": 31.25,
+      "error": null,
+      "video": "03-22-46_3b66c733-567c-44db-9994-ec9c2cc67447.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": null,
+        "window_title": null,
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "mixed",
+        "is_continuation": false,
+        "activity_description": "用户在终端中进行代码开发和调试，同时使用AI助手进行技术问题咨询。",
+        "activity_summary": "用户正在使用终端进行代码开发，具体涉及FFmpeg和Vision-Jarvis项目。同时，用户在AI助手界面中提出技术问题并获取建议。屏幕上有多个终端和AI助手窗口，显示了代码操作、日志输出和搜索结果。",
+        "accomplishments": [],
+        "key_elements": [
+          "终端窗口",
+          "AI助手界面",
+          "代码编辑器",
+          "搜索结果面板"
+        ],
+        "context_tags": [
+          "Linux/Mac开发",
+          "FFmpeg",
+          "Vision-Jarvis",
+          "AI助手",
+          "代码调试"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "FFmpeg",
+          "Vision-Jarvis",
+          "Claude 4.5 Sonnet",
+          "Astro",
+          "Git"
+        ],
+        "ocr_text": "Error: Unable to verify if domain ffmpeg.org is safe to use. This may be due to network restrictions or policies blocking Claude 4.5 Sonnet. Web Search: ffmpeg avfoundation screen recording low fps 2fps macos issues stderr pipe blocking. Read 1 file (ctrl+o to expand) Monica. Fetch 据说可以，再用一次代理。 Claude 4.5 Sonnet. Web Search: ffmpeg avfoundation screen capture macos ... 上下文引用: capture_cursor -pixel_format ... 网络搜索不可用。基于我对FFmpeg avfoundation 的理解，直接分析代码中的问题。 Scouring ... (11s · 4.1k tokens) L /plan to preview Updated plan. P1: scheduler 日志级别 debug → info P0: 修复阻塞 I/O 在 async 上文中的问题 P2: 删除无用的 is_recording 字段。 L /plan to preview 最近 开始实施。先处理 P1 和 P2。 Claude Code v2.1.47 Sonnet 4.6 (IM context) · API Usage Billing /model to try Opus 4.6 Resume this session with: claude ... letterly@letterlydeMacBook-Air-330 Vision-Jarvis % git worktree add worktrees/front-hook front-improve HEAD is now at 0bdd8ac frontfactor-improve letterly@letterlydeMacBook-Air-330 Vision-Jarvis % cd worktrees/front-hook ... Last login: Thu Feb 19 18:41:40 on ttys001 letterly@letterlydeMacBook-Air-330 tests % cd .. zsh: command not found: cd. ... Last login: Thu Feb 19 18:41:40 on ttys001 letterly@letterlydeMacBook-Air-330 Vision-Jarvis % cd memory-build-v0 ... > vision-jarvis@0.1.0 dev > astro dev 11:20:40 [types] Generated Oms 11:20:40 [content] Syncing content 11:20:40 [content] Synced content ... astro v5.16.16 ready in 138 ms ... Running DevCommand (\"cargo run --no-default-features --color always --\") ... Info Watching /Users/Letterly/Documents/code/Vision-Jarvis/worktrees/memory-build-v0/vision-jarvis/src-tauri/. ... Finished 'dev' profile (unoptimized + debuginfo) in 0.73s ... Running 'target/debug/vision-jarvis' ... [2026-02-20T03:20:43Z INFO vision_jarvis_lib:capture ::screen_recorder Screen capture device index: 4 ...",
+        "file_names": [
+          "vision-jarvis-lib",
+          "memory-build-v0",
+          "worktrees/front-hook",
+          "front-improve"
+        ],
+        "error_indicators": [
+          "Error: Unable to verify if domain ffmpeg.org is safe to use.",
+          "zsh: command not found: cd.",
+          "Error encountered with .gif."
+        ]
+      },
+      "elapsed": 58.65,
+      "error": null,
+      "video": "03-23-47_bdc74ddc-5cd0-4e06-b051-b8b6c63e907c.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "macOS 终端",
+        "window_title": null,
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "mixed",
+        "is_continuation": true,
+        "activity_description": "用户在终端中进行代码开发和调试，涉及多个工作树、Claude AI 交互以及 Astro 开发服务器的运行。",
+        "activity_summary": "用户在 macOS 终端中操作多个工作目录，执行 Git 操作，调试代码（涉及媒体处理和权限问题），并与 Claude AI 交互以获取帮助。同时，一个 Astro 开发服务器在后台运行，显示了实时的开发日志。整体活动集中在代码开发和调试。",
+        "accomplishments": [
+          "使用 Claude AI 获取调试代码的建议。",
+          "处理了媒体处理代码中的权限和兼容性问题。",
+          "运行了 Astro 开发服务器用于前端开发。",
+          "管理了多个 Git 工作树，包括 'memory-build-v0' 和 'front-hook'。"
+        ],
+        "key_elements": [
+          "Claude AI 交互",
+          "Git 工作树管理",
+          "Astro 开发服务器",
+          "媒体处理代码调试",
+          "终端日志"
+        ],
+        "context_tags": [
+          "代码开发",
+          "调试",
+          "AI 辅助",
+          "前端开发",
+          "Git 版本控制"
+        ],
+        "project_name": null,
+        "people_mentioned": [],
+        "technologies": [
+          "macOS Terminal",
+          "Git",
+          "Astro",
+          "Claude AI",
+          "vision_jarvis_lib",
+          "FFmpeg"
+        ],
+        "ocr_text": "Interrupted. What should Claude do instead?\nWeb (Fmpeg foundation screen recording low fps 2fps\n你可以搜索和读链接，\nplan mode on (shift+tab to cycle) : esc to interrupt .\n...\nLast Login: Thu Feb 19 18:41:40 on ttys001\nletter@letterdeMacBook-Air-330 tests % cd ..\nletter@letterdeMacBook-Air-330 tests % cd ..\nletter@letterdeMacBook-Air-330 src-tauri % cd ..\nletter@letterdeMacBook-Air-330 vision-jarvis % cd ..\nletter@letterdeMacBook-Air-330 worktrees % cd memory-build-v0\nletter@letterdeMacBook-Air-330 memory-build-v0 % \n> vision-jarvis@0.1.0 dev\nastro dev\n11:20:40 [types] Generated Oms\n11:20:40 [content] Syncing content\nastro v5.16.16 ready in 138 ms\nLocal http://localhost:4321/\nNetwork http://172.20.10.4:4321/\n11:20:40 watching for file changes...\nRunning DevCommand (cargo run --no-default-features --color always --)\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib:capture ...]\nRunning 'dev' profile (unoptimized + debug+ar\nFinished 'dev' profile (unoptimized + debug+ar\nRunning 'target/debug/vision-jarvis'\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib:memory ...]\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib:memory ...]\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib:memory ...]",
+        "file_names": [
+          "memory-build-v0",
+          "front-hook",
+          "Vision-Jarvis",
+          "tts001",
+          "tts006",
+          "tts008"
+        ],
+        "error_indicators": [
+          "zsh: command not found: cd .",
+          "Unable to verify that domain ffmpeg.org is safe to",
+          "Interrupted. What should Claude do instead?",
+          "Unable to verify that domain ffmpeg.org is safe to",
+          "Denormalization of audio may be due to network restrictions or",
+          "zsh: command not found: cd .",
+          "zsh: command not found: cd .",
+          "zsh: command not found: cd .",
+          "zsh: command not found: cd ."
+        ]
+      },
+      "elapsed": 47.39,
+      "error": null,
+      "video": "03-24-49_5aa59464-e133-4c0b-8d3a-094bc1736d31.mp4",
+      "size_mb": 5.0
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "{\n  \"application\": \"macOS\",\n  \"window_title\": null,\n  \"url\": null,\n  \"activity_category\": \"work\",\n  \"productivity_score\": 7,\n  \"focus_level\": \"deep\",\n  \"interaction_mode\": \"mixed\",\n  \"is_continuation\": false,\n  \"activity_description\": \"用户在多个终端窗口中进行代码开发和项目管理，同时使用Claude AI助手进行代码审查和修改建议，并在左侧使用笔记软件进行项目规划和知识管理。\",\n  \"activity_summary\": \"用户在一个多窗口的开发环境中同时处理代码、项目管理和AI辅助开发任务。终端中运行着多个项目相关的命令，包括代码构建、文件管理以及AI助手的交互。左侧工具栏显示用户在进行项目规划和知识管理，包括任务列表和笔记。整体任务集中于开发和项目推进。\",\n  \"accomplishments\": [],\n  \"key_elements\": [\n",
+      "elapsed": 59.64,
+      "error": "JSON解析失败: Unterminated string starting at: line 34 column 15 (char 797)",
+      "video": "03-25-50_c7b614b1-bd8d-4cb8-8274-abe93296f886.mp4",
+      "size_mb": 14.0
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "飞书",
+        "window_title": "开发记录 - 飞书",
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "reading",
+        "is_continuation": false,
+        "activity_description": "用户正在阅读飞书文档中的“开发记录”内容，具体是关于day7的开发进展。",
+        "activity_summary": "用户正专注阅读飞书文档中的开发记录，内容涉及设计完记忆系统后开始搭建，以及尝试开发效果和接入新API（Claude 4.6sonnet）。",
+        "accomplishments": [],
+        "key_elements": [
+          "开发记录",
+          "day7",
+          "设计完记忆系统了，开始搭建",
+          "今天claude更新到4.6sonnet了，试试开发效果",
+          "先把前端组件和数据库文档的现状",
+          "感觉还是要用视频流的形式"
+        ],
+        "context_tags": [
+          "开发记录",
+          "day7",
+          "Claude 4.6sonnet",
+          "前端组件",
+          "数据库",
+          "视频流",
+          "API"
+        ],
+        "project_name": null,
+        "people_mentioned": [
+          "letter"
+        ],
+        "technologies": [
+          "Claude 4.6sonnet",
+          "前端组件",
+          "数据库",
+          "API"
+        ],
+        "ocr_text": "开发记录 letter y 昨天修改 day7 设计完记忆系统了，开始搭建 搭建了一坨，中间api断了好几次 day7 设计完记忆系统了，开始搭建 搞都不懂了 今天claude更新到4.6sonnet了，试试开发效果 ...",
+        "file_names": [],
+        "error_indicators": []
+      },
+      "elapsed": 30.81,
+      "error": null,
+      "video": "05-20-55_b441b051-559d-4d66-b31c-384fb2a05d6b.mp4",
+      "size_mb": 10.3
+    }
+  ],
+  "Qwen/Qwen3-VL-8B-Thinking": [
+    {
+      "success": true,
+      "answer": {
+        "application": "Terminal",
+        "window_title": "vision-jarvis@1.0 dev",
+        "url": "https://ffmpeg.org/ffmpeg-filters.html",
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "fragmented",
+        "interaction_mode": "mixed",
+        "is_continuation": false,
+        "activity_description": "用户在终端中执行git命令配置Vision-Jarvis项目并处理ffmpeg相关任务",
+        "activity_summary": "用户正在使用终端进行Vision-Jarvis项目的配置与开发，同时参考ffmpeg文档进行技术实现。终端中运行了多种命令以管理本地工作目录和依赖项。此外，Vision-Jarvis应用正在运行，显示其各项功能状态。",
+        "accomplishments": [],
+        "key_elements": [
+          "ffmpeg",
+          "Vision-Jarvis",
+          "Git",
+          "Terminal",
+          "Memory-build-v0",
+          "Front-hook"
+        ],
+        "context_tags": [
+          "development",
+          "programming",
+          "media-processing",
+          "configuration"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "ffmpeg",
+          "Vision-Jarvis",
+          "Git",
+          "Terminal",
+          "Astro",
+          "Colorama"
+        ],
+        "ocr_text": "Last login: Thu Feb 19 14:19:41 on tty801... zsh: command not found: cd... vision-jarvis@1.0 dev... 11:20:40 [types] Generated Oms... Running DevCommand... [ffmpeg Command]... https://ffmpeg.org/ffmpeg-improve.html... vision-jarvis% cd memory-build-v0... [v2.1.47]... [ffmpeg.org]... [subdirectories]... [nano]...",
+        "file_names": [
+          "vision-jarvis",
+          "memory-build-v0",
+          "front-hooks",
+          "ffmpeg-filters.html"
+        ],
+        "error_indicators": [
+          "zsh: command not found: cd"
+        ]
+      },
+      "elapsed": 35.49,
+      "error": null,
+      "video": "03-21-45_ec6239fb-f019-4b9c-9625-6f3ff7aa883e.mp4",
+      "size_mb": 2.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Claude",
+        "window_title": "Claude 4.5 Sonnet",
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "reading",
+        "is_continuation": false,
+        "activity_description": "用户正在查阅FFmpeg相关文档并分析终端输出中的错误信息",
+        "activity_summary": "用户当前正处理FFmpeg工具配置问题，通过查看核心文档和官方资源解决域名验证错误。终端输出显示FFmpeg命令执行日志，同时参考Claude生成的文档链接和配置指导进行调试。",
+        "accomplishments": [],
+        "key_elements": [
+          "核心文档（必看）",
+          "FFmpeg官方文档链接",
+          "Error: Unable to verify if domain ffmpeg.org is safe to use",
+          "终端输出日志",
+          "ffmpeg命令行配置指南"
+        ],
+        "context_tags": [
+          "FFmpeg",
+          "Documentation",
+          "Error Resolution",
+          "Terminal Debugging",
+          "AI Assistance"
+        ],
+        "project_name": null,
+        "people_mentioned": [],
+        "technologies": [
+          "FFmpeg",
+          "Claude",
+          "MacOS",
+          "Terminal"
+        ],
+        "ocr_text": "核心文档（必看） 官方主页 https://ffmpeg.org 官方文档 https://ffmpeg.org/documentation.html ffmpeg命令行 https://ffmpeg.org/ffmpeg.html ffmpeg-filters https://ffmpeg.org/ffmpeg-filters.html ffmpeg-formats https://ffmpeg.org/ffmpeg-formats.html Wiki https://trac.ffmpeg.org/wiki Error: Unable to verify if domain ffmpeg.org is safe to use ... 多屏幕录屏 编程匹配 可重新加载 ffmpeg测试帐号... 底部打开官网 CanYou Touseline",
+        "file_names": [
+          "ffpegeffmpeg-4.5 Sonnet",
+          "vision-jarvis"
+        ],
+        "error_indicators": [
+          "Error: Unable to verify if domain ffmpeg.org is safe to use"
+        ]
+      },
+      "elapsed": 33.7,
+      "error": null,
+      "video": "03-22-46_3b66c733-567c-44db-9994-ec9c2cc67447.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Monica",
+        "window_title": "Monica",
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "normal",
+        "interaction_mode": "mixed",
+        "is_continuation": false,
+        "activity_description": "用户正在使用Monica管理任务并配合Claude 4.5 Sonnet解决代码问题",
+        "activity_summary": "用户通过Monica进行项目任务管理，同时使用Claude 4.5 Sonnet提供AI辅助。终端显示Vision-Jarvis项目的代码构建和日志分析。当前在处理ffmpeg相关问题。",
+        "accomplishments": [],
+        "key_elements": [
+          "Monica任务管理界面",
+          "Claude 4.5 Sonnet聊天窗口",
+          "终端命令行操作",
+          "Vision-Jarvis项目日志",
+          "任务计划列表",
+          "ffmpeg相关问题诊断"
+        ],
+        "context_tags": [
+          "任务管理",
+          "AI辅助",
+          "代码开发",
+          "项目规划",
+          "终端操作"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "Monica",
+          "Claude 4.5 Sonnet",
+          "Terminal",
+          "ffmpeg",
+          "git",
+          "Vision-Jarvis"
+        ],
+        "ocr_text": "Error: Unable to verify if domain ffmpeg.org is safe to... New Search (ffmpeg avfoundation screen recording low fps 2fps) Info: Last login: Thu Feb 19 18:14:40 on tty801 l2025-02-20T03:20:43Z INFO vision_jarvis_lib: Screen capture device index: 4 ... vision-jarvis@1.0 dev 2025-02-20T03:20:43Z INFO vision_jarvis_lib: Window position: x=1386, y=50 ... vision-jarvis_lib: Memory usage: 6.5% ... ffmpeg.org documentation",
+        "file_names": [
+          "vision-jarvis",
+          "memory-build-v0",
+          "front-hook",
+          "ffmpeg.org"
+        ],
+        "error_indicators": [
+          "Error: Unable to verify if domain ffmpeg.org is safe to...",
+          "ls: command not found: cd",
+          "Unable to verify if domain ffmpeg.org is safe to..."
+        ]
+      },
+      "elapsed": 25.68,
+      "error": null,
+      "video": "03-23-47_bdc74ddc-5cd0-4e06-b051-b8b6c63e907c.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Terminal",
+        "window_title": "vision-jarvis@1.0 dev",
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "mixed",
+        "is_continuation": false,
+        "activity_description": "用户正在使用终端执行Vision-Jarvis项目的Git工作树配置和项目目录管理操作",
+        "activity_summary": "用户通过终端进行Git工作树的添加与配置，处理Vision-Jarvis项目的环境初始化并监控运行日志。同时处理了目录切换和权限相关操作，确保项目结构正确。",
+        "accomplishments": [],
+        "key_elements": [
+          "Git worktree add",
+          "Vision-Jarvis project setup",
+          "Terminal command execution"
+        ],
+        "context_tags": [
+          "terminal",
+          "git",
+          "vision-jarvis",
+          "project configuration"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "Git",
+          "Terminal",
+          "vision-jarvis",
+          "Astro",
+          "Cargo"
+        ],
+        "ocr_text": "Last login: Thu Feb 19 14:19:41 on ttyvs801\nvision-jarvis@1.0 dev\nRunning WevCommand (cargo run --no-default-features --color always)\n[screen_recorder]. Screen capture device index: 4\n[zsh: command not found: cd]\nRunning target/debug/vision-jarvis\n[vision-jarvis_lib: memory-...]\nMemory enabled=true, storing_users/.../screenshots\nRecoding: [segment: 64s]\n[garbage cleanup: 1.0]新しいナレッジの整合性と実装",
+        "file_names": [
+          "memory-build-v0",
+          "front-hook",
+          "vision-jarvis.md"
+        ],
+        "error_indicators": [
+          "zsh: command not found: cd"
+        ]
+      },
+      "elapsed": 34.41,
+      "error": null,
+      "video": "03-24-49_5aa59464-e133-4c0b-8d3a-094bc1736d31.mp4",
+      "size_mb": 5.0
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Terminal",
+        "window_title": "lettery@letterydeMacBook-Air-330 memory-build-v0 %",
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "mixed",
+        "is_continuation": false,
+        "activity_description": "用户正在终端中执行Git工作区操作并查看项目构建输出",
+        "activity_summary": "用户专注于memory-build-v0项目的版本控制与构建流程，当前执行Git worktree添加操作并查看分支状态。终端显示项目文件路径切换和工作树创建工作，同时存在视频播放和微信通讯的多任务交互。",
+        "accomplishments": [],
+        "key_elements": [
+          "Terminal",
+          "Git worktree",
+          "memory-build-v0",
+          "QuickTime Player",
+          "WeChat",
+          "Git命令执行",
+          "视频播放"
+        ],
+        "context_tags": [
+          "development",
+          "project_management",
+          "version_control"
+        ],
+        "project_name": "memory-build-v0",
+        "people_mentioned": [],
+        "technologies": [
+          "Git",
+          "JavaScript",
+          "memory-build工具"
+        ],
+        "ocr_text": "lettery@letterydeMacBook-Air-330 memory-build-v0 % cd memory-build-v0\nlettery@letterydeMacBook-Air-330 memory-build-v0 % cd memory-build-v0\nlettery@letterydeMacBook-Air-330 memory-build-v0 % git worktree add worktrees/front-hook front-improve\nPreparing worktree (checking out 'front-improve')\nHEAD is now at 0b0d8d82 front-improve\nlettery@letterydeMacBook-Air-330 memory-build-v0 % cd worktrees/front-hook\nlettery@letterydeMacBook-Air-330 memory-build-v0 % cd memory-build-v0\nlettery@letterydeMacBook-Air-330 memory-build-v0 % cd memory-build-v0\ncd: no such file or directory",
+        "file_names": [
+          "memory-build-v0",
+          "front-hook",
+          "worktrees",
+          "vision-jarvis-lib",
+          "project.data"
+        ],
+        "error_indicators": [
+          "cd: no such file or directory"
+        ]
+      },
+      "elapsed": 67.42,
+      "error": null,
+      "video": "03-25-50_c7b614b1-bd8d-4cb8-8274-abe93296f886.mp4",
+      "size_mb": 14.0
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "{\n  \"application\": \"飞书\",\n  \"window_title\": \"开发记录\",\n  \"url\": \"https://f10city.org/foc...\",\n  \"activity_category\": \"work\",\n  \"productivity_score\": 7,\n  \"focus_level\": \"normal\",\n  \"interaction_mode\": \"reading\",\n  \"is_continuation\": false,\n  \"activity_description\": \"用户正在阅读飞书云文档中的开发记录文档\",\n  \"activity_summary\": \"用户正在查看飞书应用的开发记录文档，内容涉及技术问题解决和代码更新，当前显示day7的开发日志\",\n  \"accomplishments\": [],\n  \"key_elements\": [\"飞书云文档\", \"开发记录\", \"CPU使用率表\", \"day7开发日志\", \"Claude 4.6更新\"],\n  \"context_tags\": [\"开发\", \"技术文档\", \"飞书\", \"代",
+      "elapsed": 36.82,
+      "error": "JSON解析失败: Invalid \\escape: line 18 column 440 (char 1048)",
+      "video": "05-20-55_b441b051-559d-4d66-b31c-384fb2a05d6b.mp4",
+      "size_mb": 10.3
+    }
+  ],
+  "Qwen/Qwen3-VL-30B-A3B-Instruct": [
+    {
+      "success": false,
+      "answer": null,
+      "raw": "{\n  \"application\": \"Visual Studio Code\",\n  \"window_title\": \"vision-jarvis@0.1.0 dev\",\n  \"url\": \"https://www.ffmpeg.org/ffmpeg.html\",\n  \"activity_category\": \"work\",\n  \"productivity_score\": 8,\n  \"focus_level\": \"deep\",\n  \"interaction_mode\": \"typing\",\n  \"is_continuation\": false,\n  \"activity_description\": \"用户正在使用终端调试一个名为Vision-Jarvis的项目，并在VSCode中查看和编辑项目文件，同时参考ffmpeg的文档以解决编码问题。\",\n  \"activity_summary\": \"用户正在一个名为Vision-Jarvis的项目中进行开发工作，通过终端执行命令和查看日志来调试进程，并在VSCode中查阅ffmpeg的相关文档以配置项目。该活动涉及代码编辑、命令行操作和文档查阅，",
+      "elapsed": 26.04,
+      "error": "JSON解析失败: Invalid control character at: line 46 column 582 (char 1597)",
+      "video": "03-21-45_ec6239fb-f019-4b9c-9625-6f3ff7aa883e.mp4",
+      "size_mb": 2.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Claude",
+        "window_title": "Claude 4.5 Sonnet",
+        "url": null,
+        "activity_category": "learning",
+        "productivity_score": 8,
+        "focus_level": "deep",
+        "interaction_mode": "reading",
+        "is_continuation": false,
+        "activity_description": "用户正在浏览并查阅Cloude 4.5 Sonnet的文档，特别是关于核心文档、推荐学习路径和相关链接。",
+        "activity_summary": "用户在使用Claude应用程序，集成了一个详细的文档和学习资源中心，以查阅关于FFmpeg和相关开发工具的核心信息和指导。用户正专注于了解和探索各种技术文档和推荐的学习路径。",
+        "accomplishments": [
+          "查阅了Claude 4.5 Sonnet的核心文档链接",
+          "浏览了推荐的学习路径，如markdown"
+        ],
+        "key_elements": [
+          "核心文档",
+          "官方文档",
+          "推荐学习路径",
+          "markdown",
+          "ffmepg",
+          "Claude 4.5 Sonnet"
+        ],
+        "context_tags": [
+          "文档",
+          "学习",
+          "开发",
+          "技术"
+        ],
+        "project_name": null,
+        "people_mentioned": [],
+        "technologies": [
+          "Claude",
+          "FFmpeg",
+          "Markdown"
+        ],
+        "ocr_text": "核心文档(必看)\n文档\n官方主页\nhttps://ffmpeg.org/\n官方文档\nhttps://ffmpeg.org/documentation.html\nffmpeg 命令行\nhttps://ffmpeg.org/ffmpeg.html\nffmpeg-filters\nhttps://ffmpeg.org/ffmpeg-filters.html\nffmpeg-formats\nhttps://ffmpeg.org/ffmpeg-formats.html\nWiki\nhttps://trac.ffmpeg.org/wiki\n推荐学习路径\nmarkdown\nClaude 4.5 Sonnet",
+        "file_names": [],
+        "error_indicators": []
+      },
+      "elapsed": 19.39,
+      "error": null,
+      "video": "03-22-46_3b66c733-567c-44db-9994-ec9c2cc67447.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Visual Studio Code",
+        "window_title": "vision-jarvis",
+        "url": "http://localhost:4321/",
+        "activity_category": "work",
+        "productivity_score": 8,
+        "focus_level": "deep",
+        "interaction_mode": "typing",
+        "is_continuation": true,
+        "activity_description": "用户正在使用VSCode进行软件开发工作，主要在终端执行命令、查看日志、编辑代码文件，并与AI助手进行对话以辅助编程。",
+        "activity_summary": "用户正在进行Vision-Jarvis项目的开发工作，通过终端执行Git命令、编译代码和查看运行日志。同时，用户使用Claude AI助手在聊天窗口中进行提问和获取建议。整个活动显示了用户在集成开发环境中的深度编码和调试工作。",
+        "accomplishments": [
+          "成功启动并运行了vision-jarvis项目",
+          "添加了worktree并切换到front-hook分支",
+          "执行了编译命令并成功创建了project file"
+        ],
+        "key_elements": [
+          "VSCode",
+          "终端",
+          "AI助手",
+          "git命令",
+          "vision-jarvis项目"
+        ],
+        "context_tags": [
+          "软件开发",
+          "终端操作",
+          "AI辅助编程",
+          "版本控制",
+          "代码调试"
+        ],
+        "project_name": "vision-jarvis",
+        "people_mentioned": [
+          "Claude",
+          "astro"
+        ],
+        "technologies": [
+          "VSCode",
+          "Git",
+          "C++",
+          "MacOS",
+          "Command Line"
+        ],
+        "ocr_text": "Error: Unable to verify if domain ffmpeg.org is safe to\nWeb Search \"ffmpeg avfoundation screen recording low fps 2fps\"\nmacOS issues stdder pipe blocking\")\nL Did 0 searches in 13s\n\nWeb Search \"ffmpeg avfoundation screen capture capture mac05\"\nmacOS issues stdder pipe blocking\")\nL Did 0 searches in 13s\n\nupdated plan\n/plan mode (shift+tab to cycle) - ctrl+t to hide tasks\n\nLast login: Thu Feb 19 14:35:36 on ttys006\nletter@lettleydeMacBook-Air-330 memory-build-v0 % claude --dangerously-skip-permissions\nClaude Code v2.1.47\nSonnet 4.6 (1M context) - API Usage Billing\n~/Documents/code/Vision-Jarvis/worktrees/memory-build-v0\n\nmodel to try Opus 4.6\n\nResume this session with:\nclaude --resume 87962129-38d2-4392-94cd-2b5153be18e4\nletter@lettleydeMacBook-Air-330 memory-build-v0 % cd ../\nletter@lettleydeMacBook-Air-330 Vision-Jarvis % git branch\nbackfood\nfeature/multi-window-arch\nfront-improve\n* main\n+ memory\nletter@lettleydeMacBook-Air-330 Vision-Jarvis % git worktree add worktree/front-hook front-improve\nPreparing worktree (checking out 'front-improve')\nHEAD is now at 0bbd8ac frontfactor-improve\nletter@lettleydeMacBook-Air-330 Vision-Jarvis % cd worktrees/front-hook\nletter@lettleydeMacBook-Air-330 front-hook %",
+        "file_names": [
+          "vision-jarvis",
+          "memory-build-v0"
+        ],
+        "error_indicators": [
+          "Error: Unable to verify if domain ffmpeg.org is safe to"
+        ]
+      },
+      "elapsed": 31.33,
+      "error": null,
+      "video": "03-23-47_bdc74ddc-5cd0-4e06-b051-b8b6c63e907c.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Visual Studio Code",
+        "window_title": "vision-jarvis@0.1.0 dev",
+        "url": "http://localhost:4321/",
+        "activity_category": "work",
+        "productivity_score": 9,
+        "focus_level": "deep",
+        "interaction_mode": "typing",
+        "is_continuation": true,
+        "activity_description": "用户正在使用VS Code进行软件开发，通过终端执行编译和调试命令，同时监控日志输出。",
+        "activity_summary": "用户正在开发一个名为Vision-Jarvis的项目。他们通过终端执行命令来编译代码、添加工作流，并管理项目分支。同时，他们正在监控应用程序的日志，以调试一个AI组件。屏幕显示了多个开发者终端会话，表明项目处于活跃开发中。",
+        "accomplishments": [
+          "成功编译了Vision-Jarvis应用程序",
+          "添加了`front-improve`工作流",
+          "成功启动了`vision-jarvis_lib`的内存部分并开始捕获屏幕录像"
+        ],
+        "key_elements": [
+          "VS Code",
+          "终端",
+          "Claude Code",
+          "Vision-Jarvis",
+          "AI配置",
+          "屏幕录像",
+          "git分支"
+        ],
+        "context_tags": [
+          "开发",
+          "调试",
+          "前端",
+          "AI",
+          "工具",
+          "编程",
+          "工程"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "Visual Studio Code",
+          "Terminal",
+          "Claude Code",
+          "Git",
+          "JavaScript",
+          "React",
+          "AI",
+          "macOS"
+        ],
+        "ocr_text": "vision-jarvis@0.1.0 dev\n> astro dev\n11:20:40 [types] Generated Oms\n11:20:40 [content] Syncing content\n11:20:40 [content] Synced content\nastro v5.16.16 ready in 138 ms\nLocal\nNetwork\nhttp://localhost:4321/\nhttp://172.20.10.4:4321/\nhttp://198.18.0.1:4321/\n11:20:40 watching for file changes...\nRunning DevCommand (\"cargo run --no-default-features --color always\")\nInfo Watching /Users/Letterly/Documents/code/Vision-Jarvis/worktrees/memory-build-v0/ vision-jarvis/src-tauri for changes\nFinished 'dev' profile (unoptimized + debug) in 0.75s\nRunning 'target/debug/vision-jarvis_lib:capture:screen-recorder' Screen capture device index: 4\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib:capture::screen-recorder] Screen capture device index: 4\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib::libs::ai_config] AI config loaded: 0 providers\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib::main] Window position: x=1386, y=50\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib::memory::enabled] memory.enabled=true, storage=/Users/Letterly/Library/Application Support/Vision-Jarvis/screenshots\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib] Starting G recorder (segment: 60s)\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib] Notific ation scheduler started\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib] Pipeline started (no AI configured)\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib] Recordin e started\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib] Recordin e started\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib:memory:: pipeline] Starting index sync...\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib:memory:: pipeline] index sync completed - total: 0, indexed: 0\n[2026-02-20T03:20:43Z INFO vision-jarvis_lib:memory:: pipeline] Habit detection: 0 detected, 0 not update\ned, 0 decayed, 0 removed\n11:20:45 [200] [Floating-ball] 201ms",
+        "file_names": [
+          "vision-jarvis_lib",
+          "screen-recorder",
+          "ai_config",
+          "memory",
+          "index",
+          "coverage",
+          "lib.rs"
+        ],
+        "error_indicators": [
+          "command not found: cd..",
+          "command not found: cd",
+          "const error: The following user(s) can not access a constraint at some time",
+          "pthread might be stored at some time"
+        ]
+      },
+      "elapsed": 31.08,
+      "error": null,
+      "video": "03-24-49_5aa59464-e133-4c0b-8d3a-094bc1736d31.mp4",
+      "size_mb": 5.0
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "QuickTime Player",
+        "window_title": "《【第1期】-从零开始的Unity2D游戏开发-》",
+        "url": null,
+        "activity_category": "entertainment",
+        "productivity_score": 2,
+        "focus_level": "fragmented",
+        "interaction_mode": "watching",
+        "is_continuation": false,
+        "activity_description": "用户正在观看一个关于Unity2D游戏开发的教学视频",
+        "activity_summary": "用户正在观看一个关于Unity2D游戏开发的视频课程。视频内容涉及代码编辑器、终端命令和软件界面操作，当前显示的是课程的演示部分。",
+        "accomplishments": [],
+        "key_elements": [],
+        "context_tags": [],
+        "project_name": null,
+        "people_mentioned": [],
+        "technologies": [],
+        "ocr_text": "更改程序位置图标时 87621292-30d2-4392-94cd-2b5153be18e4 letterlyyGlettyyMacBook-Air-330 memory-build-v0 % cd clients - 使用 ODS prefix: name尽验中，当然 trial run亡亡ty Polling 10.1 [2024-12-022024-01-10:41:40[per session 司运君文流率 As 4.6 (1M context) API Usage Billing 信号集强器 2.15 的-苏全新 for 2.21",
+        "file_names": [],
+        "error_indicators": []
+      },
+      "elapsed": 23.81,
+      "error": null,
+      "video": "03-25-50_c7b614b1-bd8d-4cb8-8274-abe93296f886.mp4",
+      "size_mb": 14.0
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "飞书",
+        "window_title": "开发记录",
+        "url": "https://flogo.feishu.cn/docx/Wdo3eMOn4FmMML6GkE1uZAa2098",
+        "activity_category": "work",
+        "productivity_score": 6,
+        "focus_level": "deep",
+        "interaction_mode": "reading",
+        "is_continuation": false,
+        "activity_description": "用户正在阅读飞书中的开发记录文档，查看项目开发进度和备注信息。",
+        "activity_summary": "用户正在一个名为'开发记录'的飞书文档中查看项目开发的详细进度和历史。文档记录了多个日期的开发任务，包括前端框架设计、组件开发等，表明用户正在进行技术开发或项目管理活动。",
+        "accomplishments": [
+          "正在审阅开发记录文档中的项目进展"
+        ],
+        "key_elements": [
+          "飞书",
+          "开发记录",
+          "文档",
+          "编码/开发",
+          "项目进度"
+        ],
+        "context_tags": [
+          "工作",
+          "技术",
+          "开发",
+          "项目管理",
+          "文档"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "font",
+          "Javac"
+        ],
+        "ocr_text": "开发记录\nday7\n设计完记忆系统了, 开始搭建\n搭建了一坨, 中间api断了好几次\nday7\n设计完记忆系统了, 开始搭建\n搭建了一坨, 中间api断了好几次\n今天claude更新到4.6sonnet了, 试试开发效果\n对, 我没有读代码就跳过了这两块。先读实际代码。\nSearchd for 1 pattern, read 1 file (ctrl+x to expand)\n先读前端组件和数据库文档的现状\n对, 我没读代码就跳过了这两块。先读实际代码。\n先把api接进来, 不接进来我都没法测试\nReading 2 files (ctrl+x to expand)\nGitted 0 files (ctrl+x to expand)\nFound a 1 pattern, read 1 file Source: /Users/letterry/Documents/code/Vision-Jarvis/work\nead -10 /Users/iota587/te/openScene/ovik, 170*2: /Users/letterry/Documents/code/Vision-Jarvis/work",
+        "file_names": [
+          "开发记录.md"
+        ],
+        "error_indicators": []
+      },
+      "elapsed": 25.75,
+      "error": null,
+      "video": "05-20-55_b441b051-559d-4d66-b31c-384fb2a05d6b.mp4",
+      "size_mb": 10.3
+    }
+  ],
+  "Qwen/Qwen3-VL-30B-A3B-Thinking": [
+    {
+      "success": true,
+      "answer": {
+        "application": "Claude Code",
+        "window_title": null,
+        "url": "http://localhost:4321/",
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "reading",
+        "is_continuation": false,
+        "activity_description": "查看FFmpeg文档并使用Claude Code进行项目配置和终端调试",
+        "activity_summary": "用户正在通过Claude Code工具处理FFmpeg相关配置，查阅文档理解其用法，同时在终端执行命令进行调试。此过程涉及解决项目中出现的缓存问题，标志着对FFmpeg工具的实际应用。",
+        "accomplishments": [
+          "解决了FFmpeg配置导致的缓存问题"
+        ],
+        "key_elements": [
+          "FFmpeg文档",
+          "Claude Code",
+          "终端命令",
+          "本地开发服务器"
+        ],
+        "context_tags": [
+          "软件开发",
+          "项目调试"
+        ],
+        "project_name": "vision-jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "FFmpeg",
+          "Claude Code",
+          "Vision-Jarvis",
+          "Node.js"
+        ],
+        "ocr_text": "https://ffmpeg.org/ffmpeg-formats.html, Local Network http://localhost:4321/, cmd not found, Executed last login...",
+        "file_names": [
+          "ffmpeg-docs.en.texi"
+        ],
+        "error_indicators": [
+          "cmd not found",
+          "memory build-v0 memory-cachedy failed"
+        ]
+      },
+      "elapsed": 79.98,
+      "error": null,
+      "video": "03-21-45_ec6239fb-f019-4b9c-9625-6f3ff7aa883e.mp4",
+      "size_mb": 2.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Claude",
+        "window_title": "Claude 4.5 Sonnet",
+        "url": null,
+        "activity_category": "learning",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "reading",
+        "is_continuation": false,
+        "activity_description": "查看 ffmpeg 相关文档，同时在终端确认域名验证错误",
+        "activity_summary": "用户在 Claude 中查看 ffmpeg 核心文档和学习路径，同时在终端测试操作时遇到 ffmpeg.org 域名验证失败。屏幕上显示 ffmpeg 官方文档链接及相关命令行知识。",
+        "accomplishments": [],
+        "key_elements": [
+          "ffmpeg 文档",
+          "核心文档",
+          "终端错误",
+          "命令行配置"
+        ],
+        "context_tags": [
+          "技术文档",
+          "开源工具",
+          "开发学习"
+        ],
+        "project_name": null,
+        "people_mentioned": [],
+        "technologies": [
+          "ffmpeg",
+          "CLI"
+        ],
+        "ocr_text": "核心文档(必看)\n官方主页\n官方文档\nffmpeg 命令行\nffmpeg-filters\nffmpeg-formats\nWiki\n推荐学习路径\nma rkydown Error: Unable to verify if domain ffmpeg.org is safe",
+        "file_names": [],
+        "error_indicators": [
+          "Error: Unable to verify if domain ffmpeg.org is safe"
+        ]
+      },
+      "elapsed": 88.34,
+      "error": null,
+      "video": "03-22-46_3b66c733-567c-44db-9994-ec9c2cc67447.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Claude Code",
+        "window_title": "Claude Code",
+        "url": "http://localhost:4321/",
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "mixed",
+        "is_continuation": false,
+        "activity_description": "用户正在使用Claude Code调试Vision-Jarvis项目的前端钩子配置，检查本地开发服务器请求状态",
+        "activity_summary": "用户正在调试Vision-Jarvis前端功能，通过终端查看CI/CD日志和网络请求状态，同时在代码编辑器中处理前端钩子相关配置，配置AI识别参数",
+        "accomplishments": [],
+        "key_elements": [
+          "Vision-Jarvis前端钩子",
+          "本地开发服务器请求",
+          "CI/CD流水线日志",
+          "FFmpeg文档链接",
+          "终端命令错误"
+        ],
+        "context_tags": [
+          "开发",
+          "调试",
+          "AI项目",
+          "前端开发"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "Claude Code",
+          "Vision-Jarvis",
+          "FFmpeg"
+        ],
+        "ocr_text": "Last login: Thu Feb 20 19:41:40 on tty001 error: Unable to verify if domain ffmpeg.org is safe command not found: cd http://localhost:4321/ vision-jarvis@0.1.0 dev ci-targets ... (包含多个终端命令和日志输出)",
+        "file_names": [
+          "front-hook"
+        ],
+        "error_indicators": [
+          "error: Unable to verify if domain ffmpeg.org is safe",
+          "command not found: cd"
+        ]
+      },
+      "elapsed": 91.12,
+      "error": null,
+      "video": "03-23-47_bdc74ddc-5cd0-4e06-b051-b8b6c63e907c.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Terminal",
+        "window_title": "vision-jarvis@0.1.0 dev",
+        "url": "http://localhost:4321/",
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "mixed",
+        "is_continuation": false,
+        "activity_description": "用户在终端中调试Vision-Jarvis项目，执行git命令并查看实时开发日志",
+        "activity_summary": "用户正在开发Vision-Jarvis项目，通过终端进行git操作、创建工作区和代码构建，同时监测浏览器中本地服务器的日志输出。操作涉及调试配置、实时监控应用状态及处理错误信息，使用Astro框架和Claude Code工具链。",
+        "accomplishments": [],
+        "key_elements": [
+          "Vision-Jarvis application",
+          "Terminal work",
+          "Local server (localhost:4321)",
+          "Git worktree commands",
+          "Astro framework"
+        ],
+        "context_tags": [
+          "development",
+          "debugging",
+          "terminal",
+          "node.js",
+          "javascript"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "Claude Code v2.1.47",
+          "Astro v5.16.16",
+          "Git",
+          "node.js"
+        ],
+        "ocr_text": "Vision-Jarvis@0.1.0 dev, astro v5.16.16 ready in 138 ms, Last login Thu Feb 19 19:41:40 on tsys006, vision-jarvis_lib: capture video, ERROR vision-jarvis_lib: skipper: Failed, commit 8796219-38d2-4392-94cd-2b5153be18e4, git worktree add worktrees/front-hook front-improve",
+        "file_names": [],
+        "error_indicators": [
+          "[2026-02-02T03:20:43Z] ERROR vision-jarvis_lib: skipper: Failed",
+          "guppy check failed"
+        ]
+      },
+      "elapsed": 79.34,
+      "error": null,
+      "video": "03-24-49_5aa59464-e133-4c0b-8d3a-094bc1736d31.mp4",
+      "size_mb": 5.0
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Claude Code",
+        "window_title": null,
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "typing",
+        "is_continuation": false,
+        "activity_description": "用户正在使用Claude Code进行代码开发，通过终端执行命令、调试程序并处理权限相关的开发任务",
+        "activity_summary": "用户通过Claude Code进行AI辅助编程，执行终端命令构建项目并处理权限配置；同时查看开发记录管理项目变更，涉及Git工作树和终端操作",
+        "accomplishments": [],
+        "key_elements": [
+          "Claude Code操作界面",
+          "终端命令行交互",
+          "memory-build-v0项目文件",
+          "权限设置（bypass permissions on cycle）",
+          "Git工作树管理"
+        ],
+        "context_tags": [
+          "AI辅助编程",
+          "命令行开发",
+          "项目构建",
+          "权限管理"
+        ],
+        "project_name": null,
+        "people_mentioned": [],
+        "technologies": [
+          "Claude Code",
+          "Terminal",
+          "Git",
+          "memory-build-v0"
+        ],
+        "ocr_text": "Claude Code has switched from npm to native installer, bypass permissions on cycle, command not found: cd, memory-build-v0, Last login: Thu Feb 19 14:35:36 on ttys006, Claude Code v2.1.47",
+        "file_names": [
+          "capture/scheduler.rs",
+          "worktrees/front-hook",
+          "capture/scheduler.md"
+        ],
+        "error_indicators": [
+          "command not found: cd"
+        ]
+      },
+      "elapsed": 85.07,
+      "error": null,
+      "video": "03-25-50_c7b614b1-bd8d-4cb8-8274-abe93296f886.mp4",
+      "size_mb": 14.0
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "飞书",
+        "window_title": "开发记录",
+        "url": "fcouysy.org/communication.html",
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "fragmented",
+        "interaction_mode": "reading",
+        "is_continuation": true,
+        "activity_description": "用户正在阅读飞书知识库中的开发记录，详细查看闪退问题的排查过程",
+        "activity_summary": "用户在查看技术文档，分析软件闪退问题的解决方案。从截图可见开发记录中包含闪退现象和相关技术分析",
+        "accomplishments": [],
+        "key_elements": [
+          "开发记录",
+          "闪退问题",
+          "CPU监控",
+          "飞书知识库",
+          "终端日志"
+        ],
+        "context_tags": [
+          "工作",
+          "技术问题",
+          "文档查阅"
+        ],
+        "project_name": null,
+        "people_mentioned": [],
+        "technologies": [
+          "飞书",
+          "JavaScript",
+          "API"
+        ],
+        "ocr_text": "快如剑影，inic按下双份振幅，哈哈啊哈你比 开发记录 飞书心灵之路 今日完成 SMART",
+        "file_names": [],
+        "error_indicators": [
+          "闪退问题",
+          "CPU使用率过高",
+          "日志信息异常"
+        ]
+      },
+      "elapsed": 54.37,
+      "error": null,
+      "video": "05-20-55_b441b051-559d-4d66-b31c-384fb2a05d6b.mp4",
+      "size_mb": 10.3
+    }
+  ],
+  "Qwen/Qwen3-VL-32B-Instruct": [
+    {
+      "success": true,
+      "answer": {
+        "application": "Terminal & Browser",
+        "window_title": "Habit detection: 0",
+        "url": "https://ffmpeg.org/",
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "typing",
+        "is_continuation": false,
+        "activity_description": "用户正在通过终端进行Vision-Jarvis项目的开发，包括切换工作区、运行构建命令和检查日志输出。",
+        "activity_summary": "用户在MacBook上使用终端操作多个开发项目，主要围绕Vision-Jarvis和ffmpeg进行。他们在不同的项目目录间切换，执行git命令管理分支和工作区，并运行dev命令启动本地开发服务器。同时，浏览器中打开了ffmpeg官方文档页面，可能用于参考技术细节。",
+        "accomplishments": [
+          "成功切换到'front-improve'分支",
+          "添加了新的工作区front-hook",
+          "启动了Vision-Jarvis的开发服务器",
+          "查看了ffmpeg相关文档"
+        ],
+        "key_elements": [
+          "Terminal (zsh shell)",
+          "Vision-Jarvis项目",
+          "ffmpeg文档",
+          "git worktree命令",
+          "astro dev服务器"
+        ],
+        "context_tags": [
+          "software_development",
+          "terminal",
+          "git",
+          "frontend",
+          "ffmpeg",
+          "debugging"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "zsh",
+          "git",
+          "astro",
+          "ffmpeg",
+          "macOS Terminal"
+        ],
+        "ocr_text": "ffmpeg 命令行 ffmpeg-filters https://ffmpeg.org/ffmpeg-filters.html ffmpeg-formats https://ffmpeg.org/ffmpeg-formats.html 使用 搜得知 搞清楚一下报错和官方文档，确定真正的可能问题 官方文档 https://ffmpeg.org/ffmpeg.html Wiki https://trac.ffmpeg.org/ 首先 梳理出详细和当前录屏代码，确认FFmpeg 参数配置。 ● 遇到的报错和异常提示，汇报给 运维和曹文俊，确定真正的可能问题 + Scurrying... (thinking) Last login: Thu Feb 19 14:35:36 on ttys006 lettery@letterydeMacBook-Air-330 memory-build-v0 % claude --dangerously-skip-permissions Claude Code v2.1.47 Sonnet 4.6 (1M context) - API Usage Billing /Documents/code/Vision-Jarvis/worktrees/memory-build-v0 /model to try Opus 4.6 Resume this session with: claude --resume 87962129-38d2-4392-94cd-2b5153be18e4 lettery@letterydeMacBook-Air-330 memory-build-v0 % cd .. lettery@letterydeMacBook-Air-330 vision-jarvis % cd . lettery@letterydeMacBook-Air-330 Vision-Jarvis % git branch backend feature/multi-window-arch * main memory front-improve lettery@letterydeMacBook-Air-330 Vision-Jarvis % git worktree add worktrees/front-hook front-improve Preparing worktree (Checking out 'front-improve') HEAD is now at 0bbd8ac frontfront-improve lettery@letterydeMacBook-Air-330 Vision-Jarvis % cd worktrees/front-hook lettery@letterydeMacBook-Air-330 front-hook % Last login: Thu Feb 19 18:41:40 on ttys001 lettery@letterydeMacBook-Air-330 tests % cd .. zsh: command not found: cd lettery@letterydeMacBook-Air-330 tests % cd . lettery@letterydeMacBook-Air-330 src-tauni % cd . lettery@letterydeMacBook-Air-330 src-tauni % cd . lettery@letterydeMacBook-Air-330 vision-jarvis % cd . lettery@letterydeMacBook-Air-330 vision-jarvis % cd . lettery@letterydeMacBook-Air-330 worktrees % cd memory-build-v0 lettery@letterydeMacBook-Air-330 memory-build-v0 % > vision-jarvis@0.1.0 dev > astro dev 11:20:40 [typescript] Generated 0ms 11:20:40 [content] Syncing content 11:20:40 [content] Synced content astro v5.16.16 ready in 138 ms Local http://localhost:4321/ Network http://172.20.10.4:4321/ http://198.18.0.2:4321/ 11:20:40 watching for file changes... Running DevCommand (‘cargo run —no-default-features —color always —’) Info Watching '/Users/lettery/Documents/code/Vision-Jarvis/worktrees/memory-build-v0/vision-jarvis/src-tauni' for changes... Finished ‘dev’ profile [unoptimized + debuginfo] (in 0.73s) Running './target/debug/vision-jarvis' [2026-02-20T03:20:43Z INFO vision_jarvis_lib::capture::screen_recorder] Screen capture device index: 4 [2026-02-20T03:20:43Z INFO vision_jarvis_lib::config::ai_config] AI config loaded: 8 providers Window position: x=1380, y=50 [2026-02-20T03:20:43Z INFO vision_jarvis_lib] memory.enabled=true, storage=/Users/lettery/Library/Application Support/vision-jarvis/screenshots [2026-02-20T03:20:43Z INFO vision_jarvis_lib] Starting recorder (segment: 60s) [2026-02-20T03:20:43Z INFO vision_jarvis_lib] Notification scheduler started [2026-02-20T03:20:43Z INFO vision_jarvis_lib] Pipeline started (no AI configured) [2026-02-20T03:20:43Z INFO vision_jarvis_lib] Recorder started [2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Starting index sync... [2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Index sync completed - total: 0, indexed: 0, skipped: 0, failed: 0, chunks: 0 [2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Starting activity grouping... [2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] No ungrouped recordings [2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Habit detection: 0 detected, 6 new, 0 updated, 0 decayed, 0 removed 11:20:45 [200] /floating-ball 201ms",
+        "file_names": [
+          "memory-build-v0",
+          "vision-jarvis",
+          "src-tauni",
+          "worktrees/front-hook"
+        ],
+        "error_indicators": [
+          "zsh: command not found: cd"
+        ]
+      },
+      "elapsed": 52.63,
+      "error": null,
+      "video": "03-21-45_ec6239fb-f019-4b9c-9625-6f3ff7aa883e.mp4",
+      "size_mb": 2.6
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "{\n  \"application\": \"系统设置\",\n  \"window_title\": \"通用\",\n  \"url\": null,\n  \"activity_category\": \"work\",\n  \"productivity_score\": 7,\n  \"focus_level\": \"deep\",\n  \"interaction_mode\": \"navigating\",\n  \"is_continuation\": false,\n  \"activity_description\": \"用户正在系统设置中浏览隐私与安全性选项，并查看终端中的FFmpeg和vision-jarvis项目日志。\",\n  \"activity_summary\": \"用户在macOS系统设置中深入查看隐私与安全性设置，同时终端窗口显示了FFmpeg文档查询和vision-jarvis项目的运行日志。这表明用户可能在调试或开发与屏幕录制或AI视觉相关的项目。\",\n  \"accomplishments\": [\n    \"检查了系统权限设置\",\n    \"查看了终端中FFmpeg的命令行和文档链接\",\n    \"监控了vision",
+      "elapsed": 21.15,
+      "error": "JSON解析失败: Expecting ',' delimiter: line 42 column 702 (char 1620)",
+      "video": "03-22-46_3b66c733-567c-44db-9994-ec9c2cc67447.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Terminal and Code Editors",
+        "window_title": null,
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 8,
+        "focus_level": "deep",
+        "interaction_mode": "typing",
+        "is_continuation": false,
+        "activity_description": "用户正在通过命令行操作多个项目，包括VISION-JARVIS、memory-build-v0、front-hook等，同时参考FFmpeg文档和使用Claude AI进行问题分析。",
+        "activity_summary": "用户正在开发或调试VISION-JARVIS项目，对多个工作区（worktrees）进行切换和操作。同时查阅FFmpeg相关文档解决屏幕录制低帧率问题，并通过Claude AI进行技术问题分析与规划。现有终端日志显示项目服务正在运行，涉及屏幕捕获、AI模型加载和行为检测等功能。",
+        "accomplishments": [
+          "成功切换到'front-improve'分支",
+          "配置并运行VISION-JARVIS项目服务",
+          "使用Claude AI分析FFmpeg低帧率问题"
+        ],
+        "key_elements": [
+          "VISION-JARVIS项目",
+          "FFmpeg屏幕录制问题",
+          "Claude AI辅助思考",
+          "终端工作区切换",
+          "屏幕录制日志输出"
+        ],
+        "context_tags": [
+          "前端开发",
+          "AI代理",
+          "屏幕录制",
+          "FFmpeg",
+          "调试",
+          "项目管理"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "FFmpeg",
+          "Claude AI",
+          "Node.js",
+          "Astro",
+          "Git (worktrees)",
+          "macOS Terminal"
+        ],
+        "ocr_text": "Web Search(\"ffmpeg avfoundation screen recording low fps 2fps macOS issues stderr pipe blocking\")\nUpdated plan\n- plan to preview\n- 开始实施，先处理 P1（最简单），再处理 P2，最后处理 P0。\n  - P1: scheduler 日志级别 debug -> info\n  - P2: 修复阻塞 I/O 在 async 上文中的问题\n  - P2: 删除无用的 is_recording 字段\n\nLast login: Thu Feb 19 14:35:36 on ttys006\nlettery@letterydeMacBook-Air-330 memory-build-v0 % claude --dangerously-skip-permissions\nClaude Code v2.1.47\nSonnet 4.6 (1M context) - API Usage Billing\n~/Documents/code/Vision-Jarvis/worktrees/memory-build-v0\n/model to try Opus 4.6\nResume this session with:\nclaude --resume 87962129-38d2-4392-94cd-2b5153be1be4\nlettery@letterydeMacBook-Air-330 memory-build-v0 % cd ..\nlettery@letterydeMacBook-Air-330 Vision-Jarvis % cd ..\nlettery@letterydeMacBook-Air-330 Vision-Jarvis % git branch\n  backend\n* feature/multi-window-arch\n  front-improve\n  main\n  memory\nlettery@letterydeMacBook-Air-330 Vision-Jarvis % git worktree add worktrees/front-hook front-improve\nPreparing worktree (Checking out 'front-improve')\nHEAD is now at 0bdd8ac front-improve\nlettery@letterydeMacBook-Air-330 Vision-Jarvis % cd worktrees/front-hook\nlettery@letterydeMacBook-Air-330 front-hook % \n\nLast login: Thu Feb 19 18:41:40 on ttys001\nlettery@letterydeMacBook-Air-330 tests % cd..\nzsh: command not found: cd..\nlettery@letterydeMacBook-Air-330 tests % cd .\nlettery@letterydeMacBook-Air-330 src-tauni % cd .\nlettery@letterydeMacBook-Air-330 vision-jarvis % cd .\nlettery@letterydeMacBook-Air-330 vision-jarvis-v0 % cd ..\nlettery@letterydeMacBook-Air-330 worktrees % cd memory-build-v0\nlettery@letterydeMacBook-Air-330 memory-build-v0 % \n\n> vision-jarvis@0.1.0 dev\n> astro dev\n\n11:20:40 [typing] Generated 0ms\n11:20:40 [content] Syncing content\n11:20:40 [content] Synced content\n\nastro v5.16.16 ready in 138 ms\n\nLocal http://localhost:4321/\nNetwork http://192.20.10.4:4321/\n        http://198.18.0.1:4321/\n\n11:20:40 watching for file changes...\nRunning DevCommand ('cargo run --no-default-fea...tures --color always --')\nInfo Watching /Users/lettery/Documents/code/Vision-Jarvis/worktrees/memory-build-v0/vision-jarvis/src-tauni for changes...\nFinished 'dev' profile (unoptimized + debuginfo) in 0.73s\nRunning 'target/debug/vision-jarvis'\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::capture::screen_recorder] Screen capture device index: 4\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::config::ai_config] AI config loaded: 0 providers\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib] Memory: enabled=true, storage=/Users/lettery/Library/Application Support/vision-jarvis/screenshots\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib] Starting recorder (segment: 60s)\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib] Notification scheduler started\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib] Pipeline started (no AI configured)\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib] Recorder started\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Starting index sync...\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Index sync completed - total: 0, indexed: 0, skipped: 0, failed: 0, chunks: 0\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Starting activity grouping...\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] No ungrouped recordings\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Habit detection: 0 detected, 0 new, 0 updated, 0 decayed, 0 removed\n11:20:45 [200] /floating-ball 201ms\n\n核心文档（必备）\n官方主页 https://ffmpeg.org/\n官方文档 https://ffmpeg.org/documentation.html\nffmpeg 命令行 https://ffmpeg.org/ffmpeg.html\nffmpeg-filters https://ffmpeg.org/ffmpeg-filters.html\nffmpeg-formats https://ffmpeg.org/ffmpeg-formats.html\nWiki https://trac.ffmpeg.org/wiki\n\n推荐学习路径\nmarkdown\nClaude 4.5 Sonnet ✓  快速提问 (下Space)\n问我任何问题...\n\n/plan mode on (shift+tab to cycle) - ctrl+t to hide tasks",
+        "file_names": [
+          "memory-build-v0",
+          "vision-jarvis",
+          "front-hook",
+          "src-tauni",
+          "worktrees",
+          "tests"
+        ],
+        "error_indicators": [
+          "zsh: command not found: cd..",
+          "Web Search: 'ffmpeg avfoundation screen recording low fps 2fps macOS issues stderr pipe blocking'"
+        ]
+      },
+      "elapsed": 46.46,
+      "error": null,
+      "video": "03-23-47_bdc74ddc-5cd0-4e06-b051-b8b6c63e907c.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Terminal",
+        "window_title": null,
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 8,
+        "focus_level": "deep",
+        "interaction_mode": "typing",
+        "is_continuation": false,
+        "activity_description": "用户正在MacBook上通过多个终端窗口进行Vision-Jarvis项目的开发，包括Git工作区管理、Clojure项目配置、以及运行和监控Astro前端服务器。",
+        "activity_summary": "用户在其MacBook上使用多个终端窗口同步操作，主要涉及Vision-Jarvis项目的开发和调试。包括切换Git工作区、配置Claude API、运行项目并监控Astro前端服务日志。整体操作高效且专注，集中在本地开发环境的搭建与维护。",
+        "accomplishments": [
+          "成功切换并添加了名为'front-improve'的Git工作区",
+          "配置并运行了Claude API，用于模型调试或集成",
+          "启动并监控了Astro前端服务器，用于项目预览和开发",
+          "处理了本地屏幕录制和AI视觉管线的调试信息"
+        ],
+        "key_elements": [
+          "Vision-Jarvis项目",
+          "Git工作区管理",
+          "Claude API配置",
+          "Astro前端服务器",
+          "本地开发环境"
+        ],
+        "context_tags": [
+          "software_development",
+          "git",
+          "terminal",
+          "frontend",
+          "AI_integration",
+          "local_debugging"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "Git",
+          "Claude",
+          "Astro",
+          "Rust",
+          "MacOS Terminal"
+        ],
+        "ocr_text": "Web Search: ffmpeg: foundation screen recording low fps 2fps\n你可过搜索和试败\n好, 我设量新尝试取 FFmpeg 文档。\n网络搜索不可用, 基于我对 FFmpeg foundation\n开启尝试, 先处理P1b和P2, to network Restrictions or\nInterpretsSecurity.polilgli@BlockClagcte@.ai.\n[字母助手 @RichardArnold]: progress: 2 open)\nP1: 搜索dorooter面试题和hugo的galfund\nP2: 阅读我自己的Pr历史, 逐一在文档中找到对应的题\nP2: 解读并开始 $g_secandel的网页段\nLast login: Thu Feb 19 14:35:36 on ttys006\nletterty@lettertydeMacBook-Air-330 memory-build-v0 % claude --dangerously-skip-permissions\nClaude Code v2.1.47\nSonnet 4.6 (1M context) - API Usage Billing\n~/Documents/code/Vision-Jarvis/worktrees/memory-build-v0\n/model to try Opus 4.6\nResume this session with:\nclaude --resume 87962129-38d2-4392-94cd-2b5153be1be4\nletterty@lettertydeMacBook-Air-330 memory-build-v0 % cd ..\nletterty@lettertydeMacBook-Air-330 worktrees % cd ..\nletterty@lettertydeMacBook-Air-330 Vision-Jarvis % git branch\n  backend\n  feature/multi-window-arch\n* main\n  memory\n  front-improve\nletterty@lettertydeMacBook-Air-330 Vision-Jarvis % git worktree add worktrees/front-hook front-improve\nPreparing worktree (Checking out 'front-improve')\nHEAD is now at 0bd8dac front-improve\nletterty@lettertydeMacBook-Air-330 Vision-Jarvis % cd worktrees/front-hook\nletterty@lettertydeMacBook-Air-330 front-hook %\nLast login: Thu Feb 19 18:41:40 on ttys001\nletterty@lettertydeMacBook-Air-330 tests % cd..\nzsh: command not found: cd..\nletterty@lettertydeMacBook-Air-330 tests % cd .\nletterty@lettertydeMacBook-Air-330 src-tauni % cd .\nletterty@lettertydeMacBook-Air-330 vision-jarvis % cd .\nletterty@lettertydeMacBook-Air-330 memory-build-v0 % cd .\nletterty@lettertydeMacBook-Air-330 worktrees % cd memory-build-v0\nletterty@lettertydeMacBook-Air-330 memory-build-v0 %\n> vision-jarvis@0.1.0 dev\n> astro dev\n11:20:40 [typescript] Generated 0ms\n11:20:40 [content] Syncing content\n11:20:40 [content] Synced content\nastro v5.16.16 ready in 138 ms\nLocal http://localhost:4321/\nNetwork http://192.20.10.4:4321/\nhttp://198.18.0.1:4521/\n11:20:40 watching for file changes...\nRunning DevCommand ('cargo run --no-default-features --color always --)\nInfo Watching /Users/letterty/Documents/code/Vision-Jarvis/worktrees/memory-build-v0/vision-jarvis/src-tauni for changes...\nFinished 'dev' profile (unoptimized + debug) [target(s) in 0.73s\nRunning 'target/debug/vision-jarvis'\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::capture::screen_recorder] Screen capture device index: 4\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::core::ai_config] AI config loaded: 0 providers\nWindow position: x=1386, y=50\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib] memory: enabled=true, storage=/Users/letterty/Library/Application Support/vision-jarvis/screenshots\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib] Starting recorder (segment: 60s)\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib] Notification scheduler started\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib] Pipeline started (no AI configured)\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib] Recorder started\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Starting index sync...\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Index sync completed - total: 0, indexed: 0\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Starting activity grouping...\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] No ungrouped records\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Habit detection: 0 detected, 0 new, 0 updated, 0 decayed, 0 removed\n11:20:45 [200] /floating-ball 201ms",
+        "file_names": [
+          "memory-build-v0",
+          "worktrees/front-hook",
+          "src-tauni",
+          "vision-jarvis",
+          "README.md",
+          "Cargo.toml",
+          "astro.config.mjs"
+        ],
+        "error_indicators": [
+          "zsh: command not found: cd..",
+          "P2: 未启动屏幕录制和保存 mp4，需要验证是否安全",
+          "Could not open 'P2.mp4' atizador:"
+        ]
+      },
+      "elapsed": 71.91,
+      "error": null,
+      "video": "03-24-49_5aa59464-e133-4c0b-8d3a-094bc1736d31.mp4",
+      "size_mb": 5.0
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "{\n  \"application\": \"Terminal, QuickTime Player, Claude AI\",\n  \"window_title\": \"memory-build-v0\",\n  \"url\": null,\n  \"activity_category\": \"work\",\n  \"productivity_score\": 8,\n  \"focus_level\": \"deep\",\n  \"interaction_mode\": \"mixed\",\n  \"is_continuation\": true,\n  \"activity_description\": \"用户正在通过终端命令行操作一个名为 Vision-Jarvis 的项目，使用 Claude AI 进行代码开发和调试，并通过 QuickTime Player 回放屏幕录制视频进行复盘。\",\n  \"activity_summary\": \"用户在开发一个名为 Vision-Jarvis 的项目，涉及终端命令操作、AI 辅助编程和屏幕录像回放。多个终端窗口显示了项目构建、工作区管理、权限跳过和设备录制等操作。同时，QuickTime Pla",
+      "elapsed": 77.95,
+      "error": "JSON解析失败: Unterminated string starting at: line 44 column 15 (char 1228)",
+      "video": "03-25-50_c7b614b1-bd8d-4cb8-8274-abe93296f886.mp4",
+      "size_mb": 14.0
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "飞书",
+        "window_title": "开发记录",
+        "url": "https://f.flyers.mys.com/records/development/record-123",
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "reading",
+        "is_continuation": false,
+        "activity_description": "用户正在阅读飞书文档中的开发记录，浏览项目进展和思考记录。",
+        "activity_summary": "用户正在查看名为\"开发记录\"的飞书文档，内容主要是关于名为\"Vision-Jarvis\"项目的每日进展和开发思考。文档中记录了对记忆系统、API连接、Claude模型更新等技术细节的尝试与反思，并提到新功能的测试计划。",
+        "accomplishments": [
+          "记录了day7的开发进展，包括设计记忆系统、尝试开发效果",
+          "更新了Claude模型至4.6sonnet并测试",
+          "创办了新的开发记录文档"
+        ],
+        "key_elements": [
+          "开发记录文档",
+          "day7开发日志",
+          "Vision-Jarvis项目",
+          "记忆系统设计",
+          "Claude模型更新4.6sonnet",
+          "API中断问题",
+          "视频监控或手机操控需求"
+        ],
+        "context_tags": [
+          "开发日志",
+          "软件工程",
+          "AI项目",
+          "文档管理",
+          "技术反思",
+          "系统设计"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [
+          "lettery"
+        ],
+        "technologies": [
+          "Claude",
+          "API",
+          "视频流",
+          "前端框架",
+          "后端框架",
+          "数据表设计",
+          "接口设计",
+          "屏幕处理"
+        ],
+        "ocr_text": "开发记录\nday7\n设计完记忆系统了，开始搭建\n搭建了一坨，中间api断了好几次\n今天claude更新到4.6sonnet了，试试开发效果\nday7\n设计完记忆系统了，开始搭建\n渣都不演了\n搭建了一坨，中间api断了好几次\n今天claude更新到4.6sonnet了，试试开发效果\n对，我现有课代码跳过了这两块。先选实际代码。\n没有了\n先接前端组件和数据库文档的现状。\n先把api接进来，不接进来我都没法测试\nL head -10 /Users/lettery/Documents/code/Vision-Jarvis/work_\n感觉还是要用视频流的形式，光看图片我都理解不了我自己自做什么，我也能明确知道我有很多操作都是在10s甚至5s内完成了的，比如说点链接然后再切换回来，比如说新建一个待\n如今得到了答案",
+        "file_names": [
+          "开发记录",
+          "Vision-Jarvis"
+        ],
+        "error_indicators": [
+          "api断了",
+          "没有执行代码阅读",
+          "无法测试"
+        ]
+      },
+      "elapsed": 146.58,
+      "error": null,
+      "video": "05-20-55_b441b051-559d-4d66-b31c-384fb2a05d6b.mp4",
+      "size_mb": 10.3
+    }
+  ],
+  "Qwen/Qwen3-VL-32B-Thinking": [
+    {
+      "success": true,
+      "answer": {
+        "application": "Terminal",
+        "window_title": null,
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "normal",
+        "interaction_mode": "typing",
+        "is_continuation": true,
+        "activity_description": "用户在命令行中操作Git工作树并进行项目配置",
+        "activity_summary": "用户正在通过终端执行Git工作树操作，包括添加新工作树和切换分支。同时，用户在配置Vision-Jarvis项目并运行相关的开发命令。终端窗口中显示了多个并行的命令行任务，涉及项目构建和调试。",
+        "accomplishments": [
+          "添加front-hook工作树到front-improve分支",
+          "验证了HEAD分支位置"
+        ],
+        "key_elements": [
+          "git worktree add",
+          "front-improve分支",
+          "Vision-Jarvis项目",
+          "memory-build-v0",
+          "terminal commands"
+        ],
+        "context_tags": [
+          "git",
+          "code management",
+          "project setup",
+          "terminal",
+          "Vision-Jarvis"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "git",
+          "Tmux",
+          "Claude Code",
+          "Vision-Jarvis"
+        ],
+        "ocr_text": "11:20:40 [types] Generated 0ms\n11:20:40 [content] Syncing content\n11:20:46 [content] Synced content\n11:20:45 (200) /floating-ball 201ms\ngit worktree add worktrees/front-hook front-improve\nHEAD is now at 0bb8d8b0... front-improve",
+        "file_names": [
+          "memory-build-v0",
+          "front-hook",
+          "Vision-Jarvis"
+        ],
+        "error_indicators": []
+      },
+      "elapsed": 48.05,
+      "error": null,
+      "video": "03-21-45_ec6239fb-f019-4b9c-9625-6f3ff7aa883e.mp4",
+      "size_mb": 2.6
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 6.3,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "03-22-46_3b66c733-567c-44db-9994-ec9c2cc67447.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Monica",
+        "window_title": "Monica",
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "mixed",
+        "is_continuation": false,
+        "activity_description": "调试FFmpeg屏幕录制低帧率问题并处理代码分支",
+        "activity_summary": "用户正在通过终端调试FFmpeg屏幕录制相关问题，查阅技术文档并执行命令行操作。同时处理Vision-Jarvis项目的代码分支，进行Git操作和构建测试。终端日志显示屏幕捕获设备状态和管道同步信息。",
+        "accomplishments": [
+          "修复ffmpeg屏幕录制low fps问题",
+          "同步代码库并执行测试命令",
+          "处理multiple window-anchormemory分支"
+        ],
+        "key_elements": [
+          "FFmpeg",
+          "screen capture",
+          "low fps",
+          "terminal commands",
+          "Monica app"
+        ],
+        "context_tags": [
+          "screen-recording",
+          "debugging",
+          "command-line",
+          "code-revision"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "FFmpeg",
+          "macOS",
+          "Terminal",
+          "Rust",
+          "Git"
+        ],
+        "ocr_text": "FFmpeg avfoundation screen recording low fps 2fps (macOS issues stderr pipe blocking) 2026-02-20T03:20:43Z INFO vision_jarvis_lib: memory: [pipeline] Starting activity grouping... ZSH: command not found: cd.. Error: Unable to verify if domain ffmpeg.org is safe to access Claude 4.6 (1M context) - API Usage Billing",
+        "file_names": [
+          "vision-jarvis",
+          "memory-build-v0",
+          "front-hook",
+          "front-improve"
+        ],
+        "error_indicators": [
+          "ZSH: command not found: cd..",
+          "Error: Unable to verify if domain ffmpeg.org is safe to access",
+          "FFmpeg avfoundation screen recording low fps 2fps (macOS issues stderr pipe blocking)"
+        ]
+      },
+      "elapsed": 37.95,
+      "error": null,
+      "video": "03-23-47_bdc74ddc-5cd0-4e06-b051-b8b6c63e907c.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 22.85,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "03-24-49_5aa59464-e133-4c0b-8d3a-094bc1736d31.mp4",
+      "size_mb": 5.0
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 11.5,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "03-25-50_c7b614b1-bd8d-4cb8-8274-abe93296f886.mp4",
+      "size_mb": 14.0
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "飞书",
+        "window_title": "开发记录",
+        "url": "https://feishu.cn",
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "normal",
+        "interaction_mode": "reading",
+        "is_continuation": false,
+        "activity_description": "在飞书文档中阅读开发记录的第7天内容",
+        "activity_summary": "用户正在查看飞书文档中的开发记录，重点阅读第7天的开发日志内容。文档中记录了模型API调试、4.6sonnet版本更新及系统资源监控情况。同时打开了活动监视器查看CPU使用率。",
+        "accomplishments": [],
+        "key_elements": [
+          "开发记录",
+          "第7天",
+          "API调试",
+          "活动监视器",
+          "4.6sonnet",
+          "13.0",
+          "4.6",
+          "7.4"
+        ],
+        "context_tags": [
+          "开发",
+          "调试",
+          "文档",
+          "系统监控"
+        ],
+        "project_name": "寻梦尘埃之旅",
+        "people_mentioned": [
+          "lettery"
+        ],
+        "technologies": [
+          "4.6sonnet",
+          "OpenCV"
+        ],
+        "ocr_text": "开发记录, day7, 如今得到了答案, 活动监视器, 4.6sonnet, api断了好几次, 13.0, 4.6, 7.4, 0.5, 0.0",
+        "file_names": [],
+        "error_indicators": [
+          "api断了好几次"
+        ]
+      },
+      "elapsed": 68.14,
+      "error": null,
+      "video": "05-20-55_b441b051-559d-4d66-b31c-384fb2a05d6b.mp4",
+      "size_mb": 10.3
+    }
+  ],
+  "Qwen/Qwen3-VL-235B-A22B-Instruct": [
+    {
+      "success": true,
+      "answer": {
+        "application": "Alacritty",
+        "window_title": null,
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "typing",
+        "is_continuation": true,
+        "activity_description": "用户正在终端中运行命令，配置和调试FFmpeg相关项目，并与AI助手Claude Code交互以解决技术问题。",
+        "activity_summary": "用户正在MacBook终端中管理多个开发任务，包括使用git操作worktree、配置FFmpeg参数，以及通过Claude Code API调试程序。同时，右侧终端窗口显示一个名为'vision-jarvis'的服务正在运行并记录日志。",
+        "accomplishments": [
+          "成功切换到git worktree的front-hook分支",
+          "启动了vision-jarvis服务并确认其正常运行",
+          "与Claude Code交互以获取技术建议"
+        ],
+        "key_elements": [
+          "git worktree",
+          "FFmpeg",
+          "Claude Code API",
+          "vision-jarvis",
+          "terminal commands"
+        ],
+        "context_tags": [
+          "development",
+          "terminal",
+          "debugging",
+          "AI assistance",
+          "version control"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [],
+        "technologies": [
+          "FFmpeg",
+          "Git",
+          "Claude Code",
+          "macOS",
+          "terminal"
+        ],
+        "ocr_text": "ffmpeg 命令行 https://ffmpeg.org/ffmpeg.html\nClaude Code v2.1.47\nSonnet 4.6 (1M context) · API Usage Billing\n/mode to try Opus 4.6\nTemporal memory\n如何在多个工作区中切换？\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib::memory::pipeline] Habit detection: 0 detected, 0 new, 0 updated, 0 decayed, 0 removed",
+        "file_names": [
+          "vision-jarvis",
+          "front-hook",
+          "front-improve",
+          "memory-build-v0"
+        ],
+        "error_indicators": [
+          "command not found: cd..",
+          "claud: command not found"
+        ]
+      },
+      "elapsed": 65.4,
+      "error": null,
+      "video": "03-21-45_ec6239fb-f019-4b9c-9625-6f3ff7aa883e.mp4",
+      "size_mb": 2.6
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 4.75,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "03-22-46_3b66c733-567c-44db-9994-ec9c2cc67447.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": true,
+      "answer": {
+        "application": "Claude",
+        "window_title": "Claude 4.5 Sonnet",
+        "url": null,
+        "activity_category": "work",
+        "productivity_score": 7,
+        "focus_level": "deep",
+        "interaction_mode": "typing",
+        "is_continuation": true,
+        "activity_description": "用户正在使用Claude AI助手调试FFmpeg屏幕录制问题，同时在终端中执行命令和查看日志。",
+        "activity_summary": "用户在笔记和终端之间切换，查找FFmpeg低帧率录制问题的解决方案。用户尝试通过命令行操作、查阅文档和与AI助手交互来诊断问题。终端日志显示了Vision-Jarvis项目的运行状态和屏幕录制调试信息。",
+        "accomplishments": [
+          "识别了FFmpeg屏幕录制低帧率的问题",
+          "在终端中执行了多个cd和git命令以导航项目结构",
+          "与Claude AI助手交互寻求解决方案",
+          "查阅了FFmpeg官方文档和命令行参考"
+        ],
+        "key_elements": [
+          "FFmpeg",
+          "屏幕录制",
+          "低帧率",
+          "Vision-Jarvis",
+          "终端命令",
+          "Claude AI",
+          "日志调试"
+        ],
+        "context_tags": [
+          "dev",
+          "debugging",
+          "ffmpeg",
+          "macos",
+          "terminal",
+          "ai-assistant"
+        ],
+        "project_name": "Vision-Jarvis",
+        "people_mentioned": [
+          "lettery"
+        ],
+        "technologies": [
+          "FFmpeg",
+          "Terminal",
+          "macOS",
+          "Claude AI",
+          "Git",
+          "Astro"
+        ],
+        "ocr_text": "Web Search: ffmpeg avfoundation screen recording low fps 2fps\nmacOS issues stderr pipe blocking\nClaude 4.5 Sonnet\nffmepg 命令行 https://ffmpeg.org/ffmpeg.html\nffmepg-filters https://ffmpeg.org/ffmpeg-filters.html\nVision-Jarvis /worktrees/memory-build-v0/vision-jarvis\ncd worktrees/front-hook\nGit branch: front-improve\n[2026-02-20T03:20:43Z INFO vision_jarvis_lib] Screen capture device index: 4",
+        "file_names": [
+          "Vision-Jarvis",
+          "memory-build-v0",
+          "front-hook",
+          "front-improve"
+        ],
+        "error_indicators": [
+          "Unable to verify if domain ffmpeg.org is safe to connect",
+          "command not found: cd",
+          "scheduler 日志级别 debug -> info",
+          "修复阻塞 I/O 在 async 上下文中的问题"
+        ]
+      },
+      "elapsed": 49.86,
+      "error": null,
+      "video": "03-23-47_bdc74ddc-5cd0-4e06-b051-b8b6c63e907c.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 21.89,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "03-24-49_5aa59464-e133-4c0b-8d3a-094bc1736d31.mp4",
+      "size_mb": 5.0
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 13.37,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "03-25-50_c7b614b1-bd8d-4cb8-8274-abe93296f886.mp4",
+      "size_mb": 14.0
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 10.04,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "05-20-55_b441b051-559d-4d66-b31c-384fb2a05d6b.mp4",
+      "size_mb": 10.3
+    }
+  ],
+  "Qwen/Qwen3-VL-235B-A22B-Thinking": [
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 7.01,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "03-21-45_ec6239fb-f019-4b9c-9625-6f3ff7aa883e.mp4",
+      "size_mb": 2.6
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 6.58,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "03-22-46_3b66c733-567c-44db-9994-ec9c2cc67447.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 2.76,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "03-23-47_bdc74ddc-5cd0-4e06-b051-b8b6c63e907c.mp4",
+      "size_mb": 3.6
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 4.19,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "03-24-49_5aa59464-e133-4c0b-8d3a-094bc1736d31.mp4",
+      "size_mb": 5.0
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 13.25,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "03-25-50_c7b614b1-bd8d-4cb8-8274-abe93296f886.mp4",
+      "size_mb": 14.0
+    },
+    {
+      "success": false,
+      "answer": null,
+      "raw": "",
+      "elapsed": 13.3,
+      "error": "500 Server Error: Internal Server Error for url: https://api.siliconflow.cn/v1/chat/completions | {\"code\":50507,\"message\":\"Request processing failed due to an unknown error.\",\"data\":null}",
+      "video": "05-20-55_b441b051-559d-4d66-b31c-384fb2a05d6b.mp4",
+      "size_mb": 10.3
+    }
+  ]
+}
