@@ -29,7 +29,7 @@ import Asker from '../components/FloatingBall/Asker.astro';
   <script>
     import { invoke } from '@tauri-apps/api/core';
     import { listen } from '@tauri-apps/api/event';
-    import { $settings, loadSettings, toggleMemory } from '../stores/settingsStore';
+    import { $settings, loadSettings, toggleMemory, initSettingsSync } from '../stores/settingsStore';
     import { WINDOW_SIZES, DELAYS } from '../lib/constants';
 
     type WindowState = 'ball' | 'header' | 'asker';
@@ -199,6 +199,9 @@ import Asker from '../components/FloatingBall/Asker.astro';
 
     // 页面加载时确保初始状态正确
     window.addEventListener('DOMContentLoaded', () => {
+      // 初始化跨窗口同步
+      initSettingsSync();
+
       // 确保初始状态为 ball（所有展开区域都隐藏）
       const expansionZone = getExpansionZone();
       const headerExp = getHeaderExpansion();

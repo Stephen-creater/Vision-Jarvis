@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import { useEffect, useRef } from 'react'
-import { $settings, loadSettings, toggleMemory, updateCaptureInterval } from '@/stores/settingsStore'
+import { $settings, loadSettings, toggleMemory, updateCaptureInterval, initSettingsSync } from '@/stores/settingsStore'
 import { Toggle } from '@/components/ui/Toggle'
 import { showNotification } from '@/lib/utils'
 
@@ -9,6 +9,7 @@ export function MemoryPage() {
   const timerRef = useRef<number | null>(null)
 
   useEffect(() => {
+    initSettingsSync()
     loadSettings()
   }, [])
 

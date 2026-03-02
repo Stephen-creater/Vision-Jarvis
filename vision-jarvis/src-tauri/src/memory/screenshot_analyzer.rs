@@ -109,7 +109,7 @@ impl ScreenshotAnalyzer {
         };
 
         self.save_analysis(&analysis)?;
-        self.write_analysis_json(&analysis, video_path)?;
+        self.write_analysis_md(&analysis, video_path)?;
         self.mark_recording_analyzed(recording_id)?;
         Ok(analysis)
     }
@@ -184,14 +184,14 @@ impl ScreenshotAnalyzer {
         })
     }
 
-    /// 将分析结果写为 JSON 文件（与 .mp4 同名，扩展名为 .json）
-    fn write_analysis_json(&self, analysis: &ScreenshotAnalysis, video_path: &Path) -> Result<()> {
-        let json_path = video_path.with_extension("json");
-        let json_content = serde_json::to_string_pretty(analysis)
-            .map_err(|e| anyhow::anyhow!("序列化分析结果失败: {}", e))?;
-        std::fs::write(&json_path, json_content)
-            .map_err(|e| anyhow::anyhow!("写入分析JSON失败: {} - {}", json_path.display(), e))?;
-        info!("分析JSON已写入: {}", json_path.display());
+    /// 将分析结果写为 Markdown 文件（与 .mp4 同名，扩展名为 .md）
+    /// YAML frontmatter 保存结构化字段，body 是人可读描述
+    fn write_analysis_md(&self, analysis: &ScreenshotAnalysis, video_path: &Path) -> Result<()> {
+        let md_path = video_path.with_extension("md");
+        let md_content = format_analysis_as_markdown(analysis);
+        std::fs::write(&md_path, &md_content)
+            .map_err(|e| anyhow::anyhow!("写入分析MD失败: {} - {}", md_path.display(), e))?;
+        info!("分析MD已写入: {}", md_path.display());
         Ok(())
     }
 }
@@ -271,6 +271,105 @@ fn extract_json_from_response(response: &str) -> String {
     response.to_string()
 }
 
+/// 将分析结果格式化为 Markdown（YAML frontmatter + 人可读 body）
+fn format_analysis_as_markdown(analysis: &ScreenshotAnalysis) -> String {
+    let analyzed_at = chrono::DateTime::from_timestamp(analysis.analyzed_at, 0)
+        .map(|dt| dt.to_rfc3339())
+        .unwrap_or_else(|| analysis.analyzed_at.to_string());
+
+    let tags_yaml = if analysis.context_tags.is_empty() {
+        "[]".to_string()
+    } else {
+        format!("[{}]", analysis.context_tags.iter()
+            .map(|t| format!("\"{}\"", t))
+            .collect::<Vec<_>>()
+            .join(", "))
+    };
+
+    let elements_yaml = if analysis.key_elements.is_empty() {
+        "[]".to_string()
+    } else {
+        format!("[{}]", analysis.key_elements.iter()
+            .map(|e| format!("\"{}\"", e))
+            .collect::<Vec<_>>()
+            .join(", "))
+    };
+
+    let accomplishments_yaml = if analysis.accomplishments.is_empty() {
+        "[]".to_string()
+    } else {
+        format!("[{}]", analysis.accomplishments.iter()
+            .map(|a| format!("\"{}\"", a))
+            .collect::<Vec<_>>()
+            .join(", "))
+    };
+
+    let project_line = match &analysis.project_name {
+        Some(name) => format!("project_name: \"{}\"", name),
+        None => "project_name: null".to_string(),
+    };
+
+    // YAML frontmatter
+    let mut md = format!(
+        "---\nrecording_id: \"{}\"\nanalyzed_at: \"{}\"\napplication: \"{}\"\nactivity_category: \"{}\"\nactivity_type: \"{}\"\nproductivity_score: {}\n{}\ncontext_tags: {}\nkey_elements: {}\naccomplishments: {}\n---\n\n",
+        analysis.screenshot_id,
+        analyzed_at,
+        analysis.application,
+        analysis.activity_category,
+        analysis.activity_type,
+        analysis.productivity_score,
+        project_line,
+        tags_yaml,
+        elements_yaml,
+        accomplishments_yaml,
+    );
+
+    // Markdown body
+    md.push_str(&format!("# 录制分析：{}\n\n", analysis.activity_description));
+    md.push_str(&format!("**应用**: {}  \n", analysis.application));
+    md.push_str(&format!("**分类**: {} | **生产力**: {}/10\n\n", analysis.activity_category, analysis.productivity_score));
+
+    if let Some(ref project) = analysis.project_name {
+        md.push_str(&format!("**项目**: {}\n\n", project));
+    }
+
+    // 活动摘要
+    if !analysis.activity_summary.is_empty() {
+        md.push_str("## 活动摘要\n\n");
+        md.push_str(&analysis.activity_summary);
+        md.push_str("\n\n");
+    }
+
+    // 关键元素
+    if !analysis.key_elements.is_empty() {
+        md.push_str("## 关键元素\n\n");
+        for elem in &analysis.key_elements {
+            md.push_str(&format!("- {}\n", elem));
+        }
+        md.push_str("\n");
+    }
+
+    // 完成事项
+    if !analysis.accomplishments.is_empty() {
+        md.push_str("## 完成事项\n\n");
+        for item in &analysis.accomplishments {
+            md.push_str(&format!("- {}\n", item));
+        }
+        md.push_str("\n");
+    }
+
+    // OCR 文本
+    if let Some(ref ocr) = analysis.ocr_text {
+        if !ocr.is_empty() {
+            md.push_str("## OCR 文本\n\n```\n");
+            md.push_str(ocr);
+            md.push_str("\n```\n");
+        }
+    }
+
+    md
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -346,5 +445,78 @@ mod tests {
         assert!(!prompt.is_empty());
         assert!(prompt.contains("application"));
         assert!(prompt.contains("activity_type"));
+    }
+
+    #[test]
+    fn test_format_analysis_as_markdown() {
+        let analysis = ScreenshotAnalysis {
+            screenshot_id: "test-001".to_string(),
+            application: "VS Code".to_string(),
+            activity_type: "work".to_string(),
+            activity_description: "编写 Rust 代码".to_string(),
+            key_elements: vec!["main.rs".to_string(), "pipeline.rs".to_string()],
+            ocr_text: Some("fn main() {}".to_string()),
+            context_tags: vec!["rust".to_string(), "coding".to_string()],
+            productivity_score: 8,
+            analysis_json: "{}".to_string(),
+            analyzed_at: 1709366400,
+            activity_category: "work".to_string(),
+            activity_summary: "在 VS Code 中编写内存管道模块".to_string(),
+            project_name: Some("Vision-Jarvis".to_string()),
+            accomplishments: vec!["完成 pipeline 调度器".to_string()],
+        };
+
+        let md = format_analysis_as_markdown(&analysis);
+
+        // 验证 YAML frontmatter
+        assert!(md.starts_with("---\n"));
+        assert!(md.contains("recording_id: \"test-001\""));
+        assert!(md.contains("application: \"VS Code\""));
+        assert!(md.contains("productivity_score: 8"));
+        assert!(md.contains("project_name: \"Vision-Jarvis\""));
+        assert!(md.contains("context_tags: [\"rust\", \"coding\"]"));
+
+        // 验证 body
+        assert!(md.contains("# 录制分析：编写 Rust 代码"));
+        assert!(md.contains("**应用**: VS Code"));
+        assert!(md.contains("## 活动摘要"));
+        assert!(md.contains("在 VS Code 中编写内存管道模块"));
+        assert!(md.contains("## 关键元素"));
+        assert!(md.contains("- main.rs"));
+        assert!(md.contains("## 完成事项"));
+        assert!(md.contains("- 完成 pipeline 调度器"));
+        assert!(md.contains("## OCR 文本"));
+        assert!(md.contains("fn main() {}"));
+    }
+
+    #[test]
+    fn test_format_analysis_as_markdown_minimal() {
+        let analysis = ScreenshotAnalysis {
+            screenshot_id: "test-002".to_string(),
+            application: "Chrome".to_string(),
+            activity_type: "entertainment".to_string(),
+            activity_description: "浏览网页".to_string(),
+            key_elements: vec![],
+            ocr_text: None,
+            context_tags: vec![],
+            productivity_score: 3,
+            analysis_json: "{}".to_string(),
+            analyzed_at: 1709366400,
+            activity_category: "entertainment".to_string(),
+            activity_summary: "".to_string(),
+            project_name: None,
+            accomplishments: vec![],
+        };
+
+        let md = format_analysis_as_markdown(&analysis);
+
+        assert!(md.contains("project_name: null"));
+        assert!(md.contains("context_tags: []"));
+        assert!(md.contains("key_elements: []"));
+        // 空 sections 不应出现
+        assert!(!md.contains("## 关键元素"));
+        assert!(!md.contains("## 完成事项"));
+        assert!(!md.contains("## OCR 文本"));
+        assert!(!md.contains("## 活动摘要"));
     }
 }

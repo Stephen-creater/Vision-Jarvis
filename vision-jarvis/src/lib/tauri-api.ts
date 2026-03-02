@@ -1,4 +1,5 @@
 import { invoke } from '@tauri-apps/api/core'
+import { emit } from '@tauri-apps/api/event'
 
 // ============================================================================
 // Types (match Rust structs)
@@ -156,12 +157,14 @@ export const TauriAPI = {
     const merged = { ...current, ...updates }
     await call<boolean>('update_settings', { settings: merged })
     settingsCache = merged
+    emit('settings:changed', merged).catch(() => {})
     return merged
   },
 
   async resetSettings(): Promise<AppSettings> {
     const settings = await call<AppSettings>('reset_settings')
     settingsCache = settings
+    emit('settings:changed', settings).catch(() => {})
     return settings
   },
 

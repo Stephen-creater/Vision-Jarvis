@@ -3,9 +3,11 @@
  *
  * 使用 Nanostores 管理应用设置状态
  * 支持跨组件共享、自动保存、错误处理
+ * 支持跨窗口同步（通过 Tauri 事件）
  */
 
 import { atom } from 'nanostores'
+import { listen } from '@tauri-apps/api/event'
 import type { AppSettings } from '../types/settings'
 import { TauriAPI } from '../lib/tauri-api'
 import { DEFAULT_SETTINGS } from '../types/settings'
@@ -170,4 +172,23 @@ export function getError(): string | null {
 
 export function isLoading(): boolean {
   return $settingsLoading.get()
+}
+
+// ============================================================================
+// 跨窗口同步
+// ============================================================================
+
+let syncInitialized = false
+
+export function initSettingsSync(): void {
+  if (syncInitialized) return
+  syncInitialized = true
+
+  listen<AppSettings>('settings:changed', (event) => {
+    const remoteSettings = event.payload
+    if (!remoteSettings) return
+    TauriAPI.invalidateCache()
+    $settings.set(remoteSettings)
+    $settingsInitialized.set(true)
+  }).catch(() => {})
 }

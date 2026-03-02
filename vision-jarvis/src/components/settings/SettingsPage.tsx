@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import {
   $settings, loadSettings, toggleAutoStart, updateLaunchText,
   toggleMorningReminder, toggleWaterReminder, toggleSedentaryReminder,
-  toggleScreenInactivityReminder, updateSettings,
+  toggleScreenInactivityReminder, updateSettings, initSettingsSync,
 } from '@/stores/settingsStore'
 import { TauriAPI } from '@/lib/tauri-api'
 import type { AIConfig, AIProviderConfig } from '@/lib/tauri-api'
@@ -77,6 +77,7 @@ export function SettingsPage() {
   const debounceRefs = useRef<Record<string, number>>({})
 
   useEffect(() => {
+    initSettingsSync()
     loadSettings()
     TauriAPI.getAIConfig().then(cfg => {
       setAiConfig(cfg)
