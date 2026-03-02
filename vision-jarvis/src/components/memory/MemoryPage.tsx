@@ -2,9 +2,18 @@ import { useStore } from '@nanostores/react'
 import { useEffect, useRef } from 'react'
 import { $settings, loadSettings, toggleMemory, updateCaptureInterval, initSettingsSync } from '@/stores/settingsStore'
 import { Toggle } from '@/components/ui/Toggle'
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { showNotification } from '@/lib/utils'
 
 export function MemoryPage() {
+  return (
+    <ErrorBoundary>
+      <MemoryPageContent />
+    </ErrorBoundary>
+  )
+}
+
+function MemoryPageContent() {
   const settings = useStore($settings)
   const timerRef = useRef<number | null>(null)
 

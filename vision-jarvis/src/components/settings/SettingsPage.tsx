@@ -9,6 +9,7 @@ import { TauriAPI } from '@/lib/tauri-api'
 import type { AIConfig, AIProviderConfig } from '@/lib/tauri-api'
 import { PROVIDER_REGISTRY } from '@/lib/provider-registry'
 import { Toggle } from '@/components/ui/Toggle'
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { showNotification } from '@/lib/utils'
 
 const INPUT = [
@@ -67,6 +68,14 @@ function ReminderCard({
 }
 
 export function SettingsPage() {
+  return (
+    <ErrorBoundary>
+      <SettingsPageContent />
+    </ErrorBoundary>
+  )
+}
+
+function SettingsPageContent() {
   const settings = useStore($settings)
   const [tab, setTab] = useState<'general' | 'ai'>('general')
   const [aiConfig, setAiConfig] = useState<AIConfig | null>(null)
@@ -466,7 +475,7 @@ function WaterIntervalSlider({ defaultValue }: { defaultValue: number }) {
   const [value, setValue] = useState(defaultValue)
   return (
     <MonoSlider label="提醒间隔" value={value} min={15} max={180} step={15} unit="分钟"
-      onChange={v => { setValue(v); updateSettings({ water_reminder_interval_minutes: v }).catch(() => {}) }} />
+      onChange={v => { setValue(v); updateSettings({ water_reminder_interval_minutes: v }).catch(err => showNotification('保存失败: ' + err, 'error')) }} />
   )
 }
 
@@ -474,7 +483,7 @@ function SedentarySlider({ defaultValue }: { defaultValue: number }) {
   const [value, setValue] = useState(defaultValue)
   return (
     <MonoSlider label="久坐阈值" value={value} min={15} max={180} step={15} unit="分钟"
-      onChange={v => { setValue(v); updateSettings({ sedentary_reminder_threshold_minutes: v }).catch(() => {}) }} />
+      onChange={v => { setValue(v); updateSettings({ sedentary_reminder_threshold_minutes: v }).catch(err => showNotification('保存失败: ' + err, 'error')) }} />
   )
 }
 
@@ -482,7 +491,7 @@ function ScreenInactivitySlider({ defaultValue }: { defaultValue: number }) {
   const [value, setValue] = useState(defaultValue)
   return (
     <MonoSlider label="无变化阈值" value={value} min={5} max={60} step={5} unit="分钟"
-      onChange={v => { setValue(v); updateSettings({ screen_inactivity_minutes: v }).catch(() => {}) }} />
+      onChange={v => { setValue(v); updateSettings({ screen_inactivity_minutes: v }).catch(err => showNotification('保存失败: ' + err, 'error')) }} />
   )
 }
 
@@ -508,7 +517,7 @@ function StorageLimitSlider({ defaultValue }: { defaultValue: number }) {
           onChange={e => {
             const v = parseInt(e.target.value)
             setValue(v)
-            updateSettings({ storage_limit_mb: v }).catch(() => {})
+            updateSettings({ storage_limit_mb: v }).catch(err => showNotification('保存失败: ' + err, 'error'))
           }}
           className="mono-slider"
         />

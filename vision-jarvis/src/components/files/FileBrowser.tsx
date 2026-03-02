@@ -2,8 +2,17 @@ import { useState, useEffect } from 'react'
 import { TauriAPI } from '@/lib/tauri-api'
 import type { StorageInfo, FileInfo } from '@/lib/tauri-api'
 import { formatBytes, formatDate, showNotification } from '@/lib/utils'
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 
 export function FileBrowser() {
+  return (
+    <ErrorBoundary>
+      <FileBrowserContent />
+    </ErrorBoundary>
+  )
+}
+
+function FileBrowserContent() {
   const [storageInfo, setStorageInfo] = useState<StorageInfo | null>(null)
   const [files, setFiles] = useState<FileInfo[]>([])
   const [currentFolder, setCurrentFolder] = useState<string | null>(null)
