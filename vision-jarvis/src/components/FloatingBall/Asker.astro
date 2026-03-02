@@ -15,7 +15,7 @@
       class="w-8 h-8 rounded-full hover:bg-secondary transition-colors flex items-center justify-center"
       style="-webkit-app-region: no-drag;"
     >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-secondary">
         <path d="M18 6 6 18M6 6l12 12"/>
       </svg>
     </button>
@@ -35,13 +35,13 @@
         type="text"
         id="asker-input"
         placeholder="输入问题..."
-        class="flex-1 h-10 px-4 bg-input rounded-full border border-secondary focus:border-glow outline-none text-sm text-primary placeholder:text-placeholder"
+        class="flex-1 h-10 px-4 bg-input rounded-full border border-primary focus:border-active outline-none text-sm text-primary placeholder:text-placeholder transition-all duration-200"
       />
       <button
         id="asker-send"
-        class="w-10 h-10 rounded-full gradient-primary flex items-center justify-center hover:opacity-90 transition-opacity"
+        class="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-white/80 transition-opacity"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
           <path d="m3 3 3 9-3 9 19-9Z"/>
           <path d="M6 12h16"/>
         </svg>

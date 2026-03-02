@@ -327,11 +327,21 @@ import Asker from '../components/FloatingBall/Asker.astro';
           const ball = memoryToggle.querySelector('div') as HTMLElement;
 
           if (enabled) {
-            memoryToggle.classList.remove('bg-secondary');
-            memoryToggle.classList.add('gradient-success', 'justify-end');
+            memoryToggle.classList.remove('toggle-track-off');
+            memoryToggle.classList.add('toggle-track-on', 'justify-end');
+            if (ball) {
+              ball.classList.remove('bg-[#555]');
+              ball.classList.add('bg-black');
+              ball.style.boxShadow = '0 1px 4px rgba(0,0,0,0.8)';
+            }
           } else {
-            memoryToggle.classList.remove('gradient-success', 'justify-end');
-            memoryToggle.classList.add('bg-secondary');
+            memoryToggle.classList.remove('toggle-track-on', 'justify-end');
+            memoryToggle.classList.add('toggle-track-off');
+            if (ball) {
+              ball.classList.remove('bg-black');
+              ball.classList.add('bg-[#555]');
+              ball.style.boxShadow = 'none';
+            }
           }
         }
 

@@ -49,54 +49,61 @@ export function FileBrowser() {
     ? Math.min((storageInfo.total_used_bytes / (10 * 1024 ** 3)) * 100, 100)
     : 0
 
-  const folderTabs = ['Screenshots', 'Recordings', 'LongTermMemory', 'Project', 'Habits', 'Logs']
+  const folderTabs = [
+    { key: 'Screenshots', label: '截图' },
+    { key: 'Recordings', label: '录制' },
+    { key: 'LongTermMemory', label: '长期记忆' },
+    { key: 'Project', label: '项目' },
+    { key: 'Habits', label: '习惯' },
+    { key: 'Logs', label: '日志' },
+  ]
 
   return (
     <div className="w-screen h-screen bg-page overflow-y-auto custom-scrollbar">
       <div className="max-w-[1200px] mx-auto p-10 space-y-8">
         <div className="flex items-center justify-between">
-          <h1 className="text-white text-[28px] font-bold">File Management</h1>
+          <h1 className="text-white text-[28px] font-bold">文件管理</h1>
           <button
             onClick={() => window.location.href = '/'}
-            className="px-6 py-2 bg-card border border-primary rounded-[12px] text-white font-medium hover:border-glow transition-colors cursor-pointer"
-          >Back</button>
+            className="px-6 py-2 bg-card border border-primary rounded-[12px] text-secondary font-medium hover:border-active hover:text-primary transition-colors cursor-pointer"
+          >返回</button>
         </div>
 
         {/* Storage Overview */}
         <div className="bg-card border border-primary rounded-[20px] p-7">
-          <h2 className="text-white text-lg font-bold mb-6">Storage Overview</h2>
+          <h2 className="text-primary text-lg font-bold mb-6">存储概览</h2>
           {loading ? (
-            <div className="text-muted text-center py-8">Loading storage information...</div>
+            <div className="text-muted text-center py-8">正在加载存储信息...</div>
           ) : storageInfo ? (
             <>
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-secondary text-sm">Total Usage</span>
-                  <span className="text-white font-mono">{formatBytes(storageInfo.total_used_bytes)}</span>
+                  <span className="text-secondary text-sm">总使用量</span>
+                  <span className="text-primary font-mono">{formatBytes(storageInfo.total_used_bytes)}</span>
                 </div>
-                <div className="h-3 bg-input rounded-full overflow-hidden">
-                  <div className="h-full gradient-primary rounded-full transition-all duration-500" style={{ width: `${usagePercent}%` }} />
+                <div className="h-[2px] bg-white/8 rounded-full overflow-hidden">
+                  <div className="h-full bg-white rounded-full transition-all duration-500" style={{ width: `${usagePercent}%` }} />
                 </div>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { label: 'Recordings', value: storageInfo.recordings_bytes, color: 'text-info' },
-                  { label: 'Long-term Memory', value: storageInfo.long_term_memory_bytes, color: 'text-success' },
-                  { label: 'Project', value: storageInfo.project_bytes, color: 'text-warning' },
-                  { label: 'Habits', value: storageInfo.habits_bytes, color: 'text-info' },
-                  { label: 'Screenshots', value: storageInfo.screenshots_bytes, color: 'text-muted' },
-                  { label: 'Database', value: storageInfo.database_bytes, color: 'text-warning' },
-                  { label: 'Logs', value: storageInfo.logs_bytes, color: 'text-muted' },
-                ].map(({ label, value, color }) => (
+                  { label: '录制', value: storageInfo.recordings_bytes },
+                  { label: '长期记忆', value: storageInfo.long_term_memory_bytes },
+                  { label: '项目', value: storageInfo.project_bytes },
+                  { label: '习惯', value: storageInfo.habits_bytes },
+                  { label: '截图', value: storageInfo.screenshots_bytes },
+                  { label: '数据库', value: storageInfo.database_bytes },
+                  { label: '日志', value: storageInfo.logs_bytes },
+                ].map(({ label, value }) => (
                   <div key={label} className="bg-input rounded-[12px] p-4 text-center">
-                    <div className="text-2xl mb-2">{label}</div>
-                    <div className={`${color} font-mono text-lg`}>{formatBytes(value)}</div>
+                    <div className="text-xs text-muted uppercase tracking-wider mb-2">{label}</div>
+                    <div className="text-secondary font-mono text-lg">{formatBytes(value)}</div>
                   </div>
                 ))}
               </div>
               <div className="mt-6 flex items-center justify-between text-sm">
-                <span className="text-muted">Total Files: <span className="text-white">{storageInfo.total_files}</span></span>
-                <span className="text-muted">Location: <span className="text-tertiary font-mono text-xs">{storageInfo.root_path}</span></span>
+                <span className="text-muted">文件总数: <span className="text-primary">{storageInfo.total_files}</span></span>
+                <span className="text-muted">路径: <span className="text-secondary font-mono text-xs">{storageInfo.root_path}</span></span>
               </div>
             </>
           ) : null}
@@ -105,16 +112,18 @@ export function FileBrowser() {
         {/* File Browser */}
         <div className="bg-card border border-primary rounded-[20px] p-7">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-white text-lg font-bold">File Browser</h2>
+            <h2 className="text-primary text-lg font-bold">文件浏览</h2>
             <div className="flex gap-2">
-              {folderTabs.map(folder => (
+              {folderTabs.map(({ key, label }) => (
                 <button
-                  key={folder}
-                  onClick={() => loadFiles(folder)}
+                  key={key}
+                  onClick={() => loadFiles(key)}
                   className={`px-4 py-2 rounded-[10px] text-sm font-medium transition-all ${
-                    currentFolder === folder ? 'gradient-primary text-white' : 'bg-input text-muted hover:text-white'
+                    currentFolder === key
+                      ? 'bg-white/90 text-black shadow-sm'
+                      : 'bg-input text-muted hover:text-primary'
                   }`}
-                >{folder}</button>
+                >{label}</button>
               ))}
             </div>
           </div>
@@ -122,7 +131,7 @@ export function FileBrowser() {
           <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar">
             {files.length === 0 ? (
               <div className="text-muted text-center py-8">
-                {currentFolder ? 'No files found' : 'Select a folder to view files'}
+                {currentFolder ? '暂无文件' : '选择一个文件夹查看文件'}
               </div>
             ) : files.map(file => (
               <div key={file.path} className="flex items-center justify-between p-3 bg-input rounded-[10px] hover:bg-secondary transition-colors">
@@ -139,13 +148,13 @@ export function FileBrowser() {
             <button
               onClick={handleOpenFolder}
               disabled={!currentFolder}
-              className="px-6 py-3 bg-input rounded-[12px] text-white font-medium hover:bg-secondary transition-colors cursor-pointer flex items-center gap-2 disabled:opacity-50"
-            >Open in Finder</button>
+              className="px-6 py-3 bg-input rounded-[12px] text-secondary font-medium hover:bg-secondary hover:text-primary transition-colors cursor-pointer flex items-center gap-2 disabled:opacity-50"
+            >在 Finder 中打开</button>
             <button
               onClick={() => setShowModal(true)}
               disabled={!currentFolder}
-              className="px-6 py-3 bg-input rounded-[12px] text-warning font-medium hover:bg-secondary transition-colors cursor-pointer flex items-center gap-2 disabled:opacity-50"
-            >Cleanup Old Files (30+ days)</button>
+              className="px-6 py-3 bg-transparent border border-primary rounded-[12px] text-secondary font-medium hover:border-active hover:text-primary transition-colors cursor-pointer flex items-center gap-2 disabled:opacity-50"
+            >清理旧文件 (30天+)</button>
           </div>
         </div>
       </div>
@@ -154,11 +163,11 @@ export function FileBrowser() {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-card border border-primary rounded-[20px] p-8 max-w-md mx-4">
-            <h3 className="text-white text-xl font-bold mb-4">Confirm Cleanup</h3>
-            <p className="text-secondary mb-6">This will permanently delete all files older than 30 days. This action cannot be undone.</p>
+            <h3 className="text-primary text-xl font-bold mb-4">确认清理</h3>
+            <p className="text-secondary mb-6">这将永久删除所有 30 天前的文件。此操作无法撤销。</p>
             <div className="flex gap-4 justify-end">
-              <button onClick={() => setShowModal(false)} className="px-6 py-3 bg-input rounded-[12px] text-white font-medium hover:bg-secondary transition-colors cursor-pointer">Cancel</button>
-              <button onClick={handleCleanup} className="px-6 py-3 bg-red-600 rounded-[12px] text-white font-medium hover:bg-red-700 transition-colors cursor-pointer">Delete Files</button>
+              <button onClick={() => setShowModal(false)} className="px-6 py-3 bg-input rounded-[12px] text-secondary font-medium hover:bg-secondary hover:text-primary transition-colors cursor-pointer">取消</button>
+              <button onClick={handleCleanup} className="px-6 py-3 bg-white rounded-[12px] text-black font-medium hover:bg-white/80 transition-colors cursor-pointer">确认删除</button>
             </div>
           </div>
         </div>
