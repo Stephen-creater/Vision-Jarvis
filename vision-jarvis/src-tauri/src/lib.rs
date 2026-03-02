@@ -220,6 +220,8 @@ pub fn run() {
             commands::memory::get_recording_stats,
             commands::memory::search_memories,
             commands::memory::trigger_daily_summary,
+            commands::memory::list_analysis_files,
+            commands::memory::get_recording_analysis,
             // 通知相关
             commands::notification::get_pending_notifications,
             commands::notification::dismiss_notification,

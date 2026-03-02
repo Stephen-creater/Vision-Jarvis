@@ -23,12 +23,14 @@ pub struct ActivityInfo {
     pub tags: Vec<String>,
     pub summary: Option<String>,
     pub project_id: Option<String>,
+    pub markdown_path: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ActivityDetail {
     pub activity: ActivityInfo,
     pub screenshot_analyses: Vec<ScreenshotAnalysisInfo>,
+    pub markdown_content: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -110,7 +112,7 @@ pub async fn get_activities(
     let result = state.db.with_connection(|conn| {
         let mut stmt = conn.prepare(
             "SELECT id, title, start_time, end_time, duration_minutes,
-                    application, category, tags, summary, project_id
+                    application, category, tags, summary, project_id, markdown_path
              FROM activities
              WHERE start_time >= ?1 AND start_time <= ?2
              ORDER BY start_time ASC"
@@ -131,6 +133,7 @@ pub async fn get_activities(
                     tags: serde_json::from_str(&tags_json).unwrap_or_default(),
                     summary: row.get(8)?,
                     project_id: row.get(9)?,
+                    markdown_path: row.get(10)?,
                 })
             },
         )?.collect::<rusqlite::Result<Vec<_>>>()?;
@@ -141,23 +144,25 @@ pub async fn get_activities(
     Ok(result.into())
 }
 
-/// 活动详情（含关联的 screenshot_analyses）
+/// 活动详情（含关联的 screenshot_analyses + markdown 内容）
 #[tauri::command]
 pub async fn get_activity_detail(
     state: State<'_, AppState>,
     id: String,
 ) -> Result<ApiResponse<ActivityDetail>, String> {
+    let storage_path = state.settings.get_storage_path();
     let result = state.db.with_connection(|conn| {
         // 查活动
         let mut stmt = conn.prepare(
             "SELECT id, title, start_time, end_time, duration_minutes,
-                    application, category, tags, summary, project_id
+                    application, category, tags, summary, project_id, markdown_path
              FROM activities WHERE id = ?1"
         )?;
 
-        let activity = stmt.query_row([&id], |row| {
+        let (activity, md_path) = stmt.query_row([&id], |row| {
             let tags_json: String = row.get(7)?;
-            Ok(ActivityInfo {
+            let md_path: Option<String> = row.get(10)?;
+            Ok((ActivityInfo {
                 id: row.get(0)?,
                 title: row.get(1)?,
                 start_time: row.get(2)?,
@@ -168,7 +173,8 @@ pub async fn get_activity_detail(
                 tags: serde_json::from_str(&tags_json).unwrap_or_default(),
                 summary: row.get(8)?,
                 project_id: row.get(9)?,
-            })
+                markdown_path: md_path.clone(),
+            }, md_path))
         })?;
 
         // 查关联的 screenshot_ids (JSON array)
@@ -211,9 +217,16 @@ pub async fn get_activity_detail(
             result
         };
 
+        // 读取 markdown 文件内容
+        let markdown_content = md_path.and_then(|p| {
+            let full_path = storage_path.join(&p);
+            std::fs::read_to_string(&full_path).ok()
+        });
+
         Ok(ActivityDetail {
             activity,
             screenshot_analyses: analyses,
+            markdown_content,
         })
     });
 
@@ -437,4 +450,92 @@ pub async fn trigger_daily_summary(
         }
         Err(e) => Ok(ApiResponse::error(format!("生成日总结失败: {}", e))),
     }
+}
+
+/// 录制分析文件信息
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AnalysisFileInfo {
+    pub recording_id: String,
+    pub file_path: String,
+    pub analyzed_at: i64,
+    pub application: String,
+    pub activity_description: String,
+}
+
+/// 按日期列出所有录制分析（从 DB 查询，返回可用于前端展示的摘要列表）
+#[tauri::command]
+pub async fn list_analysis_files(
+    state: State<'_, AppState>,
+    date: String,
+) -> Result<ApiResponse<Vec<AnalysisFileInfo>>, String> {
+    let parsed = match NaiveDate::parse_from_str(&date, "%Y-%m-%d") {
+        Ok(d) => d,
+        Err(e) => return Ok(ApiResponse::error(format!("日期格式错误: {}", e))),
+    };
+
+    let start_ts = parsed.and_hms_opt(0, 0, 0).unwrap().and_utc().timestamp();
+    let end_ts = parsed.and_hms_opt(23, 59, 59).unwrap().and_utc().timestamp();
+
+    let result = state.db.with_connection(|conn| {
+        let mut stmt = conn.prepare(
+            "SELECT sa.screenshot_id, r.path, sa.analyzed_at, sa.application, sa.activity_description
+             FROM screenshot_analyses sa
+             JOIN recordings r ON r.id = sa.screenshot_id
+             WHERE sa.analyzed_at >= ?1 AND sa.analyzed_at <= ?2
+             ORDER BY sa.analyzed_at ASC"
+        )?;
+
+        let rows = stmt.query_map(
+            rusqlite::params![start_ts, end_ts],
+            |row| {
+                Ok(AnalysisFileInfo {
+                    recording_id: row.get(0)?,
+                    file_path: row.get(1)?,
+                    analyzed_at: row.get(2)?,
+                    application: row.get(3)?,
+                    activity_description: row.get(4)?,
+                })
+            },
+        )?.collect::<rusqlite::Result<Vec<_>>>()?;
+
+        Ok(rows)
+    });
+
+    Ok(result.into())
+}
+
+/// 读取单条录制分析的 Markdown 内容
+#[tauri::command]
+pub async fn get_recording_analysis(
+    state: State<'_, AppState>,
+    recording_id: String,
+) -> Result<ApiResponse<String>, String> {
+    // 从 DB 获取录制文件路径
+    let result = state.db.with_connection(|conn| {
+        let path: String = conn.prepare(
+            "SELECT path FROM recordings WHERE id = ?1"
+        )?.query_row([&recording_id], |row| row.get(0))?;
+
+        // .mp4 → .md
+        let md_path = std::path::Path::new(&path).with_extension("md");
+
+        // 尝试读取 MD 文件
+        if md_path.exists() {
+            let content = std::fs::read_to_string(&md_path)
+                .map_err(|e| anyhow::anyhow!("读取分析MD失败: {}", e))?;
+            Ok(content)
+        } else {
+            // 回退到 .json（兼容旧数据）
+            let json_path = std::path::Path::new(&path).with_extension("json");
+            if json_path.exists() {
+                let content = std::fs::read_to_string(&json_path)
+                    .map_err(|e| anyhow::anyhow!("读取分析JSON失败: {}", e))?;
+                Ok(content)
+            } else {
+                Err(anyhow::anyhow!("录制 {} 没有对应的分析文件", recording_id))
+            }
+        }
+    });
+
+    Ok(result.into())
 }
