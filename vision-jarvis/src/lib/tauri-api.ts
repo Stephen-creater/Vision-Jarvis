@@ -121,6 +121,87 @@ interface ApiResponse<T> {
   error: string | null
 }
 
+// Memory types
+export interface ActivityInfo {
+  id: string
+  title: string
+  start_time: number
+  end_time: number
+  duration_minutes: number
+  application: string
+  category: string
+  tags: string[]
+  summary: string | null
+  project_id: string | null
+  markdown_path: string | null
+}
+
+export interface ScreenshotAnalysisInfo {
+  screenshot_id: string
+  application: string
+  activity_type: string
+  activity_description: string
+  analyzed_at: number
+}
+
+export interface ActivityDetail {
+  activity: ActivityInfo
+  screenshot_analyses: ScreenshotAnalysisInfo[]
+  markdown_content: string | null
+}
+
+export interface ProjectInfo {
+  id: string
+  title: string
+  description: string | null
+  start_date: number
+  last_activity_date: number
+  activity_count: number
+  status: string
+}
+
+export interface HabitInfo {
+  id: string
+  pattern_name: string
+  pattern_type: string
+  confidence: number
+  frequency: string
+  occurrence_count: number
+  typical_time: string | null
+}
+
+export interface SummaryInfo {
+  id: string
+  summary_type: string
+  date_start: string
+  date_end: string
+  content: string
+  activity_count: number
+}
+
+export interface RecordingStatsInfo {
+  total_recordings: number
+  analyzed_recordings: number
+  total_activities: number
+  total_projects: number
+  total_habits: number
+}
+
+export interface MemoryChunkInfo {
+  id: string
+  file_path: string
+  text: string
+  activity_id: string | null
+}
+
+export interface AnalysisFileInfo {
+  recording_id: string
+  file_path: string
+  analyzed_at: number
+  application: string
+  activity_description: string
+}
+
 // ============================================================================
 // API helpers
 // ============================================================================
@@ -283,5 +364,48 @@ export const TauriAPI = {
 
   async getSuggestionHistory(limit?: number): Promise<unknown[]> {
     return call<unknown[]>('get_suggestion_history', { limit })
+  },
+
+  // Memory
+  async getActivities(date: string): Promise<ActivityInfo[]> {
+    return call<ActivityInfo[]>('get_activities', { date })
+  },
+
+  async getActivityDetail(id: string): Promise<ActivityDetail> {
+    return call<ActivityDetail>('get_activity_detail', { id })
+  },
+
+  async getProjects(): Promise<ProjectInfo[]> {
+    return call<ProjectInfo[]>('get_projects')
+  },
+
+  async getHabits(): Promise<HabitInfo[]> {
+    return call<HabitInfo[]>('get_habits')
+  },
+
+  async getSummary(date: string): Promise<SummaryInfo | null> {
+    const response = await invoke<ApiResponse<SummaryInfo | null>>('get_summary', { date })
+    if (!response.success) throw new Error(response.error || 'get_summary failed')
+    return response.data
+  },
+
+  async getRecordingStats(): Promise<RecordingStatsInfo> {
+    return call<RecordingStatsInfo>('get_recording_stats')
+  },
+
+  async searchMemories(query: string, limit?: number): Promise<MemoryChunkInfo[]> {
+    return call<MemoryChunkInfo[]>('search_memories', { query, limit })
+  },
+
+  async triggerDailySummary(date?: string): Promise<SummaryInfo> {
+    return call<SummaryInfo>('trigger_daily_summary', { date })
+  },
+
+  async listAnalysisFiles(date: string): Promise<AnalysisFileInfo[]> {
+    return call<AnalysisFileInfo[]>('list_analysis_files', { date })
+  },
+
+  async getRecordingAnalysis(recordingId: string): Promise<string> {
+    return call<string>('get_recording_analysis', { recordingId })
   },
 }
