@@ -20,19 +20,81 @@ pub fn send_system_notification(
     Ok(())
 }
 
-/// 通过 Tauri 事件发送到前端
+/// 通过 Tauri 事件发送到前端，并确保通知窗口可见
 pub fn emit_notification_event(
     app: &tauri::AppHandle,
     notification: &Notification,
 ) -> anyhow::Result<()> {
     use tauri::Emitter;
 
+    // 1. 确保通知窗口存在并显示
+    ensure_notification_window(app);
+
+    // 2. 发送事件到前端
     app.emit("notification:new", serde_json::json!({
         "id": notification.id,
         "title": notification.title,
         "message": notification.message,
         "type": format!("{:?}", notification.notification_type),
+        "priority": notification.priority.clone() as i32,
     }))?;
 
     Ok(())
+}
+
+/// 确保通知窗口存在并可见
+fn ensure_notification_window(app: &tauri::AppHandle) {
+    use tauri::Manager;
+
+    match app.get_webview_window("notification") {
+        Some(window) => {
+            let _ = window.show();
+        }
+        None => {
+            // 计算屏幕右上角位置
+            let (x, y) = calc_notification_position(app);
+
+            let _ = tauri::WebviewWindowBuilder::new(
+                app,
+                "notification",
+                tauri::WebviewUrl::App("/notification".into()),
+            )
+            .title("Notifications")
+            .inner_size(360.0, 400.0)
+            .position(x, y)
+            .resizable(false)
+            .decorations(false)
+            .transparent(true)
+            .always_on_top(true)
+            .skip_taskbar(true)
+            .build();
+        }
+    }
+}
+
+/// 计算通知窗口位置（屏幕右上角）
+fn calc_notification_position(app: &tauri::AppHandle) -> (f64, f64) {
+    use tauri::Manager;
+
+    let monitor = app
+        .get_webview_window("floating-ball")
+        .and_then(|w| w.primary_monitor().ok().flatten());
+
+    match monitor {
+        Some(m) => {
+            let physical_size = m.size();
+            let scale_factor = m.scale_factor();
+            let screen_width = physical_size.width as f64 / scale_factor;
+
+            let window_width = 360.0;
+            let margin_right = 20.0;
+            let margin_top = 60.0;
+
+            (
+                (screen_width - window_width - margin_right).max(0.0),
+                margin_top,
+            )
+        }
+        None => (100.0, 60.0),
+    }
 }
