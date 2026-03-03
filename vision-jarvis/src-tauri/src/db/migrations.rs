@@ -806,7 +806,7 @@ mod tests {
 
         // 验证版本号
         let version = get_schema_version(&conn).unwrap();
-        assert_eq!(version, 7);
+        assert_eq!(version, 8);
     }
 
     #[test]
@@ -871,7 +871,7 @@ mod tests {
         assert!(run_migrations(&conn).is_ok());
 
         let version = get_schema_version(&conn).unwrap();
-        assert_eq!(version, 7);
+        assert_eq!(version, 8);
     }
 
     #[test]
