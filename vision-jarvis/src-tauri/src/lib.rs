@@ -256,6 +256,8 @@ pub fn run() {
             commands::window::expand_to_header,
             commands::window::expand_to_asker,
             commands::window::collapse_to_ball,
+            commands::window::show_notification_window,
+            commands::window::hide_notification_window,
         ])
         .build(tauri::generate_context!())
         .expect("error while building tauri application")

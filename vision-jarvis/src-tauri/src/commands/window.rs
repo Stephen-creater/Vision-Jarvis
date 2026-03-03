@@ -210,6 +210,77 @@ pub async fn collapse_to_ball(app: AppHandle) -> ApiResponse<String> {
     }
 }
 
+/// 显示通知弹窗窗口（单例模式）
+#[tauri::command]
+pub async fn show_notification_window(app: AppHandle) -> ApiResponse<String> {
+    match app.get_webview_window("notification") {
+        Some(window) => {
+            // 窗口已存在，确保可见并置顶
+            let _ = window.show();
+            let _ = window.set_focus();
+            ApiResponse::success("Notification window shown".to_string())
+        }
+        None => {
+            // 获取主显示器信息计算位置
+            let (x, y) = {
+                // 临时借用 floating-ball 窗口获取显示器信息
+                let monitor = app.get_webview_window("floating-ball")
+                    .and_then(|w| w.primary_monitor().ok().flatten());
+
+                match monitor {
+                    Some(m) => {
+                        let physical_size = m.size();
+                        let scale_factor = m.scale_factor();
+                        let screen_width = physical_size.width as f64 / scale_factor;
+
+                        let window_width = 360.0;
+                        let margin_right = 20.0;
+                        let margin_top = 60.0;
+
+                        (
+                            (screen_width - window_width - margin_right).max(0.0),
+                            margin_top,
+                        )
+                    }
+                    None => (100.0, 60.0),
+                }
+            };
+
+            // 创建通知窗口
+            match WebviewWindowBuilder::new(
+                &app,
+                "notification",
+                tauri::WebviewUrl::App("/notification".into()),
+            )
+            .title("Notifications")
+            .inner_size(360.0, 400.0)
+            .position(x, y)
+            .resizable(false)
+            .decorations(false)
+            .transparent(true)
+            .always_on_top(true)
+            .skip_taskbar(true)
+            .build()
+            {
+                Ok(_) => ApiResponse::success("Notification window created".to_string()),
+                Err(e) => ApiResponse::error(format!("Failed to create notification window: {}", e)),
+            }
+        }
+    }
+}
+
+/// 隐藏通知弹窗窗口
+#[tauri::command]
+pub async fn hide_notification_window(app: AppHandle) -> ApiResponse<String> {
+    match app.get_webview_window("notification") {
+        Some(window) => {
+            let _ = window.hide();
+            ApiResponse::success("Notification window hidden".to_string())
+        }
+        None => ApiResponse::success("No notification window to hide".to_string()),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     #[test]
