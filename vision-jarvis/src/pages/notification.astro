@@ -9,10 +9,6 @@ import TransparentLayout from '../layouts/TransparentLayout.astro';
     import { listen } from '@tauri-apps/api/event';
     import { invoke } from '@tauri-apps/api/core';
 
-    // ========================================
-    // 类型定义
-    // ========================================
-
     interface NotificationPayload {
       id: string;
       title: string;
@@ -21,38 +17,24 @@ import TransparentLayout from '../layouts/TransparentLayout.astro';
       priority: number;
     }
 
-    interface NotificationItem extends NotificationPayload {
-      timer: number | null;
-      element: HTMLElement;
-    }
+    let destroyTimer: number | null = null;
 
-    // ========================================
-    // 通知队列管理
-    // ========================================
-
-    const MAX_VISIBLE = 3;
-    const AUTO_DISMISS_MS = 5000;
-    const activeNotifications: Map<string, NotificationItem> = new Map();
-    const pendingQueue: NotificationPayload[] = [];
-
-    // 通知类型 → 左侧色条颜色
     function getTypeColor(type: string): string {
       const colors: Record<string, string> = {
-        HabitReminder: '#60a5fa',           // 蓝色
-        ContextSwitchWarning: '#f59e0b',    // 橙色
-        SmartBreakReminder: '#34d399',      // 绿色
-        ProjectProgressReminder: '#a78bfa', // 紫色
-        MorningReminder: '#fbbf24',         // 金色
-        WaterReminder: '#38bdf8',           // 浅蓝
-        SedentaryReminder: '#fb923c',       // 橙红
-        ScreenInactivityReminder: '#94a3b8',// 灰色
-        ReturnReminder: '#4ade80',          // 翠绿
-        Custom: '#e2e8f0',                  // 浅灰
+        HabitReminder: '#60a5fa',
+        ContextSwitchWarning: '#f59e0b',
+        SmartBreakReminder: '#34d399',
+        ProjectProgressReminder: '#a78bfa',
+        MorningReminder: '#fbbf24',
+        WaterReminder: '#38bdf8',
+        SedentaryReminder: '#fb923c',
+        ScreenInactivityReminder: '#94a3b8',
+        ReturnReminder: '#4ade80',
+        Custom: '#e2e8f0',
       };
       return colors[type] || '#e2e8f0';
     }
 
-    // 通知类型 → 图标
     function getTypeIcon(type: string): string {
       const icons: Record<string, string> = {
         HabitReminder: '🔁',
@@ -69,144 +51,47 @@ import TransparentLayout from '../layouts/TransparentLayout.astro';
       return icons[type] || '🔔';
     }
 
-    // ========================================
-    // 通知卡片创建
-    // ========================================
+    function destroyWindow() {
+      if (destroyTimer) {
+        clearTimeout(destroyTimer);
+        destroyTimer = null;
+      }
+      invoke('destroy_notification_window').catch(console.error);
+    }
 
-    function createNotificationCard(payload: NotificationPayload): HTMLElement {
-      const card = document.createElement('div');
-      card.className = 'notification-card';
-      card.dataset.id = payload.id;
+    function showNotification(payload: NotificationPayload) {
+      const container = document.getElementById('notification-container');
+      if (!container) return;
 
       const color = getTypeColor(payload.type);
       const icon = getTypeIcon(payload.type);
 
-      card.innerHTML = `
-        <div class="card-accent" style="background: ${color}"></div>
-        <div class="card-body">
-          <div class="card-header">
-            <span class="card-icon">${icon}</span>
-            <span class="card-title">${payload.title}</span>
-            <button class="card-close" aria-label="关闭">×</button>
+      container.innerHTML = `
+        <div class="notification-card">
+          <div class="card-accent" style="background: ${color}"></div>
+          <div class="card-body">
+            <div class="card-header">
+              <span class="card-icon">${icon}</span>
+              <span class="card-title">${payload.title}</span>
+            </div>
+            <div class="card-message">${payload.message}</div>
+            <button class="ok-button">好的</button>
           </div>
-          <div class="card-message">${payload.message}</div>
         </div>
       `;
 
-      // 进入动画：初始状态
-      card.style.opacity = '0';
-      card.style.transform = 'translateX(20px)';
+      // 10秒后自动销毁
+      destroyTimer = window.setTimeout(destroyWindow, 10000);
 
-      return card;
+      // 点击"好的"按钮销毁
+      container.querySelector('.ok-button')?.addEventListener('click', destroyWindow);
     }
-
-    // ========================================
-    // 通知生命周期管理
-    // ========================================
-
-    function showNotification(payload: NotificationPayload) {
-      if (activeNotifications.size >= MAX_VISIBLE) {
-        pendingQueue.push(payload);
-        return;
-      }
-
-      const container = document.getElementById('notification-container');
-      if (!container) return;
-
-      const card = createNotificationCard(payload);
-      container.appendChild(card);
-
-      // 触发进入动画
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          card.style.transition = 'opacity 300ms ease, transform 300ms ease';
-          card.style.opacity = '1';
-          card.style.transform = 'translateX(0)';
-        });
-      });
-
-      // 自动消失计时器
-      const timer = window.setTimeout(() => {
-        dismissNotification(payload.id);
-      }, AUTO_DISMISS_MS);
-
-      const item: NotificationItem = { ...payload, timer, element: card };
-      activeNotifications.set(payload.id, item);
-
-      // 悬停暂停计时
-      card.addEventListener('mouseenter', () => {
-        const n = activeNotifications.get(payload.id);
-        if (n?.timer) {
-          clearTimeout(n.timer);
-          n.timer = null;
-        }
-      });
-
-      // 离开恢复计时
-      card.addEventListener('mouseleave', () => {
-        const n = activeNotifications.get(payload.id);
-        if (n && !n.timer) {
-          n.timer = window.setTimeout(() => {
-            dismissNotification(payload.id);
-          }, AUTO_DISMISS_MS);
-        }
-      });
-
-      // 点击关闭按钮
-      const closeBtn = card.querySelector('.card-close');
-      closeBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dismissNotification(payload.id);
-      });
-
-      // 点击卡片本体也关闭
-      card.addEventListener('click', () => {
-        dismissNotification(payload.id);
-      });
-    }
-
-    function dismissNotification(id: string) {
-      const item = activeNotifications.get(id);
-      if (!item) return;
-
-      // 清除计时器
-      if (item.timer) {
-        clearTimeout(item.timer);
-      }
-
-      // 退出动画
-      item.element.style.transition = 'opacity 200ms ease, transform 200ms ease';
-      item.element.style.opacity = '0';
-      item.element.style.transform = 'translateX(20px)';
-
-      setTimeout(() => {
-        item.element.remove();
-        activeNotifications.delete(id);
-
-        // 如果有排队的通知，显示下一条
-        if (pendingQueue.length > 0) {
-          const next = pendingQueue.shift()!;
-          showNotification(next);
-        }
-
-        // 队列全部清空，隐藏窗口
-        if (activeNotifications.size === 0 && pendingQueue.length === 0) {
-          invoke('hide_notification_window').catch(() => {});
-        }
-      }, 200);
-    }
-
-    // ========================================
-    // 事件监听
-    // ========================================
 
     window.addEventListener('DOMContentLoaded', () => {
       listen<NotificationPayload>('notification:new', (event) => {
         showNotification(event.payload);
       });
     });
-
-    // 立即执行，确保页面已加载
   </script>
 
   <style is:global>
@@ -298,6 +183,24 @@ import TransparentLayout from '../layouts/TransparentLayout.astro';
       line-height: 1.5;
       color: rgba(255, 255, 255, 0.7);
       word-break: break-word;
+      margin-bottom: 12px;
+    }
+
+    .ok-button {
+      width: 100%;
+      padding: 8px;
+      background: rgba(96, 165, 250, 0.2);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      border-radius: 6px;
+      color: #60a5fa;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 150ms ease;
+    }
+
+    .ok-button:hover {
+      background: rgba(96, 165, 250, 0.3);
+      border-color: rgba(96, 165, 250, 0.5);
     }
   </style>
 </TransparentLayout>

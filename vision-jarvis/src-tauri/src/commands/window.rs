@@ -274,10 +274,29 @@ pub async fn show_notification_window(app: AppHandle) -> ApiResponse<String> {
 pub async fn hide_notification_window(app: AppHandle) -> ApiResponse<String> {
     match app.get_webview_window("notification") {
         Some(window) => {
+            log::info!("隐藏通知窗口，启用鼠标穿透");
+            let _ = window.set_ignore_cursor_events(true);
             let _ = window.hide();
+            log::info!("通知窗口已隐藏");
             ApiResponse::success("Notification window hidden".to_string())
         }
         None => ApiResponse::success("No notification window to hide".to_string()),
+    }
+}
+
+/// 销毁通知窗口
+#[tauri::command]
+pub async fn destroy_notification_window(app: AppHandle) -> ApiResponse<String> {
+    match app.get_webview_window("notification") {
+        Some(window) => {
+            log::info!("销毁通知窗口");
+            if let Err(e) = window.close() {
+                return ApiResponse::error(format!("Failed to destroy window: {}", e));
+            }
+            log::info!("通知窗口已销毁");
+            ApiResponse::success("Notification window destroyed".to_string())
+        }
+        None => ApiResponse::success("No notification window to destroy".to_string()),
     }
 }
 

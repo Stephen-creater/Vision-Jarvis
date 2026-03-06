@@ -27,6 +27,8 @@ pub fn emit_notification_event(
 ) -> anyhow::Result<()> {
     use tauri::Emitter;
 
+    log::info!("发送通知事件: {} - {}", notification.title, notification.message);
+
     // 1. 确保通知窗口存在并显示
     ensure_notification_window(app);
 
@@ -39,6 +41,8 @@ pub fn emit_notification_event(
         "priority": notification.priority.clone() as i32,
     }))?;
 
+    log::info!("通知事件已发送");
+
     Ok(())
 }
 
@@ -48,13 +52,16 @@ fn ensure_notification_window(app: &tauri::AppHandle) {
 
     match app.get_webview_window("notification") {
         Some(window) => {
+            log::info!("通知窗口已存在，显示窗口");
             let _ = window.show();
+            let _ = window.set_focus();
         }
         None => {
             // 计算屏幕右上角位置
             let (x, y) = calc_notification_position(app);
+            log::info!("创建通知窗口，位置: x={}, y={}", x, y);
 
-            let _ = tauri::WebviewWindowBuilder::new(
+            if let Ok(window) = tauri::WebviewWindowBuilder::new(
                 app,
                 "notification",
                 tauri::WebviewUrl::App("/notification".into()),
@@ -67,7 +74,15 @@ fn ensure_notification_window(app: &tauri::AppHandle) {
             .transparent(true)
             .always_on_top(true)
             .skip_taskbar(true)
-            .build();
+            .visible(false)
+            .build() {
+                log::info!("通知窗口创建成功，设置鼠标穿透并显示");
+                let _ = window.set_ignore_cursor_events(false);
+                let _ = window.show();
+                let _ = window.set_focus();
+            } else {
+                log::error!("通知窗口创建失败");
+            }
         }
     }
 }

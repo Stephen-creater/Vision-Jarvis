@@ -171,3 +171,37 @@ pub async fn get_suggestion_history(
 
     Ok(result.into())
 }
+
+/// 测试命令：发送系统通知
+#[tauri::command]
+pub fn test_system_notification(app: tauri::AppHandle) -> Result<ApiResponse<bool>, String> {
+    use crate::notification::{Notification, NotificationType, NotificationPriority};
+
+    let notif = Notification::new(
+        NotificationType::Custom,
+        NotificationPriority::Normal,
+        "测试通知".to_string(),
+        "这是一条 macOS 系统通知".to_string(),
+    );
+
+    crate::notification::delivery::send_system_notification(&app, &notif)
+        .map(|_| ApiResponse::success(true))
+        .map_err(|e| e.to_string())
+}
+
+/// 测试命令：发送自定义通知窗口
+#[tauri::command]
+pub fn test_custom_notification(app: tauri::AppHandle) -> Result<ApiResponse<bool>, String> {
+    use crate::notification::{Notification, NotificationType, NotificationPriority};
+
+    let notif = Notification::new(
+        NotificationType::Custom,
+        NotificationPriority::High,
+        "自定义通知".to_string(),
+        "这是一条自定义通知窗口消息".to_string(),
+    );
+
+    crate::notification::delivery::emit_notification_event(&app, &notif)
+        .map(|_| ApiResponse::success(true))
+        .map_err(|e| e.to_string())
+}
