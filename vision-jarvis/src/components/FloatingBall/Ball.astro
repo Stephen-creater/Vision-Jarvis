@@ -5,7 +5,7 @@
 
 <div
   id="floating-ball"
-  class="rounded-full gradient-primary flex items-center justify-center cursor-pointer pulse-glow"
+  class="rounded-full gradient-primary flex items-center justify-center cursor-pointer animate-pulse-soft"
   style="width: 64px; height: 64px;"
 >
   <svg
@@ -19,6 +19,7 @@
     stroke-linecap="round"
     stroke-linejoin="round"
     class="lucide lucide-brain"
+    style="filter: drop-shadow(0 0 2px rgba(255,255,255,0.3));"
   >
     <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
     <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
@@ -34,22 +35,16 @@
 
 <style>
   #floating-ball {
-    /* 移除拖拽功能 - 现在从 Header 拖拽 */
-    /* -webkit-app-region: drag; */
-
-    /* 添加过渡效果 */
-    transition: filter 200ms ease, transform 150ms ease;
-
-    /* 移除 focus outline，避免显示边框 */
+    transition: filter var(--duration-normal) var(--ease-out),
+                transform var(--duration-fast) var(--ease-spring);
     outline: none;
   }
 
-  /* Hover: 亮度增加 */
   #floating-ball:hover {
     filter: brightness(1.2);
+    transform: scale(1.05);
   }
 
-  /* Click/Active: 缩放效果 */
   #floating-ball:active {
     transform: scale(0.95);
   }
