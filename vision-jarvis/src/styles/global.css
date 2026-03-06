@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "./design-tokens.css";
+@import "./animations.css";
 
 @layer base {
   * {
@@ -7,8 +9,8 @@
 
   body {
     @apply m-0 p-0 font-['Inter',_sans-serif] antialiased;
-    background-color: #080808;
-    color: rgba(255, 255, 255, 0.88);
+    background-color: var(--color-bg-app);
+    color: var(--color-text-primary);
   }
 
   #app {
@@ -18,32 +20,32 @@
 
 @layer utilities {
   /* ── Backgrounds ── */
-  .bg-app       { background-color: #080808; }
-  .bg-page      { background-color: #0c0c0c; }
-  .bg-card      { background-color: rgba(255, 255, 255, 0.04); }
-  .bg-sidebar   { background-color: #0a0a0a; }
-  .bg-input     { background-color: rgba(255, 255, 255, 0.06); }
-  .bg-item      { background-color: rgba(255, 255, 255, 0.05); }
-  .bg-secondary { background-color: rgba(255, 255, 255, 0.08); }
-  .bg-hover     { background-color: rgba(255, 255, 255, 0.10); }
+  .bg-app       { background-color: var(--color-bg-app); }
+  .bg-page      { background-color: var(--color-bg-page); }
+  .bg-card      { background-color: var(--color-bg-card); }
+  .bg-sidebar   { background-color: var(--color-bg-sidebar); }
+  .bg-input     { background-color: var(--color-bg-input); }
+  .bg-item      { background-color: var(--color-bg-hover); }
+  .bg-secondary { background-color: var(--color-bg-active); }
+  .bg-hover     { background-color: var(--color-bg-hover); }
 
   /* ── Borders ── */
-  .border-primary   { border-color: rgba(255, 255, 255, 0.08); }
-  .border-secondary { border-color: rgba(255, 255, 255, 0.12); }
-  .border-active    { border-color: rgba(255, 255, 255, 0.30); }
-  .border-focus     { border-color: rgba(255, 255, 255, 0.50); }
+  .border-primary   { border-color: var(--color-border-primary); }
+  .border-secondary { border-color: var(--color-border-secondary); }
+  .border-active    { border-color: var(--color-border-active); }
+  .border-focus     { border-color: var(--color-border-focus); }
 
   /* ── Text ── */
-  .text-primary     { color: rgba(255, 255, 255, 0.92); }
-  .text-secondary   { color: rgba(255, 255, 255, 0.65); }
-  .text-muted       { color: rgba(255, 255, 255, 0.35); }
-  .text-disabled    { color: rgba(255, 255, 255, 0.20); }
-  .text-placeholder { color: rgba(255, 255, 255, 0.25); }
+  .text-primary     { color: var(--color-text-primary); }
+  .text-secondary   { color: var(--color-text-secondary); }
+  .text-muted       { color: var(--color-text-muted); }
+  .text-disabled    { color: var(--color-text-disabled); }
+  .text-placeholder { color: var(--color-text-disabled); }
 
-  /* removed coloured semantic aliases — no vivid colours */
-  .text-info    { color: rgba(255, 255, 255, 0.65); }
-  .text-success { color: rgba(255, 255, 255, 0.65); }
-  .text-warning { color: rgba(255, 255, 255, 0.50); }
+  /* Semantic text colors with accent */
+  .text-info    { color: var(--color-accent-blue); }
+  .text-success { color: var(--color-accent-green); }
+  .text-warning { color: var(--color-accent-amber); }
 
   /* ── Legacy gradient shims (neutral) ���─ */
   .gradient-primary {
@@ -98,33 +100,33 @@
   .mono-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 14px;
-    height: 14px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.92);
     cursor: pointer;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
 
   .mono-slider::-webkit-slider-thumb:hover {
-    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.10);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.10);
     transform: scale(1.1);
   }
 
   .mono-slider::-webkit-slider-thumb:active {
     transform: scale(0.95);
-    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08);
   }
 
   .mono-slider::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
+    width: 10px;
+    height: 10px;
     border: none;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.92);
     cursor: pointer;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
 
@@ -260,3 +262,33 @@
     color: rgba(255, 255, 255, 0.70);
   }
 }
+
+  /* ── New Utility Classes ── */
+  .card-hover-lift {
+    transition: transform var(--duration-normal) var(--ease-out), 
+                box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  .card-hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-hover-lift:active {
+    transform: scale(0.99);
+  }
+
+  .glass-bg {
+    backdrop-filter: blur(12px);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.02)
+    );
+  }
+
+  .focus-ring {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
+  }
