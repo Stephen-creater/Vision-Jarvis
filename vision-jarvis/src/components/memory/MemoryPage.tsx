@@ -7,6 +7,12 @@ import { Toggle } from '@/components/ui/Toggle'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer'
 import { showNotification } from '@/lib/utils'
+import { MemoryTabs } from './MemoryTabs'
+import { HabitsPanel } from './HabitsPanel'
+import { ProjectsPanel } from './ProjectsPanel'
+import { DailySummaryCard } from './DailySummaryCard'
+import Skeleton from '@/components/ui/Skeleton'
+import EmptyState from '@/components/ui/EmptyState'
 
 export function MemoryPage() {
   return (
@@ -20,6 +26,7 @@ function MemoryPageContent() {
   const settings = useStore($settings)
   const timerRef = useRef<number | null>(null)
 
+  const [activeTab, setActiveTab] = useState<'activities' | 'habits' | 'projects' | 'summary'>('activities')
   const [selectedDate, setSelectedDate] = useState(() => new Date().toISOString().slice(0, 10))
   const [activities, setActivities] = useState<ActivityInfo[]>([])
   const [selectedActivity, setSelectedActivity] = useState<ActivityDetail | null>(null)
@@ -143,6 +150,9 @@ function MemoryPageContent() {
           className="w-full h-10 bg-input rounded-xl border border-primary hover:border-active transition-all duration-200 ease-out px-3.5 text-sm text-secondary"
         />
 
+        {/* Tabs */}
+        <MemoryTabs activeTab={activeTab} onChange={setActiveTab} />
+
         {/* Activity List */}
         <div className="flex-1 flex flex-col gap-3 min-h-0">
           <h3 className="text-xs font-medium text-muted uppercase tracking-wider">
@@ -209,101 +219,117 @@ function MemoryPageContent() {
       {/* Right Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Search Bar */}
-        <div className="h-16 px-6 flex items-center border-b border-primary">
-          <div className="flex-1 relative">
-            <input
-              type="text"
-              placeholder="搜索记忆..."
-              value={searchQuery}
-              onChange={e => onSearchChange(e.target.value)}
-              className={[
-                'w-full h-10 pl-10 pr-4 rounded-full outline-none text-sm',
-                'bg-input border border-primary text-primary',
-                'focus:border-active focus:bg-secondary',
-                'placeholder:text-placeholder',
-                'transition-all duration-200 ease-out',
-              ].join(' ')}
-            />
-            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="m21 21-4.35-4.35"/>
-            </svg>
+        {activeTab === 'activities' && (
+          <div className="h-16 px-6 flex items-center border-b border-primary">
+            <div className="flex-1 relative">
+              <input
+                type="text"
+                placeholder="搜索记忆..."
+                value={searchQuery}
+                onChange={e => onSearchChange(e.target.value)}
+                className={[
+                  'w-full h-10 pl-10 pr-4 rounded-full outline-none text-sm',
+                  'bg-input border border-primary text-primary',
+                  'focus:border-active focus:bg-secondary',
+                  'placeholder:text-placeholder',
+                  'transition-all duration-200 ease-out',
+                ].join(' ')}
+              />
+              <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto custom-scrollbar p-6">
-          {/* Search Results */}
-          {searchQuery && (
-            <div>
-              {isSearching && <div className="text-sm text-muted">搜索中...</div>}
-              {!isSearching && searchResults.length === 0 && searchQuery && (
-                <div className="text-sm text-muted text-center py-8">没有找到相关记忆</div>
-              )}
-              {searchResults.map(chunk => (
-                <div key={chunk.id} className="mb-4 p-4 rounded-xl bg-secondary border border-primary">
-                  <div className="text-[10px] text-muted mb-2 truncate">{chunk.file_path}</div>
-                  <div className="text-sm text-secondary whitespace-pre-wrap">{chunk.text}</div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Activity Detail */}
-          {!searchQuery && selectedActivity && (
-            <div>
-              {selectedActivity.markdown_content ? (
-                <MarkdownRenderer
-                  content={selectedActivity.markdown_content}
-                  className="text-secondary"
-                />
-              ) : (
+          {/* Activities Tab */}
+          {activeTab === 'activities' && (
+            <>
+              {searchQuery && (
                 <div>
-                  <h1 className="text-xl font-medium text-primary mb-4">{selectedActivity.activity.title}</h1>
-                  <div className="text-sm text-muted mb-2">
-                    {selectedActivity.activity.application} · {selectedActivity.activity.duration_minutes}分钟
-                  </div>
-                  {selectedActivity.activity.summary && (
-                    <p className="text-sm text-secondary mb-4">{selectedActivity.activity.summary}</p>
+                  {isSearching && <div className="text-sm text-muted">搜索中...</div>}
+                  {!isSearching && searchResults.length === 0 && (
+                    <div className="text-sm text-muted text-center py-8">没有找到相关记忆</div>
                   )}
-                  {selectedActivity.screenshot_analyses.length > 0 && (
-                    <div className="mt-4">
-                      <h3 className="text-xs text-muted uppercase tracking-wider mb-3">录制时间线</h3>
-                      {selectedActivity.screenshot_analyses.map(sa => (
-                        <div key={sa.screenshot_id} className="mb-3 pl-3 border-l-2 border-primary">
-                          <div className="text-[10px] text-muted tabular-nums">{formatTime(sa.analyzed_at)}</div>
-                          <div className="text-sm text-secondary">{sa.activity_description}</div>
+                  {searchResults.map(chunk => (
+                    <div key={chunk.id} className="mb-4 p-4 rounded-xl bg-secondary border border-primary">
+                      <div className="text-[10px] text-muted mb-2 truncate">{chunk.file_path}</div>
+                      <div className="text-sm text-secondary whitespace-pre-wrap">{chunk.text}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {!searchQuery && selectedActivity && (
+                <div>
+                  {selectedActivity.markdown_content ? (
+                    <MarkdownRenderer content={selectedActivity.markdown_content} className="text-secondary" />
+                  ) : (
+                    <div>
+                      <h1 className="text-xl font-medium text-primary mb-4">{selectedActivity.activity.title}</h1>
+                      <div className="text-sm text-muted mb-2">
+                        {selectedActivity.activity.application} · {selectedActivity.activity.duration_minutes}分钟
+                      </div>
+                      {selectedActivity.activity.summary && (
+                        <p className="text-sm text-secondary mb-4">{selectedActivity.activity.summary}</p>
+                      )}
+                      {selectedActivity.screenshot_analyses.length > 0 && (
+                        <div className="mt-4">
+                          <h3 className="text-xs text-muted uppercase tracking-wider mb-3">录制时间线</h3>
+                          {selectedActivity.screenshot_analyses.map(sa => (
+                            <div key={sa.screenshot_id} className="mb-3 pl-3 border-l-2 border-primary">
+                              <div className="text-[10px] text-muted tabular-nums">{formatTime(sa.analyzed_at)}</div>
+                              <div className="text-sm text-secondary">{sa.activity_description}</div>
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      )}
                     </div>
                   )}
                 </div>
               )}
-            </div>
+
+              {!searchQuery && !selectedActivity && !loading && (
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-center select-none">
+                    <div className="text-5xl mb-5 opacity-20">&#x25EF;</div>
+                    <h2 className="text-xl font-medium text-primary mb-1.5">
+                      {activities.length > 0 ? '选择左侧活动查看详情' : '想找哪段记忆'}
+                    </h2>
+                    <p className="text-sm text-muted">
+                      {activities.length > 0 ? `共 ${activities.length} 条活动记录` : '我都记着呢，随便问'}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </>
           )}
 
-          {/* Daily Summary */}
-          {!searchQuery && !selectedActivity && summary && (
-            <div>
-              <h2 className="text-lg font-medium text-primary mb-4">{selectedDate} 日总结</h2>
-              <MarkdownRenderer content={summary.content} className="text-secondary" />
-            </div>
-          )}
+          {/* Habits Tab */}
+          {activeTab === 'habits' && <HabitsPanel />}
 
-          {/* Empty State */}
-          {!searchQuery && !selectedActivity && !summary && !loading && (
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center select-none">
-                <div className="text-5xl mb-5 opacity-20">&#x25EF;</div>
-                <h2 className="text-xl font-medium text-primary mb-1.5">
-                  {activities.length > 0 ? '选择左侧活动查看详情' : '想找哪段记忆'}
-                </h2>
-                <p className="text-sm text-muted">
-                  {activities.length > 0 ? `共 ${activities.length} 条活动记录` : '我都记着呢，随便问'}
-                </p>
-              </div>
-            </div>
+          {/* Projects Tab */}
+          {activeTab === 'projects' && <ProjectsPanel />}
+
+          {/* Summary Tab */}
+          {activeTab === 'summary' && (
+            <>
+              {summary ? (
+                <DailySummaryCard summary={summary} activities={activities} />
+              ) : loading ? (
+                <div className="text-sm text-muted text-center py-8">加载中...</div>
+              ) : (
+                <div className="text-center py-12">
+                  <div className="text-4xl mb-4 opacity-20">📝</div>
+                  <h3 className="text-lg font-medium text-primary mb-2">当天无总结</h3>
+                  <p className="text-sm text-muted">活动记录会在每日结束时自动生成总结</p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
