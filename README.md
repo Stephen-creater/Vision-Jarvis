@@ -1,263 +1,134 @@
 # Vision-Jarvis
 
-视觉驱动的AI秘书
+> 智能记忆助手 - 自动记录和理解你的工作
 
-## 项目简介
+Vision-Jarvis 是一个基于 AI 的桌面应用，能够自动捕获、分析和记忆你的工作活动，帮助你更好地管理时间和项目。
 
-Vision-Jarvis 是一个智能AI助手，能够：
+## ✨ 核心功能
 
-- 📸 **实时屏幕理解**：捕获并理解屏幕内容
-- 🧠 **智能记忆系统**：使用短期/长期记忆方式记录和理解您的工作
-- 💡 **主动反馈**：在合适的时机提供建议和帮助
-- ⌨️ **快捷唤起**：通过 `cmd+shift+j` 快捷键快速访问
-- 🔒 **隐私优先**：数据存储在本地，完全由您掌控
+### 📊 智能活动记录
+- 自动捕获屏幕活动和应用使用情况
+- 智能分析活动内容和上下文
+- 按时间段分组展示（上午、下午、晚上）
 
-## 技术架构
+![活动记录](vision-jarvis/public/memoryread_active.png)
 
-### 桌面应用 (vision-jarvis/)
+### 🔄 习惯模式识别
+- 自动检测工作习惯和行为模式
+- 置信度评分和出现频率统计
+- 帮助优化工作流程
 
-- **前端**：Astro v5.16.16 (静态站点生成)
-- **后端**：Tauri v2 (Rust)
-- **WebView**：wry (跨平台 WebView)
-- **窗口管理**：tao
+### 📁 项目管理
+- 自动识别和跟踪项目
+- 项目活动时间线
+- 项目状态和进度追踪
 
-### 核心功能 (未来)
+![项目管理](vision-jarvis/public/memoryread_project.png)
 
-- **AI引擎**：Claude API (Anthropic)
-- **屏幕捕获**：PyObjC (Quartz) / Tauri APIs
-- **配置管理**：Pydantic + YAML
-- **日志系统**：Structlog
+### 📝 每日总结
+- AI 生成的每日工作总结
+- 时间分布可视化
+- 应用使用统计
 
-## 快速开始
+![每日总结](vision-jarvis/public/memoryread_summary.png)
 
-### 1. 前置要求
+### ⚙️ 灵活配置
+- API 密钥管理
+- 录制间隔自定义
+- 智能提醒设置
 
-- **Node.js** v22+ 和 npm
-- **Rust** 1.93+ 和 Cargo ([安装指南](https://rustup.rs/))
-- **macOS** 10.15+ (当前支持平台)
-- **Claude API 密钥** ([获取密钥](https://console.anthropic.com/)) - 未来功能需要
+![设置界面](vision-jarvis/public/popup_setting.png)
 
-### 2. 安装
+## 🚀 快速开始
+
+### 前置要求
+
+- macOS 10.15+
+- Node.js 22+
+- Rust 1.93+
+- Claude API 密钥 ([获取](https://console.anthropic.com/))
+
+### 安装
 
 ```bash
 # 克隆仓库
 git clone https://github.com/your-username/Vision-Jarvis.git
 cd Vision-Jarvis/vision-jarvis
 
-# 安装 npm 依赖
+# 安装依赖
 npm install
 
-# 安装 Rust (如果尚未安装)
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source $HOME/.cargo/env
-```
-
-### 3. 开发模式运行
-
-```bash
-cd vision-jarvis
-# 启动 Tauri 开发环境（包含热重载）
+# 开发模式运行
 npm run tauri:dev
-
-# 或仅启动 Astro 前端
-npm run dev
 ```
 
-访问 http://localhost:4321 查看应用界面。
+### 首次配置
 
-### 4. 构建生产版本
+1. 启动应用后，点击悬浮球打开设置
+2. 在"AI 配置"中输入你的 Claude API 密钥
+3. 调整录制分段时长（默认 1 分钟）
+4. 开启全局记忆功能
 
-```bash
-# 构建桌面应用
-npm run tauri:build
+![API 配置](vision-jarvis/public/apikey_setting.png)
 
-# 生成的应用在 src-tauri/target/release/
-```
+## 🎯 使用场景
 
-## 项目结构
+- **时间追踪**: 自动记录工作时间，无需手动计时
+- **项目管理**: 了解每个项目的实际投入时间
+- **习惯优化**: 发现并改善工作习惯
+- **工作回顾**: 快速回忆某天做了什么
 
-```
-Vision-Jarvis/
-├── .clinerules             # 项目开发规范（AI 辅助）
-├── docs/                   # 📚 统一文档中心
-│   ├── planning/          # 规划和架构设计
-│   ├── technical/         # 技术文档
-│   ├── testing/           # 测试报告
-│   └── development/       # 开发指南
-│
-├── vision-jarvis/          # 🚀 Tauri + Astro 桌面应用
-│   ├── src/               # Astro 前端源码
-│   │   ├── pages/        # 页面路由
-│   │   ├── components/   # UI 组件
-│   │   └── layouts/      # 布局模板
-│   ├── src-tauri/         # Tauri Rust 后端
-│   │   ├── src/          # Rust 源码
-│   │   ├── Cargo.toml    # Rust 依赖
-│   │   └── tauri.conf.json # Tauri 配置
-│   ├── public/            # 静态资源
-│   └── package.json       # npm 依赖
-│
-├── config/                 # 配置文件（未来）
-├── scripts/                # 工具脚本
-└── tests/                  # 测试（未来）
-```
+## 🏗️ 技术架构
 
-## 开发状态
+- **前端**: Astro 5 + React + Tailwind CSS
+- **后端**: Tauri 2 (Rust)
+- **AI**: Claude API (Anthropic)
+- **数据库**: SQLite (本地存储)
+- **UI 设计**: 暗色主题 + 现代化组件
 
-**当前阶段**: 项目初始化完成 ✅
-
-### 已完成
-
-- ✅ Tauri v2 + Astro v5 集成
-- ✅ 开发环境配置
-- ✅ 前后端通信架构
-- ✅ 统一文档管理系统
-- ✅ 项目开发规范（.clinerules）
-- ✅ 集成测试验证（详见 [测试报告](docs/testing/test-reports/2026-01-29-tauri-integration-test.md)）
-
-### 进行中
-
-- 🚧 屏幕捕获 API（Tauri plugin）
-- 🚧 Claude API 集成
-- 🚧 记忆系统设计
-
-### 计划中
-
-- 📋 智能触发器系统
-- 📋 GUI 界面优化
-- 📋 系统托盘和全局快捷键
-- 📋 后台服务守护进程
-
-查看 [主计划](docs/planning/MASTER_PLAN.md) 了解完整的技术方案和实施路线图。
-
-## 📚 文档
-
-所有项目文档统一存放在 `docs/` 目录：
-
-- **[文档中心](docs/README.md)** - 文档索引和使用指南
-- **[主计划](docs/planning/MASTER_PLAN.md)** - 完整的开发计划和架构设计
-- **[测试报告](docs/testing/test-reports/)** - 集成测试和验证报告
-- **[技术文档](docs/technical/)** - API、组件、架构文档
-- **[迁移说明](docs/MIGRATION.md)** - 文档迁移记录
-
-### 文档规范
-
-本项目使用统一的文档管理规范，详见 [.clinerules](.clinerules)：
-
-- ✅ 所有新文档必须放在 `docs/` 目录
-- ✅ 使用清晰的分类：planning、development、technical、testing、releases、notes
-- ✅ 遵循命名规范：小写字母 + 连字符
-- ❌ 不要在根目录创建散乱的 `.md` 文件
-
-## 配置说明
-
-### 数据目录
-
-默认数据目录：`~/Library/Application Support/VisionJarvis/`
+## 📁 项目结构
 
 ```
-VisionJarvis/
-├── memory/
-│   ├── short_term/         # 短期记忆（24小时）
-│   └── long_term/          # 长期记忆（持久化）
-├── cache/                  # 临时缓存
-└── logs/                   # 日志文件
+vision-jarvis/
+├── src/                    # 前端源码
+│   ├── pages/             # 页面路由
+│   ├── components/        # UI 组件
+│   └── styles/            # 样式文件
+├── src-tauri/             # Rust 后端
+│   ├── src/
+│   │   ├── commands/      # Tauri 命令
+│   │   ├── memory/        # 记忆系统
+│   │   └── notification/  # 通知系统
+│   └── Cargo.toml
+└── public/                # 静态资源
 ```
 
-可通过环境变量 `VISION_JARVIS_DATA_DIR` 自定义路径。
+## 🔒 隐私保护
 
-### 快捷键
+- ✅ 所有数据存储在本地
+- ✅ 不上传任何屏幕截图到云端
+- ✅ API 密钥加密存储
+- ✅ 可随时删除所有数据
 
-默认：`cmd+shift+j`
+数据目录：`~/Library/Application Support/VisionJarvis/`
 
-可在 `config/config.yaml` 中修改：
-
-```yaml
-gui:
-  hotkey: "cmd+shift+j"
-```
-
-## 开发
-
-### 可用命令
+## 🛠️ 开发
 
 ```bash
 # 开发模式（热重载）
 npm run tauri:dev
 
-# 仅运行前端
-npm run dev
-
-# 构建前端
-npm run build
-
-# 构建桌面应用
+# 构建生产版本
 npm run tauri:build
 
-# 预览构建结果
-npm run preview
+# 仅运行前端
+npm run dev
 ```
 
-### 开发工具
-
-- **Astro Dev Toolbar**: 开发模式自动启用，提供组件检查和调试
-- **Rust Analyzer**: VS Code 扩展推荐用于 Rust 开发
-- **Tauri CLI**: 集成在 npm scripts 中
-
-### 测试
-
-```bash
-# 运行集成测试（需要先启动开发服务器）
-cd vision-jarvis
-npm run tauri:dev
-
-# 手动测试清单详见文档
-# docs/testing/test-reports/
-```
-
-## 许可证
+## 📝 许可证
 
 Apache License 2.0
 
-## 贡献
-
-欢迎贡献！请查看 [贡献指南](CONTRIBUTING.md)（待添加）。
-
-## 路线图
-
-### Phase 1: 基础设施 ✅ (已完成)
-
-- [X] Tauri + Astro 技术栈搭建
-- [X] 开发环境配置
-- [X] 文档管理系统
-- [X] 集成测试验证
-
-### Phase 2: 核心功能 🚧 (进行中)
-
-- [ ] macOS 屏幕捕获 API
-- [ ] Claude Vision API 集成
-- [ ] 短期/长期记忆系统
-- [ ] 基础 UI 界面
-
-### Phase 3: 智能化 📋 (计划中)
-
-- [ ] 智能触发器（时间、内容、用户）
-- [ ] 上下文理解和建议
-- [ ] 工作模式识别
-- [ ] 主动反馈机制
-
-### Phase 4: 增强 🔮 (未来)
-
-- [ ] 插件系统
-- [ ] 多语言支持
-- [ ] 跨平台支持（Windows, Linux）
-- [ ] 云同步（可选）
-
-## 联系方式
-
-- Issue: [GitHub Issues](https://github.com/your-username/Vision-Jarvis/issues)
-- Email: your-email@example.com
-
 ---
 
-**注意**：此项目目前处于早期开发阶段，API和功能可能会发生变化。
+**注意**: 本应用需要屏幕录制权限，首次运行时请在系统设置中授权。
