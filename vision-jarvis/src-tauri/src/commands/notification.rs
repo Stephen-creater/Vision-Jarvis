@@ -4,6 +4,7 @@ use tauri::State;
 use serde::{Deserialize, Serialize};
 use super::{ApiResponse, AppState};
 use crate::notification::Notification as NotificationModel;
+use crate::notification::delivery::get_pending_notification;
 
 /// 通知信息（前端格式）
 #[derive(Debug, Clone, Serialize, Deserialize)]
