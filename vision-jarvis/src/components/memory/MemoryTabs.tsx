@@ -17,17 +17,8 @@ interface MemoryTabsProps {
 }
 
 export function MemoryTabs({ activeTab, onChange }: MemoryTabsProps) {
-  const activeIndex = tabs.findIndex(t => t.id === activeTab)
-
   return (
-    <div className="relative flex gap-1 p-1 bg-secondary rounded-xl border border-primary">
-      <div
-        className="absolute top-1 bottom-1 bg-white/10 rounded-lg transition-all duration-200"
-        style={{
-          left: `calc(${activeIndex * 25}% + 4px)`,
-          width: 'calc(25% - 8px)'
-        }}
-      />
+    <div className="flex gap-2 p-1 bg-secondary rounded-xl border border-primary">
       {tabs.map(tab => (
         <button
           key={tab.id}
@@ -35,14 +26,14 @@ export function MemoryTabs({ activeTab, onChange }: MemoryTabsProps) {
           role="tab"
           aria-selected={activeTab === tab.id}
           className={[
-            'relative z-10 flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150 whitespace-nowrap',
+            'flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-lg text-xs font-medium transition-all duration-200',
             activeTab === tab.id
-              ? 'text-primary'
-              : 'text-muted hover:text-secondary',
+              ? 'bg-white/10 text-primary'
+              : 'text-muted hover:text-secondary hover:bg-white/5',
           ].join(' ')}
         >
-          <span>{tab.icon}</span>
-          {tab.label}
+          <span className="text-lg leading-none">{tab.icon}</span>
+          <span className="leading-none">{tab.label}</span>
         </button>
       ))}
     </div>
