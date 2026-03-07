@@ -89,24 +89,45 @@
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 2px;
+    height: 4px;
     background: rgba(255, 255, 255, 0.12);
-    border-radius: 1px;
+    border-radius: 2px;
     outline: none;
     cursor: pointer;
-    position: relative;
   }
 
   .mono-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.92);
     cursor: pointer;
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .mono-slider::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.10);
+    transform: scale(1.1);
+  }
+
+  .mono-slider::-webkit-slider-thumb:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08);
+  }
+
+  .mono-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    cursor: pointer;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
   }
 
   .mono-slider::-webkit-slider-thumb:hover {
