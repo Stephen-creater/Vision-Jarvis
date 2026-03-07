@@ -6149,6 +6149,7 @@ dependencies = [
  "image",
  "libc",
  "log",
+ "once_cell",
  "rdev",
  "reqwest",
  "rusqlite",
