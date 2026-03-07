@@ -204,24 +204,6 @@ pub fn run() {
                 }
             }
 
-            // 测试通知：启动后 2 秒发送
-            let app_handle_test = app.handle().clone();
-            std::thread::spawn(move || {
-                info!("测试通知线程已启动，2秒后发送通知");
-                std::thread::sleep(std::time::Duration::from_secs(2));
-                info!("准备发送测试通知");
-                let test_notif = crate::notification::Notification::new(
-                    crate::notification::NotificationType::Custom,
-                    crate::notification::NotificationPriority::Normal,
-                    "通知系统测试".to_string(),
-                    "这是一个测试通知，验证通知窗口 UI 是否正常工作。点击可关闭。".to_string(),
-                );
-                match crate::notification::delivery::emit_notification_event(&app_handle_test, &test_notif) {
-                    Ok(_) => info!("测试通知发送成功"),
-                    Err(e) => error!("测试通知发送失败: {}", e),
-                }
-            });
-
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
@@ -248,6 +230,7 @@ pub fn run() {
             commands::notification::get_suggestion_history,
             commands::notification::test_system_notification,
             commands::notification::test_custom_notification,
+            crate::notification::delivery::get_pending_notification,
             // 设置相关
             commands::settings::get_settings,
             commands::settings::update_settings,

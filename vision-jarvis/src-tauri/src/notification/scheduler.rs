@@ -53,7 +53,7 @@ impl NotificationScheduler {
                 if today != last_date {
                     cooldown.reset_daily();
                     last_date = today;
-                    eprintln!("[NotificationScheduler] Daily cooldown reset");
+                    log::info!("Daily cooldown reset");
                 }
 
                 // 从当前设置构建规则引擎（支持热更新）
@@ -64,7 +64,7 @@ impl NotificationScheduler {
                 let ctx = match context::build_context(&db) {
                     Ok(ctx) => ctx,
                     Err(e) => {
-                        eprintln!("[NotificationScheduler] Failed to build context: {}", e);
+                        log::error!("Failed to build context: {}", e);
                         continue;
                     }
                 };
@@ -76,19 +76,19 @@ impl NotificationScheduler {
                     continue;
                 }
 
-                eprintln!("[NotificationScheduler] Generated {} notification(s)", notifications.len());
+                log::info!("Generated {} notification(s)", notifications.len());
 
                 // 保存并发送
                 for mut notification in notifications {
                     // 保存到数据库
                     if let Err(e) = save_notification(&db, &notification) {
-                        eprintln!("[NotificationScheduler] Failed to save: {}", e);
+                        log::error!("Failed to save notification: {}", e);
                     }
 
                     // 主动建议同时写入 proactive_suggestions 表
                     if is_proactive_type(&notification.notification_type) {
                         if let Err(e) = save_proactive_suggestion(&db, &notification) {
-                            eprintln!("[NotificationScheduler] Failed to save proactive suggestion: {}", e);
+                            log::error!("Failed to save proactive suggestion: {}", e);
                         }
                     }
 
@@ -97,18 +97,15 @@ impl NotificationScheduler {
 
                     // 系统通知
                     if let Err(e) = delivery::send_system_notification(&app_handle, &notification) {
-                        eprintln!("[NotificationScheduler] System notification failed: {}", e);
+                        log::error!("System notification failed: {}", e);
                     }
 
                     // 前端事件
                     if let Err(e) = delivery::emit_notification_event(&app_handle, &notification) {
-                        eprintln!("[NotificationScheduler] Event emission failed: {}", e);
+                        log::error!("Event emission failed: {}", e);
                     }
 
-                    eprintln!(
-                        "[NotificationScheduler] Sent: {} - {}",
-                        notification.title, notification.message
-                    );
+                    log::info!("Sent: {} - {}", notification.title, notification.message);
                 }
             }
         })

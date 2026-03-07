@@ -6,18 +6,18 @@ import TransparentLayout from '../layouts/TransparentLayout.astro';
   <div id="notification-container"></div>
 
   <script>
-    import { listen } from '@tauri-apps/api/event';
     import { invoke } from '@tauri-apps/api/core';
 
     interface NotificationPayload {
       id: string;
       title: string;
       message: string;
-      type: string;
+      notification_type: string;
       priority: number;
     }
 
     let destroyTimer: number | null = null;
+    let countdownInterval: number | null = null;
 
     function getTypeColor(type: string): string {
       const colors: Record<string, string> = {
@@ -56,15 +56,23 @@ import TransparentLayout from '../layouts/TransparentLayout.astro';
         clearTimeout(destroyTimer);
         destroyTimer = null;
       }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
       invoke('destroy_notification_window').catch(console.error);
     }
 
     function showNotification(payload: NotificationPayload) {
+      console.log('[Notification] 显示通知:', payload);
       const container = document.getElementById('notification-container');
-      if (!container) return;
+      if (!container) {
+        console.error('[Notification] 容器未找到');
+        return;
+      }
 
-      const color = getTypeColor(payload.type);
-      const icon = getTypeIcon(payload.type);
+      const color = getTypeColor(payload.notification_type);
+      const icon = getTypeIcon(payload.notification_type);
 
       container.innerHTML = `
         <div class="notification-card">
@@ -75,23 +83,70 @@ import TransparentLayout from '../layouts/TransparentLayout.astro';
               <span class="card-title">${payload.title}</span>
             </div>
             <div class="card-message">${payload.message}</div>
+            <div class="countdown-bar">
+              <div class="countdown-progress"></div>
+            </div>
             <button class="ok-button">好的</button>
           </div>
         </div>
       `;
 
-      // 10秒后自动销毁
-      destroyTimer = window.setTimeout(destroyWindow, 10000);
+      const progressBar = container.querySelector('.countdown-progress') as HTMLElement;
+      let elapsed = 0;
+      const duration = 10000;
 
-      // 点击"好的"按钮销毁
-      container.querySelector('.ok-button')?.addEventListener('click', destroyWindow);
+      countdownInterval = window.setInterval(() => {
+        elapsed += 100;
+        const progress = (elapsed / duration) * 100;
+        if (progressBar) {
+          progressBar.style.width = `${progress}%`;
+        }
+      }, 100);
+
+      destroyTimer = window.setTimeout(() => {
+        destroyWindow();
+        setTimeout(checkNextNotification, 300);
+      }, duration);
+
+      container.querySelector('.ok-button')?.addEventListener('click', () => {
+        destroyWindow();
+        setTimeout(checkNextNotification, 300);
+      });
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      listen<NotificationPayload>('notification:new', (event) => {
-        showNotification(event.payload);
-      });
-    });
+    async function checkNextNotification() {
+      try {
+        const notification = await invoke<NotificationPayload | null>('get_pending_notification');
+        if (notification) {
+          console.log('[Notification] 显示队列中的下一个通知');
+          showNotification(notification);
+        }
+      } catch (error) {
+        console.error('[Notification] 检查下一个通知失败:', error);
+      }
+    }
+
+    async function fetchNotification() {
+      console.log('[Notification] 拉取通知数据');
+      try {
+        const notification = await invoke<NotificationPayload | null>('get_pending_notification');
+        if (notification) {
+          console.log('[Notification] 获取到通知:', notification);
+          showNotification(notification);
+        } else {
+          console.log('[Notification] 无待显示通知');
+        }
+      } catch (error) {
+        console.error('[Notification] 拉取失败:', error);
+      }
+    }
+
+    // 页面加载完成后立即拉取
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', fetchNotification);
+    } else {
+      fetchNotification();
+    }
   </script>
 
   <style is:global>
@@ -123,6 +178,18 @@ import TransparentLayout from '../layouts/TransparentLayout.astro';
       cursor: pointer;
       user-select: none;
       will-change: opacity, transform;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     .notification-card:hover {
@@ -183,7 +250,22 @@ import TransparentLayout from '../layouts/TransparentLayout.astro';
       line-height: 1.5;
       color: rgba(255, 255, 255, 0.7);
       word-break: break-word;
+      margin-bottom: 8px;
+    }
+
+    .countdown-bar {
+      height: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
       margin-bottom: 12px;
+    }
+
+    .countdown-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #60a5fa, #3b82f6);
+      width: 0%;
+      transition: width 0.1s linear;
     }
 
     .ok-button {

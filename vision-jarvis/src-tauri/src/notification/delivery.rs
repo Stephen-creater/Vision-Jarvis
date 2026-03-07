@@ -1,8 +1,10 @@
-/// 通知投递
-///
-/// 通过系统通知和 Tauri 事件双通道投递
-
 use super::Notification;
+use std::sync::Mutex;
+use std::collections::VecDeque;
+use once_cell::sync::Lazy;
+
+// 全局存储待显示的通知队列
+static PENDING_NOTIFICATIONS: Lazy<Mutex<VecDeque<Notification>>> = Lazy::new(|| Mutex::new(VecDeque::new()));
 
 /// 通过 tauri-plugin-notification 发送系统通知
 pub fn send_system_notification(
@@ -25,25 +27,32 @@ pub fn emit_notification_event(
     app: &tauri::AppHandle,
     notification: &Notification,
 ) -> anyhow::Result<()> {
-    use tauri::Emitter;
+    log::info!("准备显示通知: {} - {}", notification.title, notification.message);
 
-    log::info!("发送通知事件: {} - {}", notification.title, notification.message);
+    // 1. 添加通知到队列
+    {
+        let mut queue = PENDING_NOTIFICATIONS.lock().unwrap();
+        queue.push_back(notification.clone());
+        log::info!("通知已加入队列，当前队列长度: {}", queue.len());
+    }
 
-    // 1. 确保通知窗口存在并显示
+    // 2. 确保通知窗口存在并显示
     ensure_notification_window(app);
 
-    // 2. 发送事件到前端
-    app.emit("notification:new", serde_json::json!({
-        "id": notification.id,
-        "title": notification.title,
-        "message": notification.message,
-        "type": format!("{:?}", notification.notification_type),
-        "priority": notification.priority.clone() as i32,
-    }))?;
-
-    log::info!("通知事件已发送");
+    log::info!("通知窗口已准备，等待前端拉取");
 
     Ok(())
+}
+
+/// 前端拉取待显示的通知
+#[tauri::command]
+pub fn get_pending_notification() -> Option<Notification> {
+    let mut queue = PENDING_NOTIFICATIONS.lock().unwrap();
+    let notification = queue.pop_front();
+    if notification.is_some() {
+        log::info!("前端拉取通知，剩余队列长度: {}", queue.len());
+    }
+    notification
 }
 
 /// 确保通知窗口存在并可见
@@ -57,7 +66,6 @@ fn ensure_notification_window(app: &tauri::AppHandle) {
             let _ = window.set_focus();
         }
         None => {
-            // 计算屏幕右上角位置
             let (x, y) = calc_notification_position(app);
             log::info!("创建通知窗口，位置: x={}, y={}", x, y);
 
@@ -74,9 +82,8 @@ fn ensure_notification_window(app: &tauri::AppHandle) {
             .transparent(true)
             .always_on_top(true)
             .skip_taskbar(true)
-            .visible(false)
             .build() {
-                log::info!("通知窗口创建成功，设置鼠标穿透并显示");
+                log::info!("通知窗口创建成功");
                 let _ = window.set_ignore_cursor_events(false);
                 let _ = window.show();
                 let _ = window.set_focus();
