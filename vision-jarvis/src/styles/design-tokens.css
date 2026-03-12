@@ -1,0 +1,82 @@
+/**
+ * Design Tokens - Vision Jarvis Design System
+ * Single source of truth for colors, spacing, radii, shadows, and timing
+ */
+
+:root {
+  /* ===== Color System ===== */
+
+  /* Background Colors */
+  --color-bg-app: #0a0a0a;
+  --color-bg-page: #111111;
+  --color-bg-card: #1a1a1a;
+  --color-bg-sidebar: #0f0f0f;
+  --color-bg-input: #1e1e1e;
+  --color-bg-hover: rgba(255, 255, 255, 0.05);
+  --color-bg-active: rgba(255, 255, 255, 0.08);
+
+  /* Text Colors */
+  --color-text-primary: rgba(255, 255, 255, 0.95);
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-muted: rgba(255, 255, 255, 0.45);
+  --color-text-disabled: rgba(255, 255, 255, 0.25);
+
+  /* Border Colors */
+  --color-border-primary: rgba(255, 255, 255, 0.1);
+  --color-border-secondary: rgba(255, 255, 255, 0.06);
+  --color-border-active: rgba(255, 255, 255, 0.2);
+  --color-border-focus: rgba(96, 165, 250, 0.5);
+
+  /* Accent Colors - Restrained palette for semantic states */
+  --color-accent-blue: #60a5fa;
+  --color-accent-blue-dim: rgba(96, 165, 250, 0.15);
+  --color-accent-green: #4ade80;
+  --color-accent-green-dim: rgba(74, 222, 128, 0.15);
+  --color-accent-amber: #fbbf24;
+  --color-accent-amber-dim: rgba(251, 191, 36, 0.15);
+  --color-accent-red: #f87171;
+  --color-accent-red-dim: rgba(248, 113, 113, 0.15);
+  --color-accent-purple: #a78bfa;
+  --color-accent-purple-dim: rgba(167, 139, 250, 0.15);
+
+  /* ===== Border Radius Scale ===== */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* ===== Shadow Scale ===== */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px rgba(96, 165, 250, 0.3);
+  --shadow-glow-soft: 0 0 15px rgba(96, 165, 250, 0.15);
+
+  /* ===== Spacing Scale ===== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-11: 44px;
+  --space-12: 48px;
+
+  /* ===== Animation Timing ===== */
+  --duration-fast: 100ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+
+  /* Easing Functions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}

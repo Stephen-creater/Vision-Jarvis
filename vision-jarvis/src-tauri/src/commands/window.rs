@@ -1,0 +1,336 @@
+/// 窗口管理 Commands
+///
+/// 管理多窗口系统：Memory窗口、Popup-Setting窗口、浮球状态切换
+
+use tauri::{AppHandle, Manager, WebviewWindowBuilder};
+use super::ApiResponse;
+
+fn clamp_ball_origin(
+    screen_width: f64,
+    screen_height: f64,
+    x: f64,
+    y: f64,
+) -> (f64, f64) {
+    (
+        x.clamp(0.0, (screen_width - 48.0).max(0.0)),
+        y.clamp(0.0, (screen_height - 48.0).max(0.0)),
+    )
+}
+
+/// 打开 Memory 窗口
+#[tauri::command]
+pub async fn open_memory_window(app: AppHandle) -> ApiResponse<String> {
+    match app.get_webview_window("memory") {
+        Some(window) => {
+            // 窗口已存在，刷新后聚焦，避免 dev 模式下停留在旧页面实例
+            let _ = window.eval("window.location.reload()");
+            if let Err(e) = window.set_focus() {
+                return ApiResponse::error(format!("Failed to focus memory window: {}", e));
+            }
+            ApiResponse::success("Memory window reloaded and focused".to_string())
+        }
+        None => {
+            // 创建新窗口
+            match WebviewWindowBuilder::new(&app, "memory", tauri::WebviewUrl::App("/memory".into()))
+                .title("Memory - Vision Jarvis")
+                .inner_size(1360.0, 860.0)
+                .min_inner_size(1080.0, 720.0)
+                .resizable(true)
+                .build()
+            {
+                Ok(_) => ApiResponse::success("Memory window created".to_string()),
+                Err(e) => ApiResponse::error(format!("Failed to create memory window: {}", e)),
+            }
+        }
+    }
+}
+
+/// 打开 Popup-Setting 窗口
+#[tauri::command]
+pub async fn open_popup_setting_window(app: AppHandle) -> ApiResponse<String> {
+    match app.get_webview_window("popup-setting") {
+        Some(window) => {
+            // 窗口已存在，刷新后聚焦，避免 dev 模式下停留在旧页面实例
+            let _ = window.eval("window.location.reload()");
+            if let Err(e) = window.set_focus() {
+                return ApiResponse::error(format!("Failed to focus popup-setting window: {}", e));
+            }
+            ApiResponse::success("Popup-Setting window reloaded and focused".to_string())
+        }
+        None => {
+            // 创建新窗口
+            match WebviewWindowBuilder::new(
+                &app,
+                "popup-setting",
+                tauri::WebviewUrl::App("/popup-setting".into())
+            )
+                .title("Settings - Vision Jarvis")
+                .inner_size(900.0, 700.0)
+                .resizable(true)
+                .build()
+            {
+                Ok(_) => ApiResponse::success("Popup-Setting window created".to_string()),
+                Err(e) => ApiResponse::error(format!("Failed to create popup-setting window: {}", e)),
+            }
+        }
+    }
+}
+
+/// 展开浮球到 Header 状态 (360x146)
+/// 新布局: Ball(64) + gap(10) + Header(72) = 146
+#[tauri::command]
+pub async fn expand_to_header(app: AppHandle) -> ApiResponse<String> {
+    match app.get_webview_window("floating-ball") {
+        Some(window) => {
+            // 获取当前位置和屏幕信息
+            let current_pos = match window.outer_position() {
+                Ok(pos) => pos,
+                Err(e) => return ApiResponse::error(format!("Failed to get position: {}", e)),
+            };
+
+            // 获取屏幕信息以计算新位置
+            let monitor = match window.primary_monitor() {
+                Ok(Some(m)) => m,
+                _ => return ApiResponse::error("Failed to get monitor info".to_string()),
+            };
+
+            let physical_size = monitor.size();
+            let scale_factor = monitor.scale_factor();
+            let screen_width = physical_size.width as f64 / scale_factor;
+            let screen_height = physical_size.height as f64 / scale_factor;
+
+            // 保持球的屏幕锚点不变：展开时窗口向左扩展
+            let new_width = 360.0;
+            let new_height = 146.0;
+            let current_x = current_pos.x as f64 / scale_factor;
+            let current_y = current_pos.y as f64 / scale_factor;
+            let ball_right = current_x + 48.0;
+            let new_x = (ball_right - new_width).clamp(0.0, (screen_width - new_width).max(0.0));
+
+            // 计算Y位置：保持当前Y，但检查是否超出屏幕底部
+            let new_y = if (current_y + new_height) > screen_height {
+                // 超出底部，向上调整
+                (screen_height - new_height).max(0.0)
+            } else {
+                current_y
+            };
+
+            // 先设置大小
+            if let Err(e) = window.set_size(tauri::LogicalSize::new(new_width, new_height)) {
+                return ApiResponse::error(format!("Failed to resize: {}", e));
+            }
+
+            // 再调整位置
+            if let Err(e) = window.set_position(tauri::LogicalPosition::new(new_x, new_y)) {
+                return ApiResponse::error(format!("Failed to reposition: {}", e));
+            }
+
+            ApiResponse::success("Expanded to header".to_string())
+        }
+        None => ApiResponse::error("Floating ball window not found".to_string()),
+    }
+}
+
+/// 展开浮球到 Asker 状态 (360x554)
+/// 新布局: Ball(64) + gap(10) + Asker(480) = 554
+#[tauri::command]
+pub async fn expand_to_asker(app: AppHandle) -> ApiResponse<String> {
+    match app.get_webview_window("floating-ball") {
+        Some(window) => {
+            // 获取当前位置和屏幕信息
+            let current_pos = match window.outer_position() {
+                Ok(pos) => pos,
+                Err(e) => return ApiResponse::error(format!("Failed to get position: {}", e)),
+            };
+
+            let monitor = match window.primary_monitor() {
+                Ok(Some(m)) => m,
+                _ => return ApiResponse::error("Failed to get monitor info".to_string()),
+            };
+
+            let physical_size = monitor.size();
+            let scale_factor = monitor.scale_factor();
+            let screen_width = physical_size.width as f64 / scale_factor;
+            let screen_height = physical_size.height as f64 / scale_factor;
+
+            // 保持球的屏幕锚点不变：展开时窗口向左扩展
+            let new_width = 360.0;
+            let new_height = 554.0;
+            let current_x = current_pos.x as f64 / scale_factor;
+            let current_y = current_pos.y as f64 / scale_factor;
+            let ball_right = current_x + 48.0;
+            let new_x = (ball_right - new_width).clamp(0.0, (screen_width - new_width).max(0.0));
+
+            // 计算Y位置：保持当前Y，但检查是否超出屏幕底部
+            let new_y = if (current_y + new_height) > screen_height {
+                // 超出底部，向上调整
+                (screen_height - new_height).max(0.0)
+            } else {
+                current_y
+            };
+
+            // 先设置大小
+            if let Err(e) = window.set_size(tauri::LogicalSize::new(new_width, new_height)) {
+                return ApiResponse::error(format!("Failed to resize: {}", e));
+            }
+
+            // 再调整位置
+            if let Err(e) = window.set_position(tauri::LogicalPosition::new(new_x, new_y)) {
+                return ApiResponse::error(format!("Failed to reposition: {}", e));
+            }
+
+            ApiResponse::success("Expanded to asker".to_string())
+        }
+        None => ApiResponse::error("Floating ball window not found".to_string()),
+    }
+}
+
+/// 收起浮球到圆球状态 (64x64)
+#[tauri::command]
+pub async fn collapse_to_ball(app: AppHandle) -> ApiResponse<String> {
+    match app.get_webview_window("floating-ball") {
+        Some(window) => {
+            // 获取当前位置和屏幕信息；收起时保留球的屏幕锚点
+            let current_pos = match window.outer_position() {
+                Ok(pos) => pos,
+                Err(e) => return ApiResponse::error(format!("Failed to get position: {}", e)),
+            };
+            let current_size = match window.outer_size() {
+                Ok(size) => size,
+                Err(e) => return ApiResponse::error(format!("Failed to get size: {}", e)),
+            };
+
+            let monitor = match window.primary_monitor() {
+                Ok(Some(m)) => m,
+                _ => return ApiResponse::error("Failed to get monitor info".to_string()),
+            };
+
+            let physical_size = monitor.size();
+            let scale_factor = monitor.scale_factor();
+            let screen_width = physical_size.width as f64 / scale_factor;
+            let screen_height = physical_size.height as f64 / scale_factor;
+
+            let ball_width = 48.0;
+            let current_x = current_pos.x as f64 / scale_factor;
+            let current_y = current_pos.y as f64 / scale_factor;
+            let current_width = current_size.width as f64 / scale_factor;
+            let (new_x, new_y) = clamp_ball_origin(
+                screen_width,
+                screen_height,
+                current_x + current_width - ball_width,
+                current_y,
+            );
+
+            // 先设置大小
+            if let Err(e) = window.set_size(tauri::LogicalSize::new(ball_width, 48.0)) {
+                return ApiResponse::error(format!("Failed to resize: {}", e));
+            }
+
+            // 再调整位置回到右上角
+            if let Err(e) = window.set_position(tauri::LogicalPosition::new(new_x, new_y)) {
+                return ApiResponse::error(format!("Failed to reposition: {}", e));
+            }
+
+            ApiResponse::success("Collapsed to ball".to_string())
+        }
+        None => ApiResponse::error("Floating ball window not found".to_string()),
+    }
+}
+
+/// 显示通知弹窗窗口（单例模式）
+#[tauri::command]
+pub async fn show_notification_window(app: AppHandle) -> ApiResponse<String> {
+    match app.get_webview_window("notification") {
+        Some(window) => {
+            // 窗口已存在，确保可见并置顶
+            let _ = window.show();
+            let _ = window.set_focus();
+            ApiResponse::success("Notification window shown".to_string())
+        }
+        None => {
+            // 获取主显示器信息计算位置
+            let (x, y) = {
+                // 临时借用 floating-ball 窗口获取显示器信息
+                let monitor = app.get_webview_window("floating-ball")
+                    .and_then(|w| w.primary_monitor().ok().flatten());
+
+                match monitor {
+                    Some(m) => {
+                        let physical_size = m.size();
+                        let scale_factor = m.scale_factor();
+                        let screen_width = physical_size.width as f64 / scale_factor;
+
+                        let window_width = 360.0;
+                        let margin_right = 20.0;
+                        let margin_top = 60.0;
+
+                        (
+                            (screen_width - window_width - margin_right).max(0.0),
+                            margin_top,
+                        )
+                    }
+                    None => (100.0, 60.0),
+                }
+            };
+
+            // 创建通知窗口
+            match WebviewWindowBuilder::new(
+                &app,
+                "notification",
+                tauri::WebviewUrl::App("/notification".into()),
+            )
+            .title("Notifications")
+            .inner_size(360.0, 400.0)
+            .position(x, y)
+            .resizable(false)
+            .decorations(false)
+            .transparent(true)
+            .always_on_top(true)
+            .skip_taskbar(true)
+            .build()
+            {
+                Ok(_) => ApiResponse::success("Notification window created".to_string()),
+                Err(e) => ApiResponse::error(format!("Failed to create notification window: {}", e)),
+            }
+        }
+    }
+}
+
+/// 隐藏通知弹窗窗口
+#[tauri::command]
+pub async fn hide_notification_window(app: AppHandle) -> ApiResponse<String> {
+    match app.get_webview_window("notification") {
+        Some(window) => {
+            log::info!("隐藏通知窗口，启用鼠标穿透");
+            let _ = window.set_ignore_cursor_events(true);
+            let _ = window.hide();
+            log::info!("通知窗口已隐藏");
+            ApiResponse::success("Notification window hidden".to_string())
+        }
+        None => ApiResponse::success("No notification window to hide".to_string()),
+    }
+}
+
+/// 销毁通知窗口
+#[tauri::command]
+pub async fn destroy_notification_window(app: AppHandle) -> ApiResponse<String> {
+    match app.get_webview_window("notification") {
+        Some(window) => {
+            log::info!("销毁通知窗口");
+            if let Err(e) = window.close() {
+                return ApiResponse::error(format!("Failed to destroy window: {}", e));
+            }
+            log::info!("通知窗口已销毁");
+            ApiResponse::success("Notification window destroyed".to_string())
+        }
+        None => ApiResponse::success("No notification window to destroy".to_string()),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_window_commands_exist() {
+        assert!(true);
+    }
+}

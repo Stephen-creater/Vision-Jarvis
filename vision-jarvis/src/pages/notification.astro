@@ -1,0 +1,288 @@
+---
+import TransparentLayout from '../layouts/TransparentLayout.astro';
+---
+
+<TransparentLayout>
+  <div id="notification-container"></div>
+
+  <script>
+    import { invoke } from '@tauri-apps/api/core';
+
+    interface NotificationPayload {
+      id: string;
+      title: string;
+      message: string;
+      notification_type: string;
+      priority: number;
+    }
+
+    let destroyTimer: number | null = null;
+    let countdownInterval: number | null = null;
+
+    function getTypeColor(type: string): string {
+      const colors: Record<string, string> = {
+        HabitReminder: '#60a5fa',
+        ContextSwitchWarning: '#f59e0b',
+        SmartBreakReminder: '#34d399',
+        ProjectProgressReminder: '#a78bfa',
+        MorningReminder: '#fbbf24',
+        WaterReminder: '#38bdf8',
+        SedentaryReminder: '#fb923c',
+        ScreenInactivityReminder: '#94a3b8',
+        ReturnReminder: '#4ade80',
+        Custom: '#e2e8f0',
+      };
+      return colors[type] || '#e2e8f0';
+    }
+
+    function getTypeIcon(type: string): string {
+      const icons: Record<string, string> = {
+        HabitReminder: '🔁',
+        ContextSwitchWarning: '⚡',
+        SmartBreakReminder: '☕',
+        ProjectProgressReminder: '📋',
+        MorningReminder: '🌅',
+        WaterReminder: '💧',
+        SedentaryReminder: '🧘',
+        ScreenInactivityReminder: '🖥️',
+        ReturnReminder: '👋',
+        Custom: '🔔',
+      };
+      return icons[type] || '🔔';
+    }
+
+    function destroyWindow() {
+      if (destroyTimer) {
+        clearTimeout(destroyTimer);
+        destroyTimer = null;
+      }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+      invoke('destroy_notification_window').catch(console.error);
+    }
+
+    function showNotification(payload: NotificationPayload) {
+      console.log('[Notification] 显示通知:', payload);
+      const container = document.getElementById('notification-container');
+      if (!container) {
+        console.error('[Notification] 容器未找到');
+        return;
+      }
+
+      const color = getTypeColor(payload.notification_type);
+      const icon = getTypeIcon(payload.notification_type);
+
+      container.innerHTML = `
+        <div class="notification-card">
+          <div class="card-accent" style="background: ${color}"></div>
+          <div class="card-body">
+            <div class="card-header">
+              <span class="card-icon">${icon}</span>
+              <span class="card-title">${payload.title}</span>
+            </div>
+            <div class="card-message">${payload.message}</div>
+            <div class="countdown-bar">
+              <div class="countdown-progress"></div>
+            </div>
+            <button class="ok-button">好的</button>
+          </div>
+        </div>
+      `;
+
+      const progressBar = container.querySelector('.countdown-progress') as HTMLElement;
+      let elapsed = 0;
+      const duration = 10000;
+
+      countdownInterval = window.setInterval(() => {
+        elapsed += 100;
+        const progress = (elapsed / duration) * 100;
+        if (progressBar) {
+          progressBar.style.width = `${progress}%`;
+        }
+      }, 100);
+
+      destroyTimer = window.setTimeout(() => {
+        destroyWindow();
+        setTimeout(checkNextNotification, 300);
+      }, duration);
+
+      container.querySelector('.ok-button')?.addEventListener('click', () => {
+        destroyWindow();
+        setTimeout(checkNextNotification, 300);
+      });
+    }
+
+    async function checkNextNotification() {
+      try {
+        const notification = await invoke<NotificationPayload | null>('get_pending_notification');
+        if (notification) {
+          console.log('[Notification] 显示队列中的下一个通知');
+          showNotification(notification);
+        }
+      } catch (error) {
+        console.error('[Notification] 检查下一个通知失败:', error);
+      }
+    }
+
+    async function fetchNotification() {
+      console.log('[Notification] 拉取通知数据');
+      try {
+        const notification = await invoke<NotificationPayload | null>('get_pending_notification');
+        if (notification) {
+          console.log('[Notification] 获取到通知:', notification);
+          showNotification(notification);
+        } else {
+          console.log('[Notification] 无待显示通知');
+        }
+      } catch (error) {
+        console.error('[Notification] 拉取失败:', error);
+      }
+    }
+
+    // 页面加载完成后立即拉取
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', fetchNotification);
+    } else {
+      fetchNotification();
+    }
+  </script>
+
+  <style is:global>
+    body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    #notification-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 8px;
+      width: 360px;
+      box-sizing: border-box;
+    }
+
+    .notification-card {
+      display: flex;
+      flex-direction: row;
+      background: rgba(30, 30, 40, 0.95);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      user-select: none;
+      will-change: opacity, transform;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .notification-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .card-accent {
+      width: 4px;
+      flex-shrink: 0;
+    }
+
+    .card-body {
+      flex: 1;
+      padding: 12px 14px;
+      min-width: 0;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .card-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .card-close {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 2px;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: color 150ms ease;
+    }
+
+    .card-close:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .card-message {
+      font-size: 12px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.7);
+      word-break: break-word;
+      margin-bottom: 8px;
+    }
+
+    .countdown-bar {
+      height: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .countdown-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #60a5fa, #3b82f6);
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .ok-button {
+      width: 100%;
+      padding: 8px;
+      background: rgba(96, 165, 250, 0.2);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      border-radius: 6px;
+      color: #60a5fa;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 150ms ease;
+    }
+
+    .ok-button:hover {
+      background: rgba(96, 165, 250, 0.3);
+      border-color: rgba(96, 165, 250, 0.5);
+    }
+  </style>
+</TransparentLayout>

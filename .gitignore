@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+target/
+.cargo/
+
+# Build outputs
+dist/
+build/
+*.app
+*.dmg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+
+# User data
+screenshots/
+*.db
+*.sqlite
+
+# Temporary
+tmp/
+temp/

@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { FileBrowser } from '../components/files/FileBrowser';
+---
+
+<Layout title="文件管理 - Vision Jarvis">
+  <FileBrowser client:only="react" />
+</Layout>

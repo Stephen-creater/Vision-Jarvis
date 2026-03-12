@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import settingsEntryUrl from '../entrypoints/settings-page.tsx?url';
+const isDev = import.meta.env.DEV;
+---
+
+<Layout title="设置 - Vision Jarvis">
+  <div
+    id="settings-root"
+    style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0a0a0a;color:rgba(255,255,255,.65);font-size:14px;"
+  >
+    正在加载设置页面...
+  </div>
+
+  {isDev && (
+    <script>
+      import RefreshRuntime from '/@react-refresh';
+      RefreshRuntime.injectIntoGlobalHook(window);
+      window.$RefreshReg$ = () => {};
+      window.$RefreshSig$ = () => (type) => type;
+      window.__vite_plugin_react_preamble_installed__ = true;
+    </script>
+  )}
+  <script type="module" src={settingsEntryUrl}></script>
+</Layout>

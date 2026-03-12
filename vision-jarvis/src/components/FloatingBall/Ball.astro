@@ -1,0 +1,91 @@
+---
+// 极简悬浮球 - 小巧精致
+---
+
+<div
+  id="floating-ball"
+  class="relative rounded-full flex items-center justify-center cursor-grab active:cursor-grabbing"
+  style="width: 48px; height: 48px; user-select: none; -webkit-user-select: none;"
+>
+  <!-- 简洁渐变背景 -->
+  <div class="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg"></div>
+
+  <!-- 图标 -->
+  <div class="relative z-10">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="white"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="pointer-events-none opacity-90"
+    >
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 16v-4"/>
+      <path d="M12 8h.01"/>
+    </svg>
+  </div>
+
+  <!-- 小按钮 -->
+  <button
+    id="floating-ball-action"
+    type="button"
+    aria-label="展开"
+    class="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full flex items-center justify-center
+           bg-white text-gray-600 shadow-md
+           transition-transform duration-150
+           hover:scale-110 active:scale-95"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="10"
+      height="10"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="m9 18 6-6-6-6" />
+    </svg>
+  </button>
+</div>
+
+<script>
+  import { getCurrentWindow } from '@tauri-apps/api/window';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const ball = document.getElementById('floating-ball');
+
+    ball?.addEventListener('mousedown', async (e) => {
+      if ((e.target as HTMLElement).closest('#floating-ball-action')) {
+        return;
+      }
+
+      try {
+        await getCurrentWindow().startDragging();
+      } catch (error) {
+        console.error('Failed to start dragging:', error);
+      }
+    });
+  });
+</script>
+
+<style>
+  #floating-ball {
+    transition: transform 0.15s ease-out;
+  }
+
+  #floating-ball:hover {
+    transform: scale(1.05);
+  }
+
+  #floating-ball:active {
+    transform: scale(0.98);
+  }
+</style>
