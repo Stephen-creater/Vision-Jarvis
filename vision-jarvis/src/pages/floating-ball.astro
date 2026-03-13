@@ -244,6 +244,8 @@ import Asker from '../components/FloatingBall/Asker.astro';
       const appWindow = getCurrentWindow();
       let moveSaveTimer: number | null = null;
 
+      console.log('[FloatingBall] DOMContentLoaded fired');
+
       initSettingsSync();
       void applySavedBallPosition();
       void appWindow.onMoved(async ({ payload }) => {
@@ -265,18 +267,30 @@ import Asker from '../components/FloatingBall/Asker.astro';
       headerExp?.classList.add('hidden');
       askerExp?.classList.add('hidden');
 
-      document.getElementById('floating-ball-action')?.addEventListener('click', async (e) => {
-        e.stopPropagation();
-        console.log('Ball action clicked, current state:', currentState);
+      const actionBtn = document.getElementById('floating-ball-action');
+      console.log('[FloatingBall] Action button found:', actionBtn);
 
-        if (currentState === 'ball') {
-          await switchTo('header');
-        } else if (currentState === 'header') {
-          await switchTo('asker');
-        } else {
-          await switchTo('ball');
-        }
-      });
+      if (actionBtn) {
+        actionBtn.addEventListener('click', async (e) => {
+          console.log('[FloatingBall] Button clicked! Event:', e);
+          e.stopPropagation();
+          console.log('[FloatingBall] Current state:', currentState);
+
+          if (currentState === 'ball') {
+            console.log('[FloatingBall] Switching to header');
+            await switchTo('header');
+          } else if (currentState === 'header') {
+            console.log('[FloatingBall] Switching to asker');
+            await switchTo('asker');
+          } else {
+            console.log('[FloatingBall] Switching to ball');
+            await switchTo('ball');
+          }
+        });
+        console.log('[FloatingBall] Click listener attached');
+      } else {
+        console.error('[FloatingBall] Action button NOT found!');
+      }
 
       document.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
