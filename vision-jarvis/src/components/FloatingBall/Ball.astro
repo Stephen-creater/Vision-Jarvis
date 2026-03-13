@@ -69,6 +69,8 @@
       // 如果点击的是按钮或按钮内部元素，不触发拖动
       if (target.closest('#floating-ball-action')) {
         console.log('Click on action button, skip dragging');
+        e.stopPropagation();
+        e.preventDefault();
         return;
       }
 
