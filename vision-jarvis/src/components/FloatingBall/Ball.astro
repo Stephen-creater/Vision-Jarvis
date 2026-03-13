@@ -8,47 +8,47 @@
   style="width: 48px; height: 48px; user-select: none; -webkit-user-select: none; -webkit-app-region: drag;"
 >
   <!-- 简洁渐变背景 -->
-  <div class="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg pointer-events-none"></div>
+  <div class="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-lg pointer-events-none"></div>
 
-  <!-- 图标 -->
+  <!-- 图标 - 更小更精致 -->
   <div class="relative z-10 pointer-events-none">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
+      width="16"
+      height="16"
       viewBox="0 0 24 24"
       fill="none"
       stroke="white"
-      stroke-width="2"
+      stroke-width="2.5"
       stroke-linecap="round"
       stroke-linejoin="round"
-      class="opacity-90"
+      class="opacity-95"
     >
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M12 16v-4"/>
-      <path d="M12 8h.01"/>
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+      <path d="M2 17l10 5 10-5"/>
+      <path d="M2 12l10 5 10-5"/>
     </svg>
   </div>
 
-  <!-- 小按钮 -->
+  <!-- 小按钮 - 更小更精致 -->
   <button
     id="floating-ball-action"
     type="button"
-    aria-label="展开"
-    class="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full flex items-center justify-center
-           bg-white text-gray-600 shadow-md
-           transition-transform duration-150
-           hover:scale-110 active:scale-95"
+    aria-label="展开/收起"
+    class="absolute -bottom-0.5 -right-0.5 h-5 w-5 rounded-full flex items-center justify-center
+           bg-white text-gray-700 shadow-lg
+           transition-all duration-200
+           hover:scale-110 hover:shadow-xl active:scale-95"
     style="-webkit-app-region: no-drag; pointer-events: auto; z-index: 100;"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="10"
-      height="10"
+      width="12"
+      height="12"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="3"
+      stroke-width="2.5"
       stroke-linecap="round"
       stroke-linejoin="round"
     >

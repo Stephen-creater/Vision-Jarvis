@@ -267,15 +267,15 @@ import Asker from '../components/FloatingBall/Asker.astro';
 
       document.getElementById('floating-ball-action')?.addEventListener('click', async (e) => {
         e.stopPropagation();
+        console.log('Ball action clicked, current state:', currentState);
+
         if (currentState === 'ball') {
           await switchTo('header');
-          return;
-        }
-        if (currentState === 'header') {
+        } else if (currentState === 'header') {
           await switchTo('asker');
-          return;
+        } else {
+          await switchTo('ball');
         }
-        await switchTo('ball');
       });
 
       document.addEventListener('click', (e) => {
