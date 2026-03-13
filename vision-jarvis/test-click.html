@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试点击</title>
+</head>
+<body>
+    <h1>点击测试</h1>
+    <button id="test-btn" style="padding: 20px; font-size: 20px;">点击我</button>
+    <div id="result"></div>
+    <script>
+        document.getElementById('test-btn').addEventListener('click', () => {
+            document.getElementById('result').textContent = '点击成功！时间：' + new Date().toLocaleTimeString();
+        });
+    </script>
+</body>
+</html>
