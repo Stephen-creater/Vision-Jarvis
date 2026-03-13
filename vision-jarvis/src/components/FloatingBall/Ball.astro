@@ -62,17 +62,6 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     const ball = document.getElementById('floating-ball');
-    const actionBtn = document.getElementById('floating-ball-action');
-
-    // 添加调试日志
-    console.log('Ball script loaded', { ball, actionBtn });
-
-    // 确保按钮点击事件优先处理
-    actionBtn?.addEventListener('click', (e) => {
-      console.log('Action button clicked!');
-      e.stopPropagation();
-      e.preventDefault();
-    });
 
     ball?.addEventListener('mousedown', async (e) => {
       const target = e.target as HTMLElement;
