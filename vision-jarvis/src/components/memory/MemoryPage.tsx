@@ -123,8 +123,8 @@ function MemoryPageContent() {
   const dayStats = buildDayStats(activities)
 
   return (
-    <div className="min-h-screen bg-app xl:grid xl:h-screen xl:grid-cols-[320px_minmax(0,1fr)]">
-      <aside className="border-b border-primary bg-sidebar/80 xl:min-h-0 xl:border-r xl:border-b-0">
+    <div className="min-h-screen bg-app xl:grid xl:h-screen xl:grid-cols-[320px_minmax(0,1fr)]" dir="ltr">
+      <aside className="border-b border-primary bg-sidebar/80 xl:min-h-0 xl:border-r xl:border-b-0 xl:order-1">
         <div className="flex h-full min-h-0 flex-col gap-4 p-4 md:p-5">
           <section className={`${SURFACE} p-4`}>
             <div className="mb-4 flex items-start justify-between gap-3">
@@ -236,7 +236,7 @@ function MemoryPageContent() {
         </div>
       </aside>
 
-      <main className="flex min-h-0 min-w-0 flex-col overflow-hidden">
+      <main className="flex min-h-0 min-w-0 flex-col overflow-hidden xl:order-2">
         <div className="flex h-16 items-center justify-between border-b border-primary px-4 md:px-6">
           {activeTab === 'activities' && (
             <div className="relative w-full max-w-2xl">
