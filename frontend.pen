@@ -1822,6 +1822,233 @@
               ]
             }
           ]
+        },
+        {
+          "type": "frame",
+          "id": "Fl4TS",
+          "name": "Input Controls Section",
+          "layout": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "type": "frame",
+              "id": "GJmMZ",
+              "name": "inputHeader",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "0JOac",
+                  "name": "inputTitle",
+                  "fill": "#2D2D2D",
+                  "content": "数字输入控件",
+                  "fontFamily": "Fraunces",
+                  "fontSize": 24,
+                  "fontWeight": "normal",
+                  "letterSpacing": -0.5
+                },
+                {
+                  "type": "text",
+                  "id": "TEyto",
+                  "name": "inputSubtitle",
+                  "fill": "#5A5A5A",
+                  "content": "替代滑块的简洁输入方式",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Qn2Hf",
+              "name": "example1",
+              "width": 400,
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "#E8E4DF"
+              },
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "uhPwQ",
+                  "name": "label1",
+                  "fill": "#2D2D2D",
+                  "content": "录制分段时长（分钟）",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "frame",
+                  "id": "GfkOs",
+                  "name": "inputRow1",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "WVLSU",
+                      "name": "input1",
+                      "width": 120,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#E8E4DF"
+                      },
+                      "padding": [
+                        10,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "lSawD",
+                          "name": "inputText1",
+                          "fill": "#2D2D2D",
+                          "content": "1",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "UU07H",
+                      "name": "btn1",
+                      "fill": "#7C9082",
+                      "cornerRadius": 8,
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "tLx2j",
+                          "name": "btnText1",
+                          "fill": "#FFFFFF",
+                          "content": "确定",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tE7ec",
+              "name": "example2",
+              "width": 400,
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "stroke": {
+                "align": "inside",
+                "thickness": 1,
+                "fill": "#E8E4DF"
+              },
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "HSIn7",
+                  "name": "label2",
+                  "fill": "#2D2D2D",
+                  "content": "智能提醒间隔（分钟）",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "frame",
+                  "id": "pDxOy",
+                  "name": "inputRow2",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "krVpK",
+                      "name": "input2",
+                      "width": 120,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "align": "inside",
+                        "thickness": 1,
+                        "fill": "#7C9082"
+                      },
+                      "padding": [
+                        10,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "LO8GY",
+                          "name": "inputText2",
+                          "fill": "#2D2D2D",
+                          "content": "30",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "F0yLw",
+                      "name": "btn2",
+                      "fill": "#7C9082",
+                      "cornerRadius": 8,
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "EchGZ",
+                          "name": "btnText2",
+                          "fill": "#FFFFFF",
+                          "content": "确定",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "GDxdm",
+                  "name": "hint2",
+                  "fill": "#8A8A8A",
+                  "content": "输入范围：5-120 分钟",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
         }
       ]
     }

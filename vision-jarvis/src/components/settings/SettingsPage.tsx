@@ -9,6 +9,7 @@ import { TauriAPI } from '@/lib/tauri-api'
 import type { AIConfig, AIProviderConfig } from '@/lib/tauri-api'
 import { PROVIDER_REGISTRY } from '@/lib/provider-registry'
 import { Toggle } from '@/components/ui/Toggle'
+import { NumberInput } from '@/components/ui/NumberInput'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { showNotification } from '@/lib/utils'
 
@@ -267,7 +268,7 @@ function SettingsPageContent() {
                     className="flex-1 h-11 px-4 bg-input rounded-xl border border-primary focus:border-active outline-none text-sm text-primary transition-all duration-200" />
                 </div>
               </div>
-              <WaterIntervalSlider defaultValue={s?.water_reminder_interval_minutes ?? 60} />
+              <WaterIntervalInput defaultValue={s?.water_reminder_interval_minutes ?? 60} />
               <div>
                 <label className="text-xs text-muted block mb-2 uppercase tracking-wider">提醒消息</label>
                 <textarea id="water-msg" defaultValue={s?.water_reminder_message ?? ''}
@@ -296,7 +297,7 @@ function SettingsPageContent() {
                     className="flex-1 h-11 px-4 bg-input rounded-xl border border-primary focus:border-active outline-none text-sm text-primary transition-all duration-200" />
                 </div>
               </div>
-              <SedentarySlider defaultValue={s?.sedentary_reminder_threshold_minutes ?? 60} />
+              <SedentaryInput defaultValue={s?.sedentary_reminder_threshold_minutes ?? 60} />
               <div>
                 <label className="text-xs text-muted block mb-2 uppercase tracking-wider">提醒消息</label>
                 <textarea id="sed-msg" defaultValue={s?.sedentary_reminder_message ?? ''}
@@ -313,7 +314,7 @@ function SettingsPageContent() {
                 handleSave(() => updateSettings({ screen_inactivity_message: msg }), '屏幕无变化提醒已保存')
               }}
             >
-              <ScreenInactivitySlider defaultValue={s?.screen_inactivity_minutes ?? 10} />
+              <ScreenInactivityInput defaultValue={s?.screen_inactivity_minutes ?? 10} />
               <div>
                 <label className="text-xs text-muted block mb-2 uppercase tracking-wider">提醒消息</label>
                 <textarea id="screen-msg" defaultValue={s?.screen_inactivity_message ?? ''}
@@ -334,7 +335,7 @@ function SettingsPageContent() {
                     <button className={SAVE_BTN} onClick={() => s && TauriAPI.openFolder(s.storage_path)}>打开</button>
                   </div>
                 </div>
-                <StorageLimitSlider defaultValue={s?.storage_limit_mb ?? 1024} />
+                <StorageLimitInput defaultValue={s?.storage_limit_mb ?? 1024} />
               </div>
             </div>
           </div>
@@ -436,97 +437,65 @@ function SettingsPageContent() {
   )
 }
 
-function MonoSlider({
-  label, value, min, max, step, unit, onChange,
-}: {
-  label: string; value: number; min: number; max: number
-  step: number; unit: string; onChange: (v: number) => void
-}) {
-  const pct = ((value - min) / (max - min)) * 100
+function WaterIntervalInput({ defaultValue }: { defaultValue: number }) {
   return (
-    <div>
-      <div className="flex justify-between text-xs mb-3">
-        <span className="text-muted uppercase tracking-wider">{label}</span>
-        <span className="text-secondary tabular-nums">{value} {unit}</span>
-      </div>
-      <div className="relative py-1">
-        <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] rounded-full overflow-hidden pointer-events-none">
-          <div className="h-full bg-white/10 w-full absolute" />
-          <div
-            className="h-full bg-white/80 absolute left-0 transition-all duration-150 ease-out"
-            style={{ width: `${pct}%` }}
-          />
-        </div>
-        <input
-          type="range" min={min} max={max} step={step} value={value}
-          onChange={e => onChange(parseInt(e.target.value))}
-          className="mono-slider"
-        />
-      </div>
-      <div className="flex justify-between text-[10px] text-muted mt-1.5">
-        <span>{min}{unit}</span>
-        <span>{max}{unit}</span>
-      </div>
-    </div>
+    <NumberInput
+      label="提醒间隔"
+      value={defaultValue}
+      min={15}
+      max={180}
+      step={15}
+      unit="分钟"
+      hint="输入范围：15-180 分钟"
+      onChange={v => updateSettings({ water_reminder_interval_minutes: v }).catch(err => showNotification('保存失败: ' + err, 'error'))}
+    />
   )
 }
 
-function WaterIntervalSlider({ defaultValue }: { defaultValue: number }) {
-  const [value, setValue] = useState(defaultValue)
+function SedentaryInput({ defaultValue }: { defaultValue: number }) {
   return (
-    <MonoSlider label="提醒间隔" value={value} min={15} max={180} step={15} unit="分钟"
-      onChange={v => { setValue(v); updateSettings({ water_reminder_interval_minutes: v }).catch(err => showNotification('保存失败: ' + err, 'error')) }} />
+    <NumberInput
+      label="久坐阈值"
+      value={defaultValue}
+      min={15}
+      max={180}
+      step={15}
+      unit="分钟"
+      hint="输入范围：15-180 分钟"
+      onChange={v => updateSettings({ sedentary_reminder_threshold_minutes: v }).catch(err => showNotification('保存失败: ' + err, 'error'))}
+    />
   )
 }
 
-function SedentarySlider({ defaultValue }: { defaultValue: number }) {
-  const [value, setValue] = useState(defaultValue)
+function ScreenInactivityInput({ defaultValue }: { defaultValue: number }) {
   return (
-    <MonoSlider label="久坐阈值" value={value} min={15} max={180} step={15} unit="分钟"
-      onChange={v => { setValue(v); updateSettings({ sedentary_reminder_threshold_minutes: v }).catch(err => showNotification('保存失败: ' + err, 'error')) }} />
+    <NumberInput
+      label="无变化阈值"
+      value={defaultValue}
+      min={5}
+      max={60}
+      step={5}
+      unit="分钟"
+      hint="输入范围：5-60 分钟"
+      onChange={v => updateSettings({ screen_inactivity_minutes: v }).catch(err => showNotification('保存失败: ' + err, 'error'))}
+    />
   )
 }
 
-function ScreenInactivitySlider({ defaultValue }: { defaultValue: number }) {
-  const [value, setValue] = useState(defaultValue)
+function StorageLimitInput({ defaultValue }: { defaultValue: number }) {
   return (
-    <MonoSlider label="无变化阈值" value={value} min={5} max={60} step={5} unit="分钟"
-      onChange={v => { setValue(v); updateSettings({ screen_inactivity_minutes: v }).catch(err => showNotification('保存失败: ' + err, 'error')) }} />
+    <NumberInput
+      label="存储容量限制"
+      value={defaultValue}
+      min={512}
+      max={10240}
+      step={512}
+      unit="MB"
+      hint="输入范围：512-10240 MB"
+      onChange={v => updateSettings({ storage_limit_mb: v }).catch(err => showNotification('保存失败: ' + err, 'error'))}
+    />
   )
 }
-
-function StorageLimitSlider({ defaultValue }: { defaultValue: number }) {
-  const [value, setValue] = useState(defaultValue)
-  const display = value >= 1024 ? `${(value / 1024).toFixed(1)} GB` : `${value} MB`
-  return (
-    <div>
-      <div className="flex justify-between text-xs mb-3">
-        <span className="text-muted uppercase tracking-wider">存储容量限制</span>
-        <span className="text-secondary tabular-nums">{display}</span>
-      </div>
-      <div className="relative py-1">
-        <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] rounded-full overflow-hidden pointer-events-none">
-          <div className="h-full bg-white/10 w-full absolute" />
-          <div
-            className="h-full bg-white/80 absolute left-0 transition-all duration-150 ease-out"
-            style={{ width: `${((value - 512) / (10240 - 512)) * 100}%` }}
-          />
-        </div>
-        <input
-          type="range" min={512} max={10240} step={512} value={value}
-          onChange={e => {
-            const v = parseInt(e.target.value)
-            setValue(v)
-            updateSettings({ storage_limit_mb: v }).catch(err => showNotification('保存失败: ' + err, 'error'))
-          }}
-          className="mono-slider"
-        />
-      </div>
-      <div className="flex justify-between text-[10px] text-muted mt-1.5">
-        <span>512 MB</span>
-        <span>10 GB</span>
-      </div>
-    </div>
   )
 }
 
