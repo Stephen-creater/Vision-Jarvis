@@ -4,40 +4,42 @@
  */
 
 :root {
-  /* ===== Color System ===== */
+  /* ===== 米白色调设计系统 ===== */
 
   /* Background Colors */
-  --color-bg-app: #0a0a0a;
-  --color-bg-page: #111111;
-  --color-bg-card: #1a1a1a;
-  --color-bg-sidebar: #0f0f0f;
-  --color-bg-input: #1e1e1e;
-  --color-bg-hover: rgba(255, 255, 255, 0.05);
-  --color-bg-active: rgba(255, 255, 255, 0.08);
+  --color-bg-app: #FAF8F5;
+  --color-bg-page: #FAF8F5;
+  --color-bg-card: #FFFFFF;
+  --color-bg-sidebar: #F5F3EF;
+  --color-bg-input: #FFFFFF;
+  --color-bg-hover: #F5F3EF;
+  --color-bg-active: #E8E4DF;
 
   /* Text Colors */
-  --color-text-primary: rgba(255, 255, 255, 0.95);
-  --color-text-secondary: rgba(255, 255, 255, 0.7);
-  --color-text-muted: rgba(255, 255, 255, 0.45);
-  --color-text-disabled: rgba(255, 255, 255, 0.25);
+  --color-text-primary: #2D2D2D;
+  --color-text-secondary: #5A5A5A;
+  --color-text-muted: #8A8A8A;
+  --color-text-disabled: #B8B8B8;
 
   /* Border Colors */
-  --color-border-primary: rgba(255, 255, 255, 0.1);
-  --color-border-secondary: rgba(255, 255, 255, 0.06);
-  --color-border-active: rgba(255, 255, 255, 0.2);
-  --color-border-focus: rgba(96, 165, 250, 0.5);
+  --color-border-primary: #E8E4DF;
+  --color-border-secondary: #F5F3EF;
+  --color-border-active: #7C9082;
+  --color-border-focus: #7C9082;
 
-  /* Accent Colors - Restrained palette for semantic states */
-  --color-accent-blue: #60a5fa;
-  --color-accent-blue-dim: rgba(96, 165, 250, 0.15);
-  --color-accent-green: #4ade80;
-  --color-accent-green-dim: rgba(74, 222, 128, 0.15);
-  --color-accent-amber: #fbbf24;
-  --color-accent-amber-dim: rgba(251, 191, 36, 0.15);
-  --color-accent-red: #f87171;
-  --color-accent-red-dim: rgba(248, 113, 113, 0.15);
-  --color-accent-purple: #a78bfa;
-  --color-accent-purple-dim: rgba(167, 139, 250, 0.15);
+  /* Accent Colors - 柔和克制的色调 */
+  --color-accent-blue: #8FA3B8;
+  --color-accent-blue-dim: rgba(143, 163, 184, 0.15);
+  --color-accent-green: #88A888;
+  --color-accent-green-dim: rgba(136, 168, 136, 0.15);
+  --color-accent-amber: #C4A574;
+  --color-accent-amber-dim: rgba(196, 165, 116, 0.15);
+  --color-accent-red: #B88888;
+  --color-accent-red-dim: rgba(184, 136, 136, 0.15);
+  --color-accent-purple: #9B8FA8;
+  --color-accent-purple-dim: rgba(155, 143, 168, 0.15);
+  --color-accent-sage: #7C9082;
+  --color-accent-sage-dim: rgba(124, 144, 130, 0.15);
 
   /* ===== Border Radius Scale ===== */
   --radius-sm: 6px;
@@ -47,13 +49,13 @@
   --radius-2xl: 28px;
   --radius-full: 9999px;
 
-  /* ===== Shadow Scale ===== */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 20px rgba(96, 165, 250, 0.3);
-  --shadow-glow-soft: 0 0 15px rgba(96, 165, 250, 0.15);
+  /* ===== Shadow Scale (浅色主题) ===== */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 10px 10px -5px rgba(0, 0, 0, 0.06);
+  --shadow-glow: 0 0 20px rgba(124, 144, 130, 0.15);
+  --shadow-glow-soft: 0 0 15px rgba(124, 144, 130, 0.08);
 
   /* ===== Spacing Scale ===== */
   --space-1: 4px;

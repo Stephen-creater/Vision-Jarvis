@@ -5,8 +5,8 @@
 
 <div
   id="floating-ball"
-  class="rounded-full gradient-primary flex items-center justify-center cursor-pointer animate-pulse-soft"
-  style="width: 64px; height: 64px;"
+  class="rounded-full flex items-center justify-center cursor-pointer"
+  style="width: 64px; height: 64px; background: #7C9082; border: 2px solid #E8E4DF;"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -14,12 +14,11 @@
     height="32"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="white"
+    stroke="#FFFFFF"
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
     class="lucide lucide-brain"
-    style="filter: drop-shadow(0 0 2px rgba(255,255,255,0.3));"
   >
     <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
     <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
@@ -35,14 +34,14 @@
 
 <style>
   #floating-ball {
-    transition: filter var(--duration-normal) var(--ease-out),
-                transform var(--duration-fast) var(--ease-spring);
+    transition: transform var(--duration-normal) var(--ease-out),
+                box-shadow var(--duration-normal) var(--ease-out);
     outline: none;
   }
 
   #floating-ball:hover {
-    filter: brightness(1.2);
     transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(124, 144, 130, 0.3);
   }
 
   #floating-ball:active {

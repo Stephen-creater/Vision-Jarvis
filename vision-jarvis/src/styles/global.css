@@ -48,22 +48,23 @@
   .text-warning { color: var(--color-accent-amber); }
 
   /* ── Legacy gradient shims (neutral) ���─ */
+  /* ── 移除渐变，使用纯色 ── */
   .gradient-primary {
-    background: rgba(255, 255, 255, 0.90);
+    background: var(--color-bg-card);
   }
   .gradient-success {
-    background: rgba(255, 255, 255, 0.92);
+    background: var(--color-bg-card);
   }
   .gradient-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--color-bg-card);
   }
 
-  /* ── Glow → subtle white glow only ── */
+  /* ── 柔和阴影 ── */
   .glow-primary {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.06);
+    box-shadow: var(--shadow-md);
   }
   .glow-success {
-    box-shadow: 0 0 16px rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-sm);
   }
 
   /* ── Toggle ── */
