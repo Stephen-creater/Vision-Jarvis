@@ -9,6 +9,7 @@
     "notification:default",
     "notification:allow-show",
     "notification:allow-request-permission",
+    "notification:allow-is-permission-granted",
     "autostart:default",
     "fs:default",
     "fs:allow-appdata-write-recursive",

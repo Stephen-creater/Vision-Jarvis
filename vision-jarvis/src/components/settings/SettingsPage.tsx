@@ -203,29 +203,7 @@ function SettingsPageContent() {
         {/* General Tab */}
         {tab === 'general' && (
           <div className="grid gap-4">
-            {/* Card 1: 启动设置 */}
-            <div className={CARD}>
-              <h2 className="text-lg font-medium text-primary mb-5">启动设置</h2>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between py-3 px-4 bg-secondary rounded-xl">
-                  <span className="text-sm text-secondary">开机自动启动</span>
-                  <Toggle enabled={s?.auto_start ?? false} onChange={v =>
-                    handleToggle(toggleAutoStart, v, v ? '已启用开机自启' : '已禁用开机自启')
-                  } />
-                </div>
-                <div>
-                  <label className="text-xs text-muted block mb-2 uppercase tracking-wider">启动提醒文本</label>
-                  <textarea defaultValue={s?.app_launch_text ?? ''} id="launch-text"
-                    className={`${TEXTAREA} h-24`} placeholder="输入启动提醒文本..." />
-                  <button className={`mt-2 ${SAVE_BTN}`} onClick={() => {
-                    const el = document.getElementById('launch-text') as HTMLTextAreaElement
-                    handleSave(() => updateLaunchText(el.value), '启动文本已保存')
-                  }}>保存文本</button>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2: 早安提醒 */}
+            {/* Card 1: 早安提醒 */}
             <ReminderCard title="早安提醒" desc="每天定时发送一条激励消息"
               enabled={s?.morning_reminder_enabled ?? false}
               onToggle={v => handleToggle(toggleMorningReminder, v, v ? '已启用早安提醒' : '已禁用早安提醒')}
@@ -442,11 +420,11 @@ function WaterIntervalInput({ defaultValue }: { defaultValue: number }) {
     <NumberInput
       label="提醒间隔"
       value={defaultValue}
-      min={15}
+      min={5}
       max={180}
-      step={15}
+      step={5}
       unit="分钟"
-      hint="输入范围：15-180 分钟"
+      hint="输入范围：5-180 分钟"
       onChange={v => updateSettings({ water_reminder_interval_minutes: v }).catch(err => showNotification('保存失败: ' + err, 'error'))}
     />
   )
@@ -457,11 +435,11 @@ function SedentaryInput({ defaultValue }: { defaultValue: number }) {
     <NumberInput
       label="久坐阈值"
       value={defaultValue}
-      min={15}
+      min={5}
       max={180}
-      step={15}
+      step={5}
       unit="分钟"
-      hint="输入范围：15-180 分钟"
+      hint="输入范围：5-180 分钟"
       onChange={v => updateSettings({ sedentary_reminder_threshold_minutes: v }).catch(err => showNotification('保存失败: ' + err, 'error'))}
     />
   )
@@ -494,8 +472,6 @@ function StorageLimitInput({ defaultValue }: { defaultValue: number }) {
       hint="输入范围：512-10240 MB"
       onChange={v => updateSettings({ storage_limit_mb: v }).catch(err => showNotification('保存失败: ' + err, 'error'))}
     />
-  )
-}
   )
 }
 

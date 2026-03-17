@@ -21,8 +21,8 @@ export function Toggle({ enabled, onChange, size = 'sm' }: ToggleProps) {
         rounded-full border transition-all duration-300 ease-out
         focus:outline-none focus-visible:ring-1 focus-visible:ring-white/30
         ${enabled
-          ? 'toggle-track-on'
-          : 'toggle-track-off'
+          ? 'toggle-track-on shadow-[inset_0_0_8px_rgba(0,0,0,0.15)]'
+          : 'toggle-track-off shadow-[inset_0_0_8px_rgba(0,0,0,0.08)]'
         }
       `}
     >
@@ -30,6 +30,7 @@ export function Toggle({ enabled, onChange, size = 'sm' }: ToggleProps) {
         className={`
           ${thumbSz} rounded-full absolute top-1/2 -translate-y-1/2
           transition-all duration-300 ease-out pointer-events-none
+          shadow-[0_1px_3px_rgba(0,0,0,0.2)]
           ${enabled
             ? `translate-x-[calc(100%+${isLg ? '8px' : '6px'})] toggle-thumb`
             : `translate-x-[3px] toggle-thumb-off`

@@ -47,19 +47,15 @@ export function NumberInput({
           onChange={e => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onBlur={() => {
+            setIsFocused(false)
+            handleConfirm()
+          }}
           className={`w-[120px] px-3 py-2.5 rounded-lg text-sm text-primary bg-card outline-none transition-all duration-200 ${
             isFocused ? 'border border-active' : 'border border-primary'
           }`}
         />
         {unit && <span className="text-sm text-secondary">{unit}</span>}
-        <button
-          onClick={handleConfirm}
-          className="px-4 py-2.5 rounded-lg text-sm font-medium text-white transition-all duration-200 hover:opacity-90 active:scale-95"
-          style={{ background: '#7C9082' }}
-        >
-          确定
-        </button>
       </div>
       {hint && <p className="text-xs text-muted mt-2">{hint}</p>}
     </div>
