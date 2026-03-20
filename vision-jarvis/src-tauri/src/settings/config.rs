@@ -91,27 +91,27 @@ impl Default for AppSettings {
             capture_interval_seconds: 60,
             storage_path: default_storage_path,
             storage_limit_mb: 1024,
-            auto_start: false,
+            auto_start: true,
             app_launch_text: String::from(
                 "If today were the last day of my life, would I want to do what I am about to do today?"
             ),
 
             // 早安提醒
-            morning_reminder_enabled: false,
+            morning_reminder_enabled: true,
             morning_reminder_time: String::from("08:00"),
             morning_reminder_message: String::from(
                 "If today is the last day of my life, would I want to do what I am about to do today?"
             ),
 
             // 喝水提醒
-            water_reminder_enabled: false,
+            water_reminder_enabled: true,
             water_reminder_start: String::from("09:00"),
             water_reminder_end: String::from("21:00"),
             water_reminder_interval_minutes: 60,
             water_reminder_message: String::from("该喝喝水了"),
 
             // 久坐提醒
-            sedentary_reminder_enabled: false,
+            sedentary_reminder_enabled: true,
             sedentary_reminder_start: String::from("09:00"),
             sedentary_reminder_end: String::from("21:00"),
             sedentary_reminder_threshold_minutes: 60,
@@ -120,7 +120,7 @@ impl Default for AppSettings {
             ),
 
             // 屏幕无变化提醒
-            screen_inactivity_reminder_enabled: false,
+            screen_inactivity_reminder_enabled: true,
             screen_inactivity_minutes: 10,
             screen_inactivity_message: String::new(), // 空 = AI 智能建议
 
@@ -147,13 +147,13 @@ mod tests {
         assert!(settings.storage_path.contains("vision-jarvis"));
         assert!(settings.storage_path.contains("screenshots"));
         assert_eq!(settings.storage_limit_mb, 1024);
-        assert!(!settings.auto_start);
+        assert!(settings.auto_start);
 
-        // 提醒默认关闭
-        assert!(!settings.morning_reminder_enabled);
-        assert!(!settings.water_reminder_enabled);
-        assert!(!settings.sedentary_reminder_enabled);
-        assert!(!settings.screen_inactivity_reminder_enabled);
+        // 提醒默认开启
+        assert!(settings.morning_reminder_enabled);
+        assert!(settings.water_reminder_enabled);
+        assert!(settings.sedentary_reminder_enabled);
+        assert!(settings.screen_inactivity_reminder_enabled);
 
         assert_eq!(settings.morning_reminder_time, "08:00");
         assert_eq!(settings.water_reminder_interval_minutes, 60);
@@ -190,10 +190,10 @@ mod tests {
         }"#;
 
         let settings: AppSettings = serde_json::from_str(old_json).unwrap();
-        assert!(!settings.morning_reminder_enabled);
+        assert!(settings.morning_reminder_enabled);
         assert_eq!(settings.morning_reminder_time, "08:00");
-        assert!(!settings.water_reminder_enabled);
+        assert!(settings.water_reminder_enabled);
         assert_eq!(settings.water_reminder_interval_minutes, 60);
-        assert!(!settings.screen_inactivity_reminder_enabled);
+        assert!(settings.screen_inactivity_reminder_enabled);
     }
 }
