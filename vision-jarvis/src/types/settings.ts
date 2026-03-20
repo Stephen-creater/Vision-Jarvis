@@ -34,28 +34,28 @@ export const DEFAULT_SETTINGS: AppSettings = {
   capture_interval_seconds: 60,
   storage_path: '',
   storage_limit_mb: 1024,
-  auto_start: false,
+  auto_start: true,
   app_launch_text: 'If today were the last day of my life, would I want to do what I am about to do today?',
 
   // 固定提醒
-  morning_reminder_enabled: false,
+  morning_reminder_enabled: true,
   morning_reminder_time: '08:00',
   morning_reminder_message: 'If today is the last day of my life, would I want to do what I am about to do today?',
 
-  water_reminder_enabled: false,
+  water_reminder_enabled: true,
   water_reminder_start: '09:00',
   water_reminder_end: '21:00',
   water_reminder_interval_minutes: 60,
   water_reminder_message: '该喝喝水了',
 
-  sedentary_reminder_enabled: false,
+  sedentary_reminder_enabled: true,
   sedentary_reminder_start: '09:00',
   sedentary_reminder_end: '21:00',
   sedentary_reminder_threshold_minutes: 60,
   sedentary_reminder_message: '你已经连续工作很久了，再厉害的人也需要休息放松，是时候站起来走动走了',
 
   // 智能提醒
-  screen_inactivity_reminder_enabled: false,
+  screen_inactivity_reminder_enabled: true,
   screen_inactivity_minutes: 10,
   screen_inactivity_message: '',
 
